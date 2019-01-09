@@ -6,5 +6,6 @@ return [
         ['get', '#^/login#', 'Page::Login'],
         ['post', '#^/login#', 'User::Login'],
         ['get', '#^/#', 'Page::Index']
-    ]
+    ],
+    'envPrefix' => 'JOURNBERS_'
 ];

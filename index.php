@@ -6,25 +6,30 @@ use Tracy\Debugger;
 
 require_once 'vendor/autoload.php';
 
-/* boot */
-Debugger::enable();
+
 
 /* load config */
 // TODO: use ENV if needed
-$config = include 'config/default.array.php';
+$config = new Config();
+$config->require('config/default.array.php');
 
-$router = new Router($config['routes']);
+/* boot and setup */
+Debugger::enable();
+$env = new Env($config->get('envPrefix'));
+$config->add($env->getVars());
+
+$router = new Router($config->get('routes'));
 $route  = $router->match($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 
 /* search controller by route */
-Debugger::barDump($route);
 list($className, $method) = explode('::', $route[2]);
-Debugger::barDump($className);
 $wantedController = sprintf('\\Journbers\\Controller\\%s', ucfirst(strtolower($className)));
 $wantedMethod     = strtolower($method);
+
 if ( ! class_exists($wantedController)) {
     throw new \RuntimeException(sprintf('Controller %s not found.', $wantedController));
 }
+
 $controller = new $wantedController;
 if ( ! method_exists($controller, $wantedMethod)) {
     throw new \RuntimeException(sprintf('Method %s not found in %s.', $wantedMethod, $wantedController));
