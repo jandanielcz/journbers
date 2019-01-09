@@ -18,6 +18,8 @@ Debugger::enable();
 $env = new Env($config->get('envPrefix'));
 $config->add($env->getVars());
 
+$session = new Session($config->get('sessionLifetime', 48 * 60 * 60));
+
 $router = new Router($config->get('routes'));
 $route  = $router->match($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 
