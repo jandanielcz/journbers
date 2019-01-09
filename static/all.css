@@ -1,0 +1,79 @@
+/* source: https://github.com/morhetz/gruvbox/blob/master/colors/gruvbox.vim */
+body {
+  background-color: #282828;
+  color: #ebdbb2;
+  font-family: "Share", cursive;
+  font-size: 16pt;
+}
+
+#Wrapper {
+  padding: 1rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 6rem;
+}
+header img {
+  width: 25%;
+  margin-top: 2rem;
+}
+header h1 {
+  margin-top: 0;
+  font-weight: normal;
+  color: #b16286;
+  text-decoration: underline;
+}
+
+input[type=text],
+input[type=number],
+input[type=password] {
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
+  font-family: "Share", cursive;
+  background-color: #ebdbb2;
+  color: #282828;
+  border: 0;
+  font-size: 16pt;
+  outline-color: #427b58;
+}
+input[type=text]::placeholder,
+input[type=number]::placeholder,
+input[type=password]::placeholder {
+  color: #665c54;
+}
+input[type=text]:focus,
+input[type=number]:focus,
+input[type=password]:focus {
+  background-color: #83a598;
+}
+
+input[type=submit] {
+  box-sizing: border-box;
+  margin-top: 6rem;
+  font-family: "Share", cursive;
+  font-size: 16pt;
+  border: 2px solid #ebdbb2;
+  color: #ebdbb2;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  outline-color: #427b58;
+}
+input[type=submit]:focus, input[type=submit]:hover {
+  border-color: #427b58;
+  color: #689d6a;
+}
+
+#Login {
+  max-width: 280px;
+  margin: 2rem auto;
+}
+#Login label, #Login input[type=text], #Login input[type=password], #Login input[type=submit] {
+  display: block;
+  width: 280px;
+}
+#Login input[type=text], #Login input[type=password] {
+  margin-bottom: 1rem;
+}
+
+/*# sourceMappingURL=all.css.map */

@@ -1,0 +1,20 @@
+{
+    "name": "jandanielcz/journbers",
+    "description": "Super simple non-automated log for work travels.",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Journbers\\": "app"
+        }
+    },
+    "require-dev": {
+        "tracy/tracy": "*"
+    },
+    "license": "wtf",
+    "authors": [
+        {
+            "name": "Jan Daniel Doležal",
+            "email": "dan@tealake.cz"
+        }
+    ]
+}

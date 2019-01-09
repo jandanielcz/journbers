@@ -1,0 +1,86 @@
+@import "colors";
+
+body {
+  background-color: $dark0;
+  color: $light1;
+  font-family: 'Share', cursive;
+  font-size: 16pt;
+}
+
+#Wrapper {
+  padding: 1rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 6rem;
+
+  img {
+    width: 25%;
+    margin-top: 2rem;
+  }
+
+  h1 {
+    margin-top: 0;
+    font-weight: normal;
+    color: $neutral_purple;
+    text-decoration: underline;
+  }
+}
+
+input[type=text],
+input[type=number],
+input[type=password]
+{
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
+  font-family: 'Share', cursive;
+  background-color: $light1;
+  color: $dark0;
+  border: 0;
+  font-size: 16pt;
+  outline-color: $faded_aqua;
+
+  &::placeholder {
+    color: $dark3;
+  }
+
+  &:focus {
+    background-color: $bright_blue;
+  }
+
+
+}
+
+input[type=submit] {
+  box-sizing: border-box;
+  margin-top: 6rem;
+  font-family: "Share", cursive;
+  font-size: 16pt;
+  border: 2px solid $light1;
+  color: $light1;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  outline-color: $faded_aqua;
+
+  &:focus,
+  &:hover {
+    border-color: $faded_aqua;
+    color: $neutral_aqua;
+  }
+}
+
+#Login {
+
+  max-width: 280px;
+  margin: 2rem auto;
+
+  label, input[type=text], input[type=password], input[type=submit] {
+    display: block;
+    width: 280px;
+  }
+
+  input[type=text], input[type=password] {
+    margin-bottom: 1rem;
+  }
+}
