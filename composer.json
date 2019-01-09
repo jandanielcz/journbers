@@ -10,7 +10,7 @@
     "require-dev": {
         "tracy/tracy": "*"
     },
-    "license": "wtf",
+    "license": "WTFPL",
     "authors": [
         {
             "name": "Jan Daniel Doležal",
