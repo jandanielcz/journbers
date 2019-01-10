@@ -41,6 +41,7 @@
                     <input type="text" id="User" name="User" placeholder="Ranulph" tabindex="1">
                     <label for="Pass">Password</label>
                     <input type="password" id="Pass" name="Pass" placeholder="**********" tabindex="2">
+                    <input type="hidden" name="CredentialsType" value="password">
                     <input type="submit" value="Login and continue&hellip;" tabindex="3">
                 </form>
             </section>
