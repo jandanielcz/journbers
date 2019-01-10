@@ -53,4 +53,9 @@ class Session
         $_SESSION['lastUpdate'] = $n->format(\DateTime::ISO8601);
     }
 
+    public function destroy($key)
+    {
+        unset($_SESSION[$key]);
+    }
+
 }

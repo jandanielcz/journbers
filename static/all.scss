@@ -5,10 +5,21 @@ body {
   color: $light1;
   font-family: 'Share', cursive;
   font-size: 16pt;
+  padding: 0;
+  margin: 0;
+
+  &.light {
+    background-color: $light1;
+    color: $dark0;
+  }
 }
 
 #Wrapper {
-  padding: 1rem;
+  padding: 0rem;
+
+  section {
+    padding: 1rem;
+  }
 }
 
 header {
@@ -96,5 +107,65 @@ input[type=submit] {
 
   .error {
     background-color: $faded_red;
+  }
+}
+
+nav {
+  background-color: $dark1;
+  height: 100px;
+  display: flex;
+
+  img {
+    width: 64px;
+    margin: (100px - 64px) / 2;
+  }
+
+  h1 {
+    line-height: 100px;
+    margin: 0 1rem;
+    font-weight: normal;
+    color: $neutral_purple;
+    text-decoration: underline;
+  }
+
+  > div {
+    margin-left: 4rem;
+    flex-grow: 100;
+
+    a {
+      line-height: 100px;
+      color: $light0;
+    }
+  }
+
+  .tridots {
+    width: 60px;
+    flex-grow: 0;
+    span {
+      color: $light0;
+      line-height: 100px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bolder;
+      padding: 1rem 1rem;
+    }
+
+    .submenu {
+      display: none;
+      position: absolute;
+      top: 100px;
+      right: 0;
+      background-color: $dark3;
+      a {
+        line-height: 60px;
+        padding: 1rem 2rem;
+      }
+    }
+
+    &.open {
+      .submenu {
+        display: block;
+      }
+    }
   }
 }

@@ -15,6 +15,13 @@ use Tracy\Debugger;
 
 class User extends Controller
 {
+    public function logout()
+    {
+        $this->request()->user()->logout();
+        $this->redirect('/');
+        $this->exit();
+    }
+
     public function login()
     {
         // TODO: too hardcoded

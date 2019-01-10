@@ -17,8 +17,11 @@ class Page extends Controller
             $this->redirect('/login');
             $this->exit();
         }
-        Debugger::barDump($_SESSION);
-        echo 'TADY';
+
+        $t = new Template('home');
+        $t->display([
+            'f' => new Flash()
+        ]);
     }
 
     public function login()

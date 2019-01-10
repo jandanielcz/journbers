@@ -4,9 +4,18 @@ body {
   color: #ebdbb2;
   font-family: "Share", cursive;
   font-size: 16pt;
+  padding: 0;
+  margin: 0;
+}
+body.light {
+  background-color: #ebdbb2;
+  color: #282828;
 }
 
 #Wrapper {
+  padding: 0rem;
+}
+#Wrapper section {
   padding: 1rem;
 }
 
@@ -86,6 +95,57 @@ input[type=submit]:focus, input[type=submit]:hover {
 }
 .messages .error {
   background-color: #9d0006;
+}
+
+nav {
+  background-color: #3c3836;
+  height: 100px;
+  display: flex;
+}
+nav img {
+  width: 64px;
+  margin: 18px;
+}
+nav h1 {
+  line-height: 100px;
+  margin: 0 1rem;
+  font-weight: normal;
+  color: #b16286;
+  text-decoration: underline;
+}
+nav > div {
+  margin-left: 4rem;
+  flex-grow: 100;
+}
+nav > div a {
+  line-height: 100px;
+  color: #fbf1c7;
+}
+nav .tridots {
+  width: 60px;
+  flex-grow: 0;
+}
+nav .tridots span {
+  color: #fbf1c7;
+  line-height: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bolder;
+  padding: 1rem 1rem;
+}
+nav .tridots .submenu {
+  display: none;
+  position: absolute;
+  top: 100px;
+  right: 0;
+  background-color: #665c54;
+}
+nav .tridots .submenu a {
+  line-height: 60px;
+  padding: 1rem 2rem;
+}
+nav .tridots.open .submenu {
+  display: block;
 }
 
 /*# sourceMappingURL=all.css.map */

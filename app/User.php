@@ -35,6 +35,11 @@ class User
         $this->session->touch();
     }
 
+    public function logout()
+    {
+        $this->session->destroy(self::SESSION_KEY);
+    }
+
     public function getId()
     {
         return $this->id;
