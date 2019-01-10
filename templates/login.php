@@ -36,6 +36,11 @@
                 <h1>Journbers</h1>
             </header>
             <section id="Login">
+                <ul class="messages">
+                    <?php foreach ($vars['f']->getMessages() as $one) {
+                        printf("<li class='%s'>%s</li>", $one['type'], $one['text']);
+                    } ?>
+                </ul>
                 <form action="/login" method="post">
                     <label for="User">User</label>
                     <input type="text" id="User" name="User" placeholder="Ranulph" tabindex="1">

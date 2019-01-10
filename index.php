@@ -32,7 +32,11 @@ if ( ! class_exists($wantedController)) {
     throw new \RuntimeException(sprintf('Controller %s not found.', $wantedController));
 }
 
-$controller = new $wantedController;
+$request = new Request();
+$user = new User($session);
+$request->setUser($user);
+
+$controller = new $wantedController($config, $request);
 if ( ! method_exists($controller, $wantedMethod)) {
     throw new \RuntimeException(sprintf('Method %s not found in %s.', $wantedMethod, $wantedController));
 }

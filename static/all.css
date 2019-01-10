@@ -76,4 +76,16 @@ input[type=submit]:focus, input[type=submit]:hover {
   margin-bottom: 1rem;
 }
 
+.messages {
+  list-style-type: none;
+  padding-left: 0;
+}
+.messages li {
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+}
+.messages .error {
+  background-color: #9d0006;
+}
+
 /*# sourceMappingURL=all.css.map */

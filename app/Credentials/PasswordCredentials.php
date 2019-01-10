@@ -4,6 +4,8 @@
 namespace Journbers\Credentials;
 
 
+use Journbers\Data\CredentialsStore;
+
 class PasswordCredentials
 {
     protected $name = null;
@@ -15,14 +17,10 @@ class PasswordCredentials
         $this->password = $password;
     }
 
-    // TODO: use some CredentialStorage
-    public function validate()
+    public function validate(CredentialsStore $cs)
     {
-        if ($this->password === '123' && $this->name = 'name') {
-            return ['driver'];
-        }
+        $userInfo = $cs->validateCredentials($this->name, $this->password);
 
-        throw new InvalidCredentialsException('Credentials not valid.');
-
+        return $userInfo;
     }
 }

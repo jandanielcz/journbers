@@ -4,6 +4,8 @@
 namespace Journbers;
 
 
+use Tracy\Debugger;
+
 class Config
 {
     const NOT_SET = 'd49242df-b373-4b8f-addb-3b98dee0ef2b';
@@ -33,8 +35,10 @@ class Config
             return $this->values[$key];
         }
 
+        Debugger::barDump($_SERVER);
+
         if ($defaultValue === self::NOT_SET) {
-            throw new \RuntimeException(sprintf('Value for key %s is required somewhere and not configured.'));
+            throw new \RuntimeException(sprintf('Value for key %s is required somewhere and not configured.', $key));
         }
 
         return $defaultValue;
@@ -42,6 +46,6 @@ class Config
 
     public function add(array $values)
     {
-        array_merge_recursive($this->values, $values);
+        $this->values = array_merge_recursive($this->values, $values);
     }
 }

@@ -37,6 +37,16 @@ class Session
 
     }
 
+    public function store($key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
+
+    public function load($key)
+    {
+        return (isset($_SESSION[$key])) ? $_SESSION[$key] : null;
+    }
+
     public function touch()
     {
         $n = new \DateTimeImmutable();

@@ -84,3 +84,17 @@ input[type=submit] {
     margin-bottom: 1rem;
   }
 }
+
+.messages {
+  list-style-type: none;
+  padding-left: 0;
+
+  li {
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .error {
+    background-color: $faded_red;
+  }
+}

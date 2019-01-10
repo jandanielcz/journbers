@@ -14,7 +14,7 @@ class Template
         $this->templateName = $templateName;
     }
 
-    public function display()
+    public function display($vars)
     {
         include sprintf('templates/%s.php', $this->templateName);
     }

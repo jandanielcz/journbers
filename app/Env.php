@@ -27,7 +27,6 @@ class Env
         foreach ($vars as $k => $v) {
             $removedPrefix[preg_replace(sprintf('#^%s#', $this->prefix), '', $k)] = $v;
         }
-
         return $removedPrefix;
     }
 }
