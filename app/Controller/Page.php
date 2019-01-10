@@ -31,4 +31,12 @@ class Page extends Controller
             'f' => new Flash()
         ]);
     }
+
+    public function add()
+    {
+        $t = new Template('add');
+        $t->display([
+            'f' => new Flash()
+        ]);
+    }
 }

@@ -120,7 +120,8 @@ nav {
     margin: (100px - 64px) / 2;
   }
 
-  h1 {
+  h1,
+  h1 > a {
     line-height: 100px;
     margin: 0 1rem;
     font-weight: normal;
@@ -167,5 +168,25 @@ nav {
         display: block;
       }
     }
+  }
+}
+
+#Add {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+
+  a {
+    display: block;
+    line-height: 80px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 60px;
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    box-shadow: 2px 2px 4px $dark4;
+    background-color: $bright_blue;
+    color: $light0;
   }
 }

@@ -8,11 +8,8 @@
                 } ?>
             </ul>
             <section id="Entries">
-                Entries
+                Add form
             </section>
-        </div>
-        <div id="Add">
-            <a href="/add">&plus;</a>
         </div>
     </body>
 </html>

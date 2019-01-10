@@ -106,7 +106,8 @@ nav img {
   width: 64px;
   margin: 18px;
 }
-nav h1 {
+nav h1,
+nav h1 > a {
   line-height: 100px;
   margin: 0 1rem;
   font-weight: normal;
@@ -146,6 +147,25 @@ nav .tridots .submenu a {
 }
 nav .tridots.open .submenu {
   display: block;
+}
+
+#Add {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+}
+#Add a {
+  display: block;
+  line-height: 80px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 60px;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  box-shadow: 2px 2px 4px #7c6f64;
+  background-color: #83a598;
+  color: #fbf1c7;
 }
 
 /*# sourceMappingURL=all.css.map */
