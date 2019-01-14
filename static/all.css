@@ -34,9 +34,13 @@ header h1 {
   text-decoration: underline;
 }
 
-input[type=text],
-input[type=number],
-input[type=password] {
+#Login {
+  max-width: 280px;
+  margin: 2rem auto;
+}
+#Login input[type=text],
+#Login input[type=number],
+#Login input[type=password] {
   box-sizing: border-box;
   padding: 0.5rem 1rem;
   font-family: "Share", cursive;
@@ -46,18 +50,17 @@ input[type=password] {
   font-size: 16pt;
   outline-color: #427b58;
 }
-input[type=text]::placeholder,
-input[type=number]::placeholder,
-input[type=password]::placeholder {
+#Login input[type=text]::placeholder,
+#Login input[type=number]::placeholder,
+#Login input[type=password]::placeholder {
   color: #665c54;
 }
-input[type=text]:focus,
-input[type=number]:focus,
-input[type=password]:focus {
+#Login input[type=text]:focus,
+#Login input[type=number]:focus,
+#Login input[type=password]:focus {
   background-color: #83a598;
 }
-
-input[type=submit] {
+#Login input[type=submit] {
   box-sizing: border-box;
   margin-top: 6rem;
   font-family: "Share", cursive;
@@ -68,14 +71,9 @@ input[type=submit] {
   padding: 0.5rem 1rem;
   outline-color: #427b58;
 }
-input[type=submit]:focus, input[type=submit]:hover {
+#Login input[type=submit]:focus, #Login input[type=submit]:hover {
   border-color: #427b58;
   color: #689d6a;
-}
-
-#Login {
-  max-width: 280px;
-  margin: 2rem auto;
 }
 #Login label, #Login input[type=text], #Login input[type=password], #Login input[type=submit] {
   display: block;
@@ -166,6 +164,101 @@ nav .tridots.open .submenu {
   box-shadow: 2px 2px 4px #7c6f64;
   background-color: #83a598;
   color: #fbf1c7;
+}
+
+#AddForm {
+  max-width: 280px;
+  margin: 2rem auto;
+}
+#AddForm input[type=text],
+#AddForm input[type=number],
+#AddForm input[type=password],
+#AddForm input[type=datetime-local] {
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
+  font-family: "Share", cursive;
+  background-color: #ebdbb2;
+  color: #282828;
+  border: 2px solid #282828;
+  font-size: 16pt;
+  outline-color: #427b58;
+}
+#AddForm input[type=text]::placeholder,
+#AddForm input[type=number]::placeholder,
+#AddForm input[type=password]::placeholder,
+#AddForm input[type=datetime-local]::placeholder {
+  color: #665c54;
+}
+#AddForm input[type=text]:focus,
+#AddForm input[type=number]:focus,
+#AddForm input[type=password]:focus,
+#AddForm input[type=datetime-local]:focus {
+  background-color: #83a598;
+}
+#AddForm input[type=submit], #AddForm button {
+  box-sizing: border-box;
+  font-family: "Share", cursive;
+  font-size: 16pt;
+  border: 2px solid #282828;
+  color: #282828;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  outline-color: #427b58;
+  box-shadow: #7c6f64 1px 1px 3px;
+}
+#AddForm input[type=submit]:focus, #AddForm input[type=submit]:hover, #AddForm button:focus, #AddForm button:hover {
+  border-color: #427b58;
+  color: #689d6a;
+  box-shadow: #7c6f64 0px 0px 2px;
+}
+#AddForm label, #AddForm input[type=text],
+#AddForm input[type=number],
+#AddForm input[type=datetime-local] {
+  display: block;
+  width: 280px;
+}
+#AddForm input[type=text], #AddForm input[type=password] {
+  margin-bottom: 1rem;
+}
+#AddForm textarea {
+  box-sizing: border-box;
+  font-family: "Share", cursive;
+  font-size: 16pt;
+  border: 2px solid #282828;
+  color: #282828;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  outline-color: #427b58;
+}
+#AddForm textarea:focus {
+  background-color: #83a598;
+}
+#AddForm .btnGroup {
+  width: 280px;
+}
+#AddForm .hide {
+  display: none !important;
+}
+
+.btnGroup {
+  font-size: 0;
+  display: flex;
+}
+.btnGroup button {
+  flex: 1;
+}
+.btnGroup button.on {
+  background-color: #d5c4a1 !important;
+}
+.btnGroup button:first-of-type {
+  margin-left: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.btnGroup button:last-of-type {
+  margin-right: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 /*# sourceMappingURL=all.css.map */

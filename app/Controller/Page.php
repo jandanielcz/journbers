@@ -34,6 +34,7 @@ class Page extends Controller
 
     public function add()
     {
+        // TODO: Add role check
         $t = new Template('add');
         $t->display([
             'f' => new Flash()
