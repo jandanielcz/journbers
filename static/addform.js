@@ -75,16 +75,21 @@ const applyFormData = () => {
 
     if (formData.TimeStart == '') {
         let now = new Date()
-        let r = new RegExp(/^(.*)\./)
-        let justMinutes = r.exec(now.toISOString())[1]
+        let justMinutes = [
+            now.getFullYear(),
+            '-',
+            ('00' + (now.getMonth() +1)).substr(-2, 2),
+            '-',
+            ('00' + now.getDate()).substr(-2, 2),
+            'T',
+            ('00' + now.getHours()).substr(-2, 2),
+            ':',
+            ('00' + now.getMinutes()).substr(-2, 2)
+        ].join('')
         elms.timeStart.value = justMinutes
 
     }
     formData = extractFormData(form)
-
-    if (formData.TimeStart != '' && formData.TimeEnd == '') {
-        elms.timeEnd.value = formData.TimeStart;
-    }
 
     elms.checkHours.classList.remove('invalid')
     if (formData.TimeEnd != '' && formData.TimeStart != '') {

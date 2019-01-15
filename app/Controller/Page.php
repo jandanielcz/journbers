@@ -35,10 +35,14 @@ class Page extends Controller
     public function add()
     {
         // TODO: Add role check
+
+        $f = new Flash();
+
         $t = new Template('add');
         $t->display([
-            'f' => new Flash(),
-            'car' => $this->config()->get('hardcodedCar')
+            'f' => $f,
+            'car' => $this->config()->get('hardcodedCar'),
+            'prefill' => $f->getPayload('AddPrefill')
         ]);
     }
 }

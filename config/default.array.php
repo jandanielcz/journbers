@@ -6,6 +6,7 @@ return [
         ['get', '#^/login#', 'Page::Login'],
         ['get', '#^/logout#', 'User::Logout'],
         ['get', '#^/add#', 'Page::Add'],
+        ['post', '#^/add#', 'Entry::Add'],
         ['post', '#^/login#', 'User::Login'],
         ['get', '#^/$#', 'Page::Index']
     ],
