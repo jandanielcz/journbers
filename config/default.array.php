@@ -9,5 +9,6 @@ return [
         ['post', '#^/login#', 'User::Login'],
         ['get', '#^/$#', 'Page::Index']
     ],
-    'envPrefix' => 'JOURNBERS_'
+    'envPrefix' => 'JOURNBERS_',
+    'hardcodedCar' => 'golf'
 ];

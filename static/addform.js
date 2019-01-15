@@ -32,11 +32,15 @@ const applyFormData = () => {
     elms.placeEnd = form.querySelector('#PlaceEnd')
     elms.placeEndLabel = form.querySelector('[for=PlaceEnd]')
     elms.odometerEnd = form.querySelector('#OdometerEnd')
-    elms.orometerEndLabel = form.querySelector('[for=OdometerEnd]')
+    elms.odometerEndLabel = form.querySelector('[for=OdometerEnd]')
+    elms.checkKm = form.querySelector('[data-field="km"]')
+    elms.checkHours = form.querySelector('[data-field="hours"]')
+    elms.timeEnd = form.querySelector('#TimeEnd');
+    elms.timeStart = form.querySelector('#TimeStart');
+    elms.onlyForWork = form.querySelector('.onlyForWork')
 
-    elms.andBackButton.textContent = 'Back to ' + formData.PlaceStart
 
-    let affected = [elms.client, elms.clientLabel, elms.placeTarget, elms.placeTargetLabel]
+    let affected = [elms.onlyForWork]
     if (formData.Personal == 1) {
         affected.forEach((one) => {
             one.classList.add('hide')
@@ -47,7 +51,7 @@ const applyFormData = () => {
         })
     }
 
-    affected = [elms.placeEnd, elms.placeEndLabel, elms.odometerEnd, elms.orometerEndLabel]
+    affected = [elms.placeEnd, elms.placeEndLabel]
     if (formData.AndBack == 1) {
         affected.forEach((one) => {
             one.classList.add('hide')
@@ -57,6 +61,61 @@ const applyFormData = () => {
             one.classList.remove('hide')
         })
     }
+
+    elms.checkKm.classList.remove('invalid')
+    if (formData.OdometerEnd != '' && formData.OdometerStart != '') {
+        elms.checkKm.innerHTML = formData.OdometerEnd - formData.OdometerStart
+        if ((formData.OdometerEnd - formData.OdometerStart) <= 0) {
+            elms.checkKm.classList.add('invalid')
+        }
+    } else {
+        elms.checkKm.innerHTML = '--'
+
+    }
+
+    if (formData.TimeStart == '') {
+        let now = new Date()
+        let r = new RegExp(/^(.*)\./)
+        let justMinutes = r.exec(now.toISOString())[1]
+        elms.timeStart.value = justMinutes
+
+    }
+    formData = extractFormData(form)
+
+    if (formData.TimeStart != '' && formData.TimeEnd == '') {
+        elms.timeEnd.value = formData.TimeStart;
+    }
+
+    elms.checkHours.classList.remove('invalid')
+    if (formData.TimeEnd != '' && formData.TimeStart != '') {
+        let s = new Date(formData.TimeStart)
+        let e = new Date(formData.TimeEnd)
+        let diff = (e - s) / (1000 * 60 * 60)
+        elms.checkHours.innerHTML = diff.toFixed(1);
+        if (diff <= 0) {
+            elms.checkHours.classList.add('invalid')
+        }
+    } else {
+        elms.checkHours.innerHTML = '--'
+
+    }
+
+    /* sets btnGroup class to what button is on - for styling purposes */
+    let btnGroups = form.querySelectorAll('.btnGroup');
+    btnGroups.forEach((group) => {
+
+        group.classList.remove('on0', 'on1')
+
+        let btns = group.querySelectorAll('button');
+        let onIndex = null;
+        btns.forEach((one, idx) => {
+            if (one.classList.contains('on')) {
+                onIndex = idx;
+            }
+        })
+        group.classList.add('on' + onIndex);
+    })
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -79,13 +138,13 @@ document.addEventListener('DOMContentLoaded', () => {
             let targetElement = document.querySelector('[name=' + targetElementId + ']');
             targetElement.setAttribute('value', val);
             let change = new Event('change', {bubbles: true});
-            targetElement.dispatchEvent(change);
+
             let allInGroup = document.querySelectorAll('[data-form-element='+ targetElementId +']')
             allInGroup.forEach((one) => {
                 one.classList.remove('on')
             })
             event.target.classList.add('on')
-
+            targetElement.dispatchEvent(change);
         })
     })
 })

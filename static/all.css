@@ -167,8 +167,48 @@ nav .tridots.open .submenu {
 }
 
 #AddForm {
-  max-width: 280px;
+  max-width: 640px;
   margin: 2rem auto;
+}
+#AddForm label {
+  color: #7c6f64;
+}
+#AddForm .row {
+  padding-left: 64px;
+}
+#AddForm .row.button {
+  padding-left: 320px;
+}
+#AddForm .check {
+  padding-left: 128px;
+  padding-top: 48px;
+  padding-bottom: 32px;
+}
+#AddForm .check table {
+  border: 1px dashed #282828;
+  width: 280px;
+  background-color: #ebdbb2;
+}
+#AddForm .check table th, #AddForm .check table td {
+  padding: 0.5rem 1rem;
+}
+#AddForm .check table td {
+  text-align: right;
+}
+#AddForm .check table td.invalid {
+  color: #cc241d;
+  text-decoration: underline;
+}
+#AddForm .check table th {
+  width: 3rem;
+  text-align: left;
+}
+#AddForm h3 {
+  font-size: 1rem;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0px;
+  color: #7c6f64;
 }
 #AddForm input[type=text],
 #AddForm input[type=number],
@@ -196,12 +236,13 @@ nav .tridots.open .submenu {
   background-color: #83a598;
 }
 #AddForm input[type=submit], #AddForm button {
+  width: 80px;
   box-sizing: border-box;
   font-family: "Share", cursive;
   font-size: 16pt;
   border: 2px solid #282828;
   color: #282828;
-  background-color: transparent;
+  background-color: #ebdbb2;
   padding: 0.5rem 1rem;
   outline-color: #427b58;
   box-shadow: #7c6f64 1px 1px 3px;
@@ -226,7 +267,7 @@ nav .tridots.open .submenu {
   font-size: 16pt;
   border: 2px solid #282828;
   color: #282828;
-  background-color: transparent;
+  background-color: #ebdbb2;
   padding: 0.5rem 1rem;
   outline-color: #427b58;
 }
@@ -239,6 +280,65 @@ nav .tridots.open .submenu {
 #AddForm .hide {
   display: none !important;
 }
+#AddForm h3 {
+  height: 22px;
+  margin-bottom: 0;
+  padding-bottom: 16px;
+  background-repeat: no-repeat;
+}
+#AddForm h3 span {
+  background-color: #ebdbb2;
+  padding-right: 0.25rem;
+}
+#AddForm .addTripStart {
+  background-image: url("lines/start.svg");
+  background-position: -116px 0px;
+}
+#AddForm .addTarget,
+#AddForm .addTripEnd {
+  background-image: url("lines/target.svg");
+  background-position: -116px 0px;
+  margin-top: 0;
+  padding-bottom: 8px;
+}
+#AddForm .row {
+  background-image: url("lines/inputs.svg");
+  background-position: -116px 0px;
+  padding-bottom: 16px;
+}
+#AddForm .row.lastBeforeCheck {
+  padding-bottom: 0;
+}
+#AddForm .check {
+  background-image: url("lines/check.svg");
+  background-position: -116px 0px;
+}
+#AddForm .btnGroup {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+#AddForm .btnGroup.on0 {
+  background-image: url("lines/selection0.svg");
+  background-color: #ebdbb2;
+  background-position: -180px 0px;
+}
+#AddForm .btnGroup.on1 {
+  background-image: url("lines/selection1.svg");
+  background-color: #ebdbb2;
+  background-position: -180px 0px;
+}
+#AddForm .note {
+  background-image: url("lines/note.svg");
+  background-position: -116px 0px;
+  padding-bottom: 16px;
+}
+#AddForm .row.button {
+  background-image: url("lines/button.svg");
+  background-position: -116px 0px;
+}
+#AddForm #PlaceEnd {
+  margin-bottom: 0;
+}
 
 .btnGroup {
   font-size: 0;
@@ -246,6 +346,7 @@ nav .tridots.open .submenu {
 }
 .btnGroup button {
   flex: 1;
+  outline: none;
 }
 .btnGroup button.on {
   background-color: #d5c4a1 !important;

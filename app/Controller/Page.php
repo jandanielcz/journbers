@@ -37,7 +37,8 @@ class Page extends Controller
         // TODO: Add role check
         $t = new Template('add');
         $t->display([
-            'f' => new Flash()
+            'f' => new Flash(),
+            'car' => $this->config()->get('hardcodedCar')
         ]);
     }
 }

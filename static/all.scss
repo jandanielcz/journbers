@@ -193,6 +193,57 @@ nav {
 
 #AddForm {
 
+  max-width: 640px;
+  margin: 2rem auto;
+
+  label {
+    color: $dark4;
+  }
+
+  .row {
+    padding-left: 64px;
+
+    &.button {
+      padding-left: 320px;
+    }
+  }
+
+  .check {
+    padding-left: 128px;
+    padding-top: 48px;
+    padding-bottom: 32px;
+
+    table {
+      border: 1px dashed $dark0;
+      width: 280px;
+      background-color: $light1;
+      th, td {
+        padding: 0.5rem 1rem;
+      }
+      td {
+        text-align: right;
+
+        &.invalid {
+          color: $neutral_red;
+          text-decoration: underline;
+        }
+      }
+      th {
+        width: 3rem;
+        text-align: left;
+      }
+    }
+
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    color: $dark4;
+  }
+
   input[type=text],
   input[type=number],
   input[type=password],
@@ -219,12 +270,13 @@ nav {
   }
 
   input[type=submit], button {
+    width: 80px;
     box-sizing: border-box;
     font-family: "Share", cursive;
     font-size: 16pt;
     border: 2px solid $dark0;
     color: $dark0;
-    background-color: transparent;
+    background-color: $light1;
     padding: 0.5rem 1rem;
     outline-color: $faded_aqua;
     box-shadow: $dark4 1px 1px 3px;
@@ -237,8 +289,7 @@ nav {
     }
   }
 
-  max-width: 280px;
-  margin: 2rem auto;
+
 
   label, input[type=text],
   input[type=number],
@@ -258,7 +309,7 @@ nav {
     font-size: 16pt;
     border: 2px solid $dark0;
     color: $dark0;
-    background-color: transparent;
+    background-color: $light1;
     padding: 0.5rem 1rem;
     outline-color: $faded_aqua;
 
@@ -275,6 +326,85 @@ nav {
     display: none!important;
   }
 
+  h3 {
+    height: 22px;
+    margin-bottom: 0;
+    padding-bottom: 16px;
+    background-repeat: no-repeat;
+
+    span {
+      background-color: $light1;
+      padding-right: 0.25rem;
+    }
+  }
+
+  // connection lines
+  .addTripStart {
+    background-image: url('lines/start.svg');
+    background-position: -116px 0px;
+  }
+
+  .addTarget,
+  .addTripEnd
+  {
+    background-image: url('lines/target.svg');
+    background-position: -116px 0px;
+    margin-top: 0;
+    padding-bottom: 8px;
+  }
+
+  .row {
+    background-image: url('lines/inputs.svg');
+    background-position: -116px 0px;
+    padding-bottom: 16px;
+
+    &.selection {
+      //background-image: none;
+    }
+
+    &.lastBeforeCheck {
+      padding-bottom: 0;
+    }
+  }
+
+  .check {
+    background-image: url('lines/check.svg');
+    background-position: -116px 0px;
+  }
+
+  .btnGroup {
+    padding-top: 32px;
+    padding-bottom: 32px;
+
+    &.on0 {
+      background-image: url('lines/selection0.svg');
+      background-color: $light1;
+      background-position: (-116px - 64px) 0px;
+    }
+
+    &.on1 {
+      background-image: url('lines/selection1.svg');
+      background-color: $light1;
+      background-position: (-116px - 64px) 0px;
+    }
+
+  }
+
+  .note {
+    background-image: url('lines/note.svg');
+    background-position: (-116px) 0px;
+    padding-bottom: 16px;
+  }
+
+  .row.button {
+    background-image: url('lines/button.svg');
+    background-position: (-116px) 0px;
+  }
+
+  #PlaceEnd {
+    margin-bottom: 0;
+  }
+
 }
 
 .btnGroup {
@@ -283,6 +413,7 @@ nav {
 
   button {
     flex: 1;
+    outline: none;
 
     &.on {
       background-color: $light2!important;
