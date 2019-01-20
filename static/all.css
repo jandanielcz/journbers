@@ -373,4 +373,19 @@ nav .tridots.open .submenu {
   border-bottom-right-radius: 8px;
 }
 
+.trip .icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  display: inline-block;
+  line-height: 64px;
+  text-align: center;
+}
+.trip .icon.light {
+  color: #282828;
+}
+.trip .icon.dark {
+  color: #ebdbb2;
+}
+
 /*# sourceMappingURL=all.css.map */

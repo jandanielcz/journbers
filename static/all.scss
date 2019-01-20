@@ -444,3 +444,21 @@ nav {
     border-bottom-right-radius: 8px;
   }
 }
+
+.trip {
+  .icon {
+    width: 64px; height: 64px;
+    border-radius: 32px;
+    display: inline-block;
+    line-height: 64px;
+    text-align: center;
+
+    &.light {
+      color: $dark0;
+    }
+
+    &.dark {
+      color: $light1;
+    }
+  }
+}
