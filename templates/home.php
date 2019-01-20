@@ -18,12 +18,24 @@ use Journbers\Tool\StringTool;
                 <?php
                     foreach ($vars['trips'] as $trip) {
                     $iconBg = ColorTool::stringToColor($trip['driver_name']);
+                    $tripStart = new \DateTimeImmutable($trip['start_date']);
                 ?>
                     <div class="trip">
                         <div class="icon <?= (ColorTool::isDark($iconBg)) ? 'dark' : 'light' ?>"
-                             style="
-                                background-color: <?php echo ColorTool::stringToColor($trip['driver_name']) ?>">
+                             style="background-color: <?php echo ColorTool::stringToColor($trip['driver_name']) ?>"
+                             title="<?= $trip['driver_name'] ?>">
                              <?php echo StringTool::nameInicials($trip['driver_name']) ?>
+                        </div>
+                        <div class="times">
+                            <div class="start">
+                                <?php //TODO: Too hardcoded :( ?>
+                                <?php echo $tripStart->format('j. n. Y') ?>
+                                <span>
+                                    <?php echo $tripStart->format('H:i') ?>
+                                </span>
+                            </div>
+                            <div class="toSign">&mdash;</div>
+                            <div class="end"></div>
                         </div>
                     </div>
 

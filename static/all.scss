@@ -447,11 +447,13 @@ nav {
 
 .trip {
   .icon {
-    width: 64px; height: 64px;
-    border-radius: 32px;
+    width: 80px; height: 80px;
+    border-radius: 40px;
     display: inline-block;
-    line-height: 64px;
+    line-height: 80px;
     text-align: center;
+    font-family: 'Delius Unicase', cursive;
+    font-weight: bold;
 
     &.light {
       color: $dark0;
