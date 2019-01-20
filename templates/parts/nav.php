@@ -1,6 +1,11 @@
 <nav>
     <img src="/static/logo.svg" alt="Journbers logo">
     <h1><a href="/">Journbers</a></h1>
+    <div class="carSelector">
+        <ol>
+            <li>Golf</li>
+        </ol>
+    </div>
     <div>
         <?php //menu? ?>
     </div>

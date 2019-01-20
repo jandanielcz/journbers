@@ -8,7 +8,13 @@
                 } ?>
             </ul>
             <section id="Entries">
-                Entries
+                <?php \Tracy\Debugger::barDump($vars['trips']); ?>
+                <?php foreach ($vars['trips'] as $trip) { ?>
+                    <div class="trip">
+                        T
+                    </div>
+
+                <?php } ?>
             </section>
         </div>
         <div id="Add">

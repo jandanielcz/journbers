@@ -112,6 +112,17 @@ nav h1 > a {
   color: #b16286;
   text-decoration: underline;
 }
+nav .carSelector {
+  line-height: 100px;
+  color: #fbf1c7;
+  margin-left: 0;
+  font-size: 1.5em;
+}
+nav .carSelector ol {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
 nav > div {
   margin-left: 4rem;
   flex-grow: 100;

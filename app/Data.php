@@ -13,7 +13,6 @@ class Data
 
     public function __construct($connectionParams)
     {
-        Debugger::barDump($connectionParams);
         $this->connectionParams = $connectionParams;
     }
 
@@ -38,7 +37,8 @@ class Data
             $this->connectionParams['password'],
             [
                 \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
             ]
             );
         return $this->database;

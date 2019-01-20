@@ -35,8 +35,6 @@ class Config
             return $this->values[$key];
         }
 
-        Debugger::barDump($_SERVER);
-
         if ($defaultValue === self::NOT_SET) {
             throw new \RuntimeException(sprintf('Value for key %s is required somewhere and not configured.', $key));
         }
