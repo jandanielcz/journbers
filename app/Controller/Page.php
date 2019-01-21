@@ -87,13 +87,10 @@ class Page extends Controller
 
         $f = new Flash();
         $prefil = $this->sanitizeFillSpaceInput();
+        $f->addPayload('AddPrefill', $prefil);
 
-        $this->template('add')->display([
-            'f' => $f,
-            'car' => $this->config()->get('hardcodedCar'),
-            'prefill' => $prefil,
-            'driver' => $this->request()->user()->getId()
-        ]);
+        $this->redirect(sprintf('/%s/add', $this->config()->get('hardcodedCar')));
+        $this->exit();
     }
 
 

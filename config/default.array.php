@@ -9,6 +9,9 @@ return [
         ['post', '#^/add#', 'Entry::Add'],
         ['post', '#^/login#', 'User::Login'],
         ['post', '#^/fill-space#', 'Page::FillSpace'],
+        ['post', '#^/space-to-start#', 'Entry::SpaceToStart'],
+        ['post', '#^/space-to-end#', 'Entry::SpaceToEnd'],
+        ['post', '#^/fill-space#', 'Page::FillSpace'],
         ['get', '#^/$#', 'Page::Index'],
         ['get', '#^/edit/([0-9]*)[/]{0,1}$#', 'Page::Edit'],
         ['get', '#^/remove/([0-9]*)[/]{0,1}$#', 'Entry::Remove'],
@@ -17,5 +20,5 @@ return [
     ],
     'envPrefix' => 'JOURNBERS_',
     'hardcodedCar' => 'golf',
-    'appName' => 'B.L.B.'
+    'appName' => 'BLB'
 ];

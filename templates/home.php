@@ -20,6 +20,7 @@ use Journbers\Tool\StringTool;
 
                     $nextTripStart = null;
                     $nextTripStartTime = null;
+                    $nextTripId = null;
 
                     foreach ($vars['trips'] as $trip) {
                     $iconBg = ColorTool::stringToColor($trip['driver_name']);
@@ -52,8 +53,16 @@ use Journbers\Tool\StringTool;
                                         <input type="hidden" name="SpaceMinTime" value="<?= $trip['end_date']->format('Y-m-d H:i') ?>">
                                         <button class="inline">New trip</button>
                                     </form>
-                                    <button class="inline">Add &darr;</button>
-                                    <button class="inline">Add &uarr;</button>
+                                    <form action="/space-to-end" method="post">
+                                        <input type="hidden" name="SpaceEnd" value="<?= $nextTripStart ?>">
+                                        <input type="hidden" name="TripId" value="<?= $trip['id'] ?>">
+                                        <button class="inline">Add &darr;</button>
+                                    </form>
+                                    <form action="/space-to-start" method="post">
+                                        <input type="hidden" name="SpaceStart" value="<?= $trip['end_odometer'] ?>">
+                                        <input type="hidden" name="TripId" value="<?= $nextTripId ?>">
+                                        <button class="inline">Add &uarr;</button>
+                                    </form>
                                 </div>
                             </div>
                         <?php
@@ -144,6 +153,7 @@ use Journbers\Tool\StringTool;
                 <?php
                         $nextTripStart = $trip['start_odometer'];
                         $nextTripStartTime = $trip['start_date'];
+                        $nextTripId = $trip['id'];
                     }
                 ?>
             </section>

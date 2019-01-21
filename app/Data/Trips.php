@@ -195,4 +195,44 @@ class Trips extends Data
             'user' => $currentUser
         ]);
     }
+
+    public function changeStartOdometer($id, $odometerStart, $currentUser)
+    {
+        $stmt = $this->db()->prepare("
+        INSERT INTO trips (
+            car, driver, added_by, added_on, 
+            start_odometer, start_place, start_date,
+            target_client, target_place,
+            end_odometer, end_place, end_date,
+            is_personal, and_back, note
+        ) SELECT
+           car, driver, :user, NOW(),
+           :startOdometer, start_place, start_date,
+           target_client, target_place,
+           end_odometer, end_place, end_date,
+            is_personal, and_back, note
+            FROM trips
+            WHERE id = :id;
+        ");
+
+        $stmt->execute([
+            'startOdometer' => $odometerStart,
+            'id' => $id,
+            'user' => $currentUser
+        ]);
+
+        $newId = $this->db()->lastInsertId();
+
+        $s2 = $this->db()->prepare("
+            update trips set overwriten_by = :newId where id = :oldId
+        ");
+        $s2->execute([
+            'newId' => $newId,
+            'oldId' => $id
+        ]);
+
+        // TODO: should be in transaction!!!
+
+        return $newId;
+    }
 }

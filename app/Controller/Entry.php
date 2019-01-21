@@ -179,4 +179,27 @@ class Entry extends Controller
             $this->exit();
         }
     }
+
+    public function spaceToStart()
+    {
+        if (!$this->request()->user()->hasRole('driver')) {
+            $this->redirect('/login');
+            $this->exit();
+        }
+
+        $trips = new Trips($this->connectionParams());
+        // TODO: Sanitization?
+        try {
+            $newId = $trips->changeStartOdometer(intval($_POST['TripId']), intval($_POST['SpaceStart']), $this->request()->user()->getId());
+            $this->redirect(sprintf('/%s/?highlight=%s', $this->config()->get('hardcodedCar'), $newId));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $this->redirect(sprintf('/%s/', $this->config()->get('hardcodedCar')));
+            $this->exit();
+        }
+
+    }
+
 }
