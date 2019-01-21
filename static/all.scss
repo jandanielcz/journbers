@@ -462,6 +462,14 @@ nav {
     background: $light0;
   }
 
+  &.personal {
+    background: darken($light0, 2);
+  }
+
+  &.highlighted {
+    border: 1px solid $bright_aqua;
+  }
+
   .icon {
     grid-column: 1 / 1;
     grid-row: 1 / 5;
@@ -514,7 +522,7 @@ nav {
     display: flex;
 
     .toSign {
-      padding: 0 1rem;
+      padding: 0 0.2rem;
     }
 
     .andBack {
@@ -556,6 +564,11 @@ nav {
     grid-row: 3 / 3;
 
     font-size: 1rem;
+
+    &.personal {
+      padding-left: 1rem;
+      font-style: italic;
+    }
   }
 
   .note {

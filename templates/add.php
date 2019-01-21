@@ -10,6 +10,7 @@
             <section id="AddForm">
                 <form action="/add" method="post">
                     <input type="hidden" name="Car" value="<?php echo $vars['car'] ?>">
+                    <input type="hidden" name="Driver" value="<?php echo $vars['driver'] ?>">
                     <h3 class="addTripStart"><span>Trip start</span></h3>
                     <div class="row">
                         <label for="OdometerStart">Odometer</label>

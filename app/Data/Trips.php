@@ -48,4 +48,57 @@ class Trips extends Data
 
         return $rows;
     }
+
+    public function addTrip($v, $currentUser)
+    {
+        $stmt = $this->db()->prepare("
+            insert into trips values (
+                null,                 -- id
+                null,                 -- overwriten by
+                :car,               -- car
+                :driver,                -- driver
+                                  -- added     
+                :currentUser,            
+                now(),                
+                                        -- removed
+                null,
+                null,
+                                        -- start
+                :startOdometer,
+                :startPlace,
+                :startDate,
+                                        -- target
+                :targetClient, 					 -- client
+                :targetPlace,              -- place
+                                        -- end
+                :endOdometer,
+                :endPlace,
+                :endDate,
+                
+                :isPersonal,                -- is personal
+                :andBack,                  -- and back
+                :note
+            )
+        ");
+
+        $stmt->execute([
+            'car' => $v['Car'],
+            'driver' => $v['Driver'],
+            'currentUser' => $currentUser,
+            'startOdometer' => $v['OdometerStart'],
+            'startPlace' => $v['PlaceStart'],
+            'startDate' => $v['TimeStart']->format('Y-m-d H:i:s'),
+            'targetClient' => $v['Client'],
+            'targetPlace' => $v['PlaceTarget'],
+            'endOdometer' => $v['OdometerEnd'],
+            'endPlace' => $v['PlaceEnd'],
+            'endDate' => $v['TimeEnd']->format('Y-m-d H:i:s'),
+            'isPersonal' => ($v['Personal']) ? 1 : 0,
+            'andBack' => ($v['AndBack']) ? 1 : 0,
+            'note' => $v['Note'],
+        ]);
+
+
+        return $this->db()->lastInsertId();
+    }
 }

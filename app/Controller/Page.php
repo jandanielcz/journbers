@@ -44,7 +44,8 @@ class Page extends Controller
         $t->display([
             'f' => new Flash(),
             'trips' => $trips->loadTrips($this->request()->segment(0)),
-            'currentUser' => $this->request()->user()->getId()
+            'currentUser' => $this->request()->user()->getId(),
+            'car' => $this->config()->get('hardcodedCar'),
         ]);
     }
 
@@ -58,7 +59,10 @@ class Page extends Controller
 
     public function add()
     {
-        // TODO: Add role check
+        if (!$this->request()->user()->hasRole('driver')) {
+            $this->redirect('/login');
+            $this->exit();
+        }
 
         $f = new Flash();
 
@@ -66,7 +70,8 @@ class Page extends Controller
         $t->display([
             'f' => $f,
             'car' => $this->config()->get('hardcodedCar'),
-            'prefill' => $f->getPayload('AddPrefill')
+            'prefill' => $f->getPayload('AddPrefill'),
+            'driver' => $this->request()->user()->getId()
         ]);
     }
 }

@@ -5,7 +5,7 @@ return [
         // order from most specific
         ['get', '#^/login#', 'Page::Login'],
         ['get', '#^/logout#', 'User::Logout'],
-        ['get', '#^/add#', 'Page::Add'],
+        ['get', '#^/([a-z]*)/add[/]{0,1}#', 'Page::Add'],
         ['post', '#^/add#', 'Entry::Add'],
         ['post', '#^/login#', 'User::Login'],
         ['get', '#^/$#', 'Page::Index'],

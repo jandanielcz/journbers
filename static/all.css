@@ -389,6 +389,12 @@ nav .tridots.open .submenu {
 .trip.done {
   background: #fbf1c7;
 }
+.trip.personal {
+  background: #faefbd;
+}
+.trip.highlighted {
+  border: 1px solid #8ec07c;
+}
 .trip .icon {
   grid-column: 1/1;
   grid-row: 1/5;
@@ -431,7 +437,7 @@ nav .tridots.open .submenu {
   display: flex;
 }
 .trip .places .toSign {
-  padding: 0 1rem;
+  padding: 0 0.2rem;
 }
 .trip .places .andBack {
   padding: 0.3rem 1rem;
@@ -461,6 +467,10 @@ nav .tridots.open .submenu {
   grid-column: 2/2;
   grid-row: 3/3;
   font-size: 1rem;
+}
+.trip .client.personal {
+  padding-left: 1rem;
+  font-style: italic;
 }
 .trip .note {
   grid-column: 2/2;

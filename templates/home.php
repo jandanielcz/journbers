@@ -24,12 +24,16 @@ use Journbers\Tool\StringTool;
                     $iconBg = ColorTool::stringToColor($trip['driver_name']);
 
                     $classes = ['trip'];
-                    if ($trip['end_odometer']) {
+                    if ($trip['end_odometer'] && ($trip['end_place'] || $trip['and_back'])) {
                         $classes[] = 'done';
                     }
 
                     if ($trip['driver'] === $vars['currentUser']) {
                         $classes[] = 'mine';
+                    }
+
+                    if ($trip['is_personal']) {
+                        $classes[] = 'personal';
                     }
 
                 ?>
@@ -50,7 +54,7 @@ use Journbers\Tool\StringTool;
 
                     ?>
 
-                    <div class="<?= join(' ', $classes) ?>">
+                    <div class="<?= join(' ', $classes) ?>" data-id="<?= $trip['id'] ?>">
                         <div class="icon"
                              style="border-color: <?php echo ColorTool::stringToColor($trip['driver_name']) ?>"
                              title="<?= $trip['driver_name'] ?>">
@@ -75,10 +79,17 @@ use Journbers\Tool\StringTool;
                             <div class="start">
                                 <?= $trip['start_place'] ?>
                             </div>
-                            <div class="toSign">&rarr;</div>
-                            <div class="target">
-                                <?= $trip['target_place'] ?>
-                            </div>
+                            <?php
+                                if ($trip['target_place']) {
+                            ?>
+                                    <div class="toSign">&rarr;</div>
+                                    <div class="target">
+                                        <?= $trip['target_place'] ?>
+                                    </div>
+                            <?php
+                                }
+                            ?>
+
                             <?php
                                 if ($trip['and_back']) {
                                     echo '<div class="andBack">&larrhk;</div>';
@@ -88,14 +99,27 @@ use Journbers\Tool\StringTool;
                                 }
                             ?>
                         </div>
-                        <div class="client">
-                            <?= $trip['target_client'] ?>
-                        </div>
+                        <?php
+                        if ($trip['is_personal']) {
+                           ?>
+                                <div class="client personal">
+
+                                </div>
+                            <?php
+                        } else {
+                            ?>
+                                <div class="client">
+                                    <?= $trip['target_client'] ?>
+                                </div>
+                            <?php
+                        }
+                        ?>
+
                         <div class="note">
                             <?= $trip['note'] ?>
                         </div>
                         <div class="summary">
-                            <div class="km">
+                            <div class="km" title="Odometer: <?= $trip['start_odometer'] ?> - <?= $trip['end_odometer'] ?>">
                                 <?= $trip['trip_length'] ?><span>KM</span>
                             </div>
                             <div class="hours">
@@ -103,7 +127,7 @@ use Journbers\Tool\StringTool;
                             </div>
                         </div>
                         <div class="actions">
-                            <button class="inline">Edit</button>
+                            <button class="inline" onclick="window.location.href = '/edit/<?= $trip['id'] ?>'">Edit</button>
                         </div>
                     </div>
 
@@ -116,8 +140,19 @@ use Journbers\Tool\StringTool;
             </section>
         </div>
         <div id="Add">
-            <a href="/add">Add trip</a>
+            <a href="/<?= $vars['car'] ?>/add">Add trip</a>
         </div>
+        <script>
+            'use strict';
+
+            let urlParams = new URLSearchParams(window.location.search);
+            console.log(urlParams);
+            if (urlParams.has('highlight')) {
+                let e = document.querySelector('.trip[data-id="'+ urlParams.get('highlight') +'"]');
+                e.classList.add('highlighted');
+            }
+
+        </script>
     </body>
 </html>
 

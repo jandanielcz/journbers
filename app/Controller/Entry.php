@@ -5,6 +5,7 @@ namespace Journbers\Controller;
 
 
 use Journbers\Controller;
+use Journbers\Data\Trips;
 use Journbers\Flash;
 use Journbers\Template;
 use Tracy\Debugger;
@@ -12,6 +13,8 @@ use Journbers\Controller\Exception\SanitizationException;
 
 class Entry extends Controller
 {
+
+    private $addPayload = null;
 
     protected function sanitizeAddPayload()
     {
@@ -40,6 +43,7 @@ class Entry extends Controller
         }
 
         $payload['PlaceStart'] = $_POST['PlaceStart'];
+        $payload['Driver'] = $_POST['Driver'];
         $payload['Personal'] = ($_POST['Personal'] == '1');
         $payload['Client'] = ($_POST['Client'] == '') ? null : $_POST['Client'];
         $payload['PlaceTarget'] = ($_POST['PlaceTarget'] == '') ? null : $_POST['PlaceTarget'];
@@ -70,17 +74,16 @@ class Entry extends Controller
 
     public function beforeAdd()
     {
-        Debugger::dump($_POST);
-
         // sanitize post data
         try {
-            $addPayload = $this->sanitizeAddPayload();
-            Debugger::dump($addPayload);
+            $this->addPayload = $this->sanitizeAddPayload();
+            Debugger::dump($this->addPayload);
         } catch (SanitizationException $e) {
             $f = new Flash();
             $f->error($e->getMessage());
             $f->addPayload('AddPrefill', $_POST);
-            $this->redirect('/add');
+            $this->redirect(sprintf('/%s/add', $this->addPayload['Car']));
+            $this->exit();
         }
 
 
@@ -92,8 +95,30 @@ class Entry extends Controller
 
     public function add()
     {
-        // TODO: add role requirement
+        if (!$this->request()->user()->hasRole('driver')) {
+            $this->redirect('/login');
+            $this->exit();
+        }
 
-        Debugger::dump($this->request());
+        $trips = new Trips([
+            'host' => $this->config->get('DB_SERVER'),
+            'port' => $this->config->get('DB_PORT'),
+            'dbname' => $this->config->get('DB_NAME'),
+            'user' => $this->config->get('DB_USER'),
+            'password' => $this->config->get('DB_PASS')
+        ]);
+
+        try {
+            Debugger::barDump($this->addPayload);
+            $newId = $trips->addTrip($this->addPayload, $this->request()->user()->getId());
+            $this->redirect(sprintf('/%s/?highlight=%s', $this->addPayload['Car'], $newId));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $f->addPayload('AddPrefill', $_POST);
+            $this->redirect(sprintf('/%s/add', $this->addPayload['Car']));
+            $this->exit();
+        }
     }
 }
