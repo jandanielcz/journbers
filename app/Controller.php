@@ -46,4 +46,20 @@ class Controller
     {
         exit;
     }
+
+    protected function commonTemplateVars()
+    {
+        return [
+            'common.appName' => $this->config()->get('appName', 'Journbers')
+        ];
+    }
+
+    protected function template($name)
+    {
+        $t = new Template($name);
+        $t->vars($this->commonTemplateVars());
+
+        return $t;
+    }
+
 }

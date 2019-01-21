@@ -19,6 +19,7 @@ use Journbers\Tool\StringTool;
                 <?php
 
                     $nextTripStart = null;
+                    $nextTripStartTime = null;
 
                     foreach ($vars['trips'] as $trip) {
                     $iconBg = ColorTool::stringToColor($trip['driver_name']);
@@ -44,7 +45,13 @@ use Journbers\Tool\StringTool;
                             <div class="space">
                                 <p><?= ($nextTripStart - $trip['end_odometer']) ?> <span class="unit">km</span></p>
                                 <div class="actions">
-                                    <button class="inline">New trip</button>
+                                    <form action="/fill-space" method="post">
+                                        <input type="hidden" name="SpaceStart" value="<?= $trip['end_odometer'] ?>">
+                                        <input type="hidden" name="SpaceEnd" value="<?= $nextTripStart ?>">
+                                        <input type="hidden" name="SpaceMaxTime" value="<?= $nextTripStartTime->format('Y-m-d H:i') ?>">
+                                        <input type="hidden" name="SpaceMinTime" value="<?= $trip['end_date']->format('Y-m-d H:i') ?>">
+                                        <button class="inline">New trip</button>
+                                    </form>
                                     <button class="inline">Add &darr;</button>
                                     <button class="inline">Add &uarr;</button>
                                 </div>
@@ -127,6 +134,7 @@ use Journbers\Tool\StringTool;
                             </div>
                         </div>
                         <div class="actions">
+                            <button class="inline danger" onclick="removalConfirm(<?= $trip['id'] ?>)">Remove</button>
                             <button class="inline" onclick="window.location.href = '/edit/<?= $trip['id'] ?>'">Edit</button>
                         </div>
                     </div>
@@ -135,6 +143,7 @@ use Journbers\Tool\StringTool;
 
                 <?php
                         $nextTripStart = $trip['start_odometer'];
+                        $nextTripStartTime = $trip['start_date'];
                     }
                 ?>
             </section>
@@ -150,6 +159,12 @@ use Journbers\Tool\StringTool;
             if (urlParams.has('highlight')) {
                 let e = document.querySelector('.trip[data-id="'+ urlParams.get('highlight') +'"]');
                 e.classList.add('highlighted');
+            }
+
+            const removalConfirm = (id) => {
+                if (window.confirm('Do you really want to remove that trip?')) {
+                    window.location.href = '/remove/' + id;
+                }
             }
 
         </script>

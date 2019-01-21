@@ -462,6 +462,9 @@ nav .tridots.open .submenu {
   display: flex;
   justify-content: flex-end;
 }
+.trip .actions button {
+  margin-left: 4px;
+}
 .trip .client {
   grid-column: 2/2;
   grid-row: 3/3;
@@ -492,6 +495,10 @@ nav .tridots.open .submenu {
   flex-grow: 2;
   padding-left: 1rem;
 }
+.space .actions form {
+  display: inline;
+}
+
 button.inline {
   box-sizing: border-box;
   font-family: "Titillium Web", sans-serif;
@@ -507,6 +514,10 @@ button.inline:focus, button.inline:hover {
   border-color: #427b58;
   color: #689d6a;
   box-shadow: #7c6f64 0px 0px 2px;
+}
+button.inline.danger:hover {
+  border-color: #9d0006;
+  color: #9d0006;
 }
 
 span.unit {

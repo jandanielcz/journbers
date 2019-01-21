@@ -1,6 +1,6 @@
 <nav>
-    <img src="/static/logo.svg" alt="Journbers logo">
-    <h1><a href="/">Journbers</a></h1>
+    <img src="/static/logo.svg" alt="<?= $vars['common.appName'] ?> logo">
+    <h1><a href="/"><?= $vars['common.appName'] ?></a></h1>
     <div class="carSelector">
         <ol>
             <li>Golf</li>

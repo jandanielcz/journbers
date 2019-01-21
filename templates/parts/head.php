@@ -20,5 +20,5 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css?family=Titillium+Web:400,400i,700|Delius+Unicase&amp;subset=latin-ext">
         <link rel="stylesheet" href="/static/all.css">
-        <title>Journbers</title>
+        <title><?= $vars['common.appName'] ?></title>
     </head>

@@ -179,7 +179,20 @@ class Trips extends Data
             'oldId' => $v['Id']
         ]);
 
+        // TODO: should be in transaction!!!
+
         return $newId;
 
+    }
+
+    public function removeTrip($id, $currentUser)
+    {
+        $s2 = $this->db()->prepare("
+            update trips set removed_on = now(), removed_by = :user where id = :id
+        ");
+        $s2->execute([
+            'id' => $id,
+            'user' => $currentUser
+        ]);
     }
 }

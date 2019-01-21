@@ -155,4 +155,28 @@ class Entry extends Controller
             $this->exit();
         }
     }
+
+    public function remove()
+    {
+        if (!$this->request()->user()->hasRole('driver')) {
+            $this->redirect('/login');
+            $this->exit();
+        }
+
+        $trips = new Trips($this->connectionParams());
+        $id = $this->request()->segment(1);
+
+        try {
+            $newId = $trips->removeTrip($id, $this->request()->user()->getId());
+            // TODO: Doesnt support multiple Cars
+            $this->redirect(sprintf('/'));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            // TODO: Doesnt support multiple Cars
+            $this->redirect(sprintf('/'));
+            $this->exit();
+        }
+    }
 }

@@ -556,6 +556,10 @@ nav {
 
     display: flex;
     justify-content: flex-end;
+
+    button {
+      margin-left: 4px;
+    }
   }
 
   .client {
@@ -597,7 +601,9 @@ nav {
   }
 
   .actions {
-
+    form {
+      display: inline;
+    }
   }
 }
 
@@ -617,6 +623,13 @@ button.inline {
     border-color: $faded_aqua;
     color: $neutral_aqua;
     box-shadow: $dark4 0px 0px 2px;
+  }
+
+  &.danger {
+    &:hover {
+      border-color: $faded_red;
+      color: $faded_red;
+    }
   }
 }
 
