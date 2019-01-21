@@ -13,4 +13,11 @@ class StringTool
         }, explode(' ', $fullName));
         return join('', $inicials);
     }
+
+    public static function durationToHtml($durationInMinutes)
+    {
+        $h = floor($durationInMinutes / 60);
+        $m = ($durationInMinutes % 60);
+        return sprintf('%s<span>H</span>%s<span>M</span>', $h, $m);
+    }
 }

@@ -43,7 +43,8 @@ class Page extends Controller
         $t = new Template('home');
         $t->display([
             'f' => new Flash(),
-            'trips' => $trips->loadTrips($this->request()->segment(0))
+            'trips' => $trips->loadTrips($this->request()->segment(0)),
+            'currentUser' => $this->request()->user()->getId()
         ]);
     }
 

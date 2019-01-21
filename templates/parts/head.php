@@ -18,7 +18,7 @@
         <meta name="theme-color" content="#282828">
 
         <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Share:400,400i,700,700i|Delius+Unicase&amp;subset=latin-ext">
+              href="https://fonts.googleapis.com/css?family=Titillium+Web:400,400i,700|Delius+Unicase&amp;subset=latin-ext">
         <link rel="stylesheet" href="/static/all.css">
         <title>Journbers</title>
     </head>

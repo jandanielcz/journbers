@@ -25,6 +25,27 @@ class Trips extends Data
             'car' => $car
         ]);
 
-        return $stmt->fetchAll();
+        return $this->processLoadTrips($stmt->fetchAll());
+    }
+
+    protected function processLoadTrips($rows)
+    {
+
+        for ($i = 0; $i < count($rows); $i++) {
+
+            foreach (['start_date', 'end_date'] as $k) {
+                $rows[$i][$k] = new \DateTimeImmutable($rows[$i][$k]);
+            }
+
+            foreach (['id', 'trip_length', 'start_odometer', 'end_odometer'] as $k) {
+                $rows[$i][$k] = intval($rows[$i][$k]);
+            }
+
+            foreach (['is_personal', 'and_back'] as $k) {
+                $rows[$i][$k] = ($rows[$i][$k] === '1');
+            }
+        }
+
+        return $rows;
     }
 }

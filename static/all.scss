@@ -3,7 +3,7 @@
 body {
   background-color: $dark0;
   color: $light1;
-  font-family: 'Share', cursive;
+  font-family: 'Titillium Web', sans-serif;
   font-size: 16pt;
   padding: 0;
   margin: 0;
@@ -47,7 +47,7 @@ header {
   {
     box-sizing: border-box;
     padding: 0.5rem 1rem;
-    font-family: 'Share', cursive;
+    font-family: 'Titillium Web', sans-serif;
     background-color: $light1;
     color: $dark0;
     border: 0;
@@ -68,7 +68,7 @@ header {
   input[type=submit] {
     box-sizing: border-box;
     margin-top: 6rem;
-    font-family: "Share", cursive;
+    font-family: 'Titillium Web', sans-serif;
     font-size: 16pt;
     border: 2px solid $light1;
     color: $light1;
@@ -194,7 +194,7 @@ nav {
     line-height: 80px;
     text-align: center;
     text-decoration: none;
-    font-size: 60px;
+    font-size: 1rem;
     width: 80px;
     height: 80px;
     border-radius: 40px;
@@ -264,7 +264,7 @@ nav {
   {
     box-sizing: border-box;
     padding: 0.5rem 1rem;
-    font-family: 'Share', cursive;
+    font-family: 'Titillium Web', sans-serif;
     background-color: $light1;
     color: $dark0;
     border: 2px solid $dark0;
@@ -285,8 +285,8 @@ nav {
   input[type=submit], button {
     width: 80px;
     box-sizing: border-box;
-    font-family: "Share", cursive;
-    font-size: 16pt;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 19px;
     border: 2px solid $dark0;
     color: $dark0;
     background-color: $light1;
@@ -318,7 +318,7 @@ nav {
 
   textarea {
     box-sizing: border-box;
-    font-family: "Share", cursive;
+    font-family: 'Titillium Web', sans-serif;
     font-size: 16pt;
     border: 2px solid $dark0;
     color: $dark0;
@@ -446,21 +446,171 @@ nav {
 }
 
 .trip {
-  .icon {
-    width: 80px; height: 80px;
-    border-radius: 40px;
-    display: inline-block;
-    line-height: 80px;
-    text-align: center;
-    font-family: 'Delius Unicase', cursive;
-    font-weight: bold;
+  max-width: 480px;
+  display: grid;
+  grid-template-columns: 64px auto 80px;
+  grid-gap:  8px 16px;
+  grid-template-rows: 48px 36px 24px auto 24px;
+  justify-items: stretch;
+  align-items: stretch;
+  padding: 8px;
+  box-sizing: border-box;
+  background: repeating-linear-gradient(45deg, $light0 0, $light1 2px, $light1 5px, $light0 6px);
+  margin-bottom: 8px;
 
-    &.light {
-      color: $dark0;
+  &.done {
+    background: $light0;
+  }
+
+  .icon {
+    grid-column: 1 / 1;
+    grid-row: 1 / 5;
+
+    width: 64px; height: 64px;
+    border-radius: 32px;
+    display: inline-block;
+    line-height: 64px - 12px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    border-width: 6px;
+    border-style: solid;
+    box-sizing: border-box;
+  }
+
+  &.mine .icon {
+    border-radius: 20px;
+  }
+
+  .times {
+    grid-column: 2 / 2;
+    grid-row: 1 / 1;
+
+    display: flex;
+
+    div {
+      text-align: center;
     }
 
-    &.dark {
-      color: $light1;
+    .toSign {
+      padding: 0.7rem 1rem;
+    }
+
+    div span {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .start {
+      font-weight: bold;
+    }
+
+  }
+
+  .places {
+    grid-column: 2 / 2;
+    grid-row: 2 / 2;
+
+    display: flex;
+
+    .toSign {
+      padding: 0 1rem;
+    }
+
+    .andBack {
+      padding: 0.3rem 1rem;
+    }
+
+    .target {
+      font-weight: bold;
     }
   }
+
+  .summary {
+    grid-column: 3 / 3;
+    grid-row: 1 / 4;
+
+    font-size: 1.8rem;
+    line-height: 36px;
+
+    text-align: center;
+
+    align-self: center;
+
+    span {
+      font-size: 1rem;
+      color: $dark2
+    }
+  }
+
+  .actions {
+    grid-column: 1 / 4;
+    grid-row: 5 / 5;
+
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .client {
+    grid-column: 2 / 2;
+    grid-row: 3 / 3;
+
+    font-size: 1rem;
+  }
+
+  .note {
+    grid-column: 2 / 2;
+    grid-row: 4 / 4;
+
+    font-size: 1rem;
+    font-style: italic;
+  }
+}
+
+.space {
+  max-width: 480px;
+  box-sizing: border-box;
+  background: repeating-linear-gradient(45deg, lighten($neutral_red, 32) 0, $light1 2px, $light1 5px, lighten($neutral_red, 32) 6px);
+  padding: 8px;
+  margin-bottom: 8px;
+
+  display: flex;
+  justify-items: flex-end;
+
+  > p {
+    margin: 0;
+    flex-grow: 2;
+    padding-left: 1rem;
+
+  }
+
+  .actions {
+
+  }
+}
+
+button.inline {
+  box-sizing: border-box;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 0.9rem;
+  border: 2px solid $dark0;
+  color: $dark0;
+  background-color: $light1;
+  padding: 0 0.6rem;
+  outline-color: $faded_aqua;
+  box-shadow: $dark4 1px 1px 3px;
+
+  &:focus,
+  &:hover {
+    border-color: $faded_aqua;
+    color: $neutral_aqua;
+    box-shadow: $dark4 0px 0px 2px;
+  }
+}
+
+span.unit {
+  font-size: 1rem;
+  color: $dark2;
+  text-transform: uppercase;
+
 }

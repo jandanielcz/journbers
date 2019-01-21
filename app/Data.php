@@ -14,6 +14,7 @@ class Data
     public function __construct($connectionParams)
     {
         $this->connectionParams = $connectionParams;
+        Debugger::barDump($connectionParams);
     }
 
     public static function constructConnectionString(Config $config)

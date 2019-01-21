@@ -52,3 +52,7 @@ CREATE TABLE trips (
 	FOREIGN KEY (`added_by`) REFERENCES users(id),
 	FOREIGN KEY (`removed_by`) REFERENCES users(id)
 );
+
+ALTER TABLE trips ADD (
+	note TEXT null
+);
