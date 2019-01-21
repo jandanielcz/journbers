@@ -9,6 +9,8 @@ return [
         ['post', '#^/add#', 'Entry::Add'],
         ['post', '#^/login#', 'User::Login'],
         ['get', '#^/$#', 'Page::Index'],
+        ['get', '#^/edit/([0-9]*)[/]{0,1}$#', 'Page::Edit'],
+        ['post', '#^/edit#', 'Entry::Edit'],
         ['get', '#^/([a-z]*)[/]{0,1}$#', 'Page::Trips']
     ],
     'envPrefix' => 'JOURNBERS_',

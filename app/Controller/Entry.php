@@ -15,6 +15,7 @@ class Entry extends Controller
 {
 
     private $addPayload = null;
+    private $editPayload = null;
 
     protected function sanitizeAddPayload()
     {
@@ -72,9 +73,15 @@ class Entry extends Controller
 
     }
 
+    public function sanitizeEditPayload()
+    {
+        $payload = $this->sanitizeAddPayload();
+        $payload['Id'] = intval($_POST['Id']);
+        return $payload;
+    }
+
     public function beforeAdd()
     {
-        // sanitize post data
         try {
             $this->addPayload = $this->sanitizeAddPayload();
             Debugger::dump($this->addPayload);
@@ -87,10 +94,6 @@ class Entry extends Controller
         }
 
 
-
-
-        // if any reason, redirect to /add with pre-fill payload
-        // request add payload
     }
 
     public function add()
@@ -100,13 +103,7 @@ class Entry extends Controller
             $this->exit();
         }
 
-        $trips = new Trips([
-            'host' => $this->config->get('DB_SERVER'),
-            'port' => $this->config->get('DB_PORT'),
-            'dbname' => $this->config->get('DB_NAME'),
-            'user' => $this->config->get('DB_USER'),
-            'password' => $this->config->get('DB_PASS')
-        ]);
+        $trips = new Trips($this->connectionParams());
 
         try {
             Debugger::barDump($this->addPayload);
@@ -118,6 +115,43 @@ class Entry extends Controller
             $f->error($e->getMessage());
             $f->addPayload('AddPrefill', $_POST);
             $this->redirect(sprintf('/%s/add', $this->addPayload['Car']));
+            $this->exit();
+        }
+    }
+
+    public function beforeEdit()
+    {
+        try {
+            $this->editPayload = $this->sanitizeEditPayload();
+        } catch (SanitizationException $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $f->addPayload('AddPrefill', $_POST);
+            $this->redirect(sprintf('/edit/%s', $this->editPayload['Id']));
+            $this->exit();
+        }
+
+    }
+
+    public function edit()
+    {
+        if (!$this->request()->user()->hasRole('driver')) {
+            $this->redirect('/login');
+            $this->exit();
+        }
+
+        $trips = new Trips($this->connectionParams());
+
+        try {
+            Debugger::barDump($this->editPayload);
+            $newId = $trips->editTrip($this->editPayload, $this->request()->user()->getId());
+            $this->redirect(sprintf('/%s/?highlight=%s', $this->editPayload['Car'], $newId));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $f->addPayload('AddPrefill', $_POST);
+            $this->redirect(sprintf('/edit/%s/', $this->editPayload['Id']));
             $this->exit();
         }
     }

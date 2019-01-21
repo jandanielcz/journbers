@@ -8,9 +8,20 @@
                 } ?>
             </ul>
             <section id="AddForm">
-                <form action="/add" method="post">
+                <?php
+                    $editing = false;
+                    if (isset($vars['prefill']['Id'])) {
+                        printf('<input type="hidden" name="Id" value="%s">', $vars['prefill']['Id']);
+                        $editing = true;
+                    }
+                ?>
+                <form action="<?= ($editing) ? '/edit' : '/add' ?>" method="post">
                     <input type="hidden" name="Car" value="<?php echo $vars['car'] ?>">
                     <input type="hidden" name="Driver" value="<?php echo $vars['driver'] ?>">
+                    <?php
+                    if ($editing) {
+                        printf('<input type="hidden" name="Id" value="%s">', $vars['prefill']['Id']);
+                    } ?>
                     <h3 class="addTripStart"><span>Trip start</span></h3>
                     <div class="row">
                         <label for="OdometerStart">Odometer</label>
@@ -95,7 +106,7 @@
                         <textarea name="Note" id="Note" cols="30" rows="4"><?php echo (isset($vars['prefill']) ? $vars['prefill']['Note'] : '') ?></textarea>
                     </div>
                     <div class="row button">
-                        <input type="submit" value="Save">
+                        <input type="submit" value="<?= ($editing) ? 'Modify' : 'Add new' ?>">
                     </div>
                 </form>
             </section>

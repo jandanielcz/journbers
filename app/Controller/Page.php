@@ -31,13 +31,7 @@ class Page extends Controller
             $this->exit();
         }
 
-        $trips = new Trips([
-            'host' => $this->config->get('DB_SERVER'),
-            'port' => $this->config->get('DB_PORT'),
-            'dbname' => $this->config->get('DB_NAME'),
-            'user' => $this->config->get('DB_USER'),
-            'password' => $this->config->get('DB_PASS')
-        ]);
+        $trips = new Trips($this->connectionParams());
 
 
         $t = new Template('home');
@@ -73,5 +67,57 @@ class Page extends Controller
             'prefill' => $f->getPayload('AddPrefill'),
             'driver' => $this->request()->user()->getId()
         ]);
+    }
+
+    public function edit()
+    {
+        if (!$this->request()->user()->hasRole('driver')) {
+            $this->redirect('/login');
+            $this->exit();
+        }
+
+        $trips = new Trips($this->connectionParams());
+        $trip = $trips->loadOneTrip($this->request()->segment(1));
+
+        $f = new Flash();
+
+        $payload = $this->tripToFormData($trip);
+
+        Debugger::barDump($trip);
+
+        $t = new Template('add');
+        $t->display([
+            'f' => $f,
+            'car' => $this->config()->get('hardcodedCar'),
+            'prefill' => $payload,
+            'driver' => $this->request()->user()->getId()
+        ]);
+    }
+
+    protected function tripToFormData($trip)
+    {
+        $o = [];
+
+        $o['Id'] = $trip['id'];
+        $o['Car'] = $trip['car'];
+        $o['Driver'] = $trip['driver'];
+
+        $o['OdometerStart'] = $trip['start_odometer'];
+        $o['PlaceStart'] = $trip['start_place'];
+        $o['TimeStart'] = $trip['start_date']->format('Y-m-d\TH:i');
+
+        $o['OdometerEnd'] = $trip['end_odometer'];
+        $o['PlaceEnd'] = $trip['end_place'];
+        $o['TimeEnd'] = $trip['end_date']->format('Y-m-d\TH:i');
+
+        $o['Client'] = $trip['target_client'];
+        $o['PlaceTarget'] = $trip['target_place'];
+
+        $o['Personal'] = ($trip['is_personal']) ? 1 : 0;
+        $o['AndBack'] = ($trip['and_back']) ? 1 : 0;
+
+        $o['Note'] = $trip['note'];
+
+        return $o;
     }
 }

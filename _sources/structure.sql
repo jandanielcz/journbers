@@ -56,3 +56,4 @@ CREATE TABLE trips (
 ALTER TABLE trips ADD (
 	note TEXT null
 );
+
