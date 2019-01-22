@@ -12,6 +12,7 @@ require_once 'vendor/autoload.php';
 // TODO: use ENV if needed
 $config = new Config();
 $config->require('config/default.array.php');
+$config->include('config/custom.array.php');
 
 /* boot and setup */
 Debugger::enable();
