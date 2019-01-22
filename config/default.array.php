@@ -1,8 +1,13 @@
 <?php
 
+/**
+ * This file can be overwritten by `custom.array.php`
+ */
+
 return [
     'routes' => [
         // order from most specific
+        // format [Method, Regex, Controller::Method]
         ['get', '#^/login#', 'Page::Login'],
         ['get', '#^/logout#', 'User::Logout'],
         ['get', '#^/([a-z]*)/add[/]{0,1}#', 'Page::Add'],
@@ -18,7 +23,10 @@ return [
         ['post', '#^/edit#', 'Entry::Edit'],
         ['get', '#^/([a-z]*)[/]{0,1}$#', 'Page::Trips']
     ],
+    // Prefix used for Env vars, in application VARS are used without prefix.
     'envPrefix' => 'JOURNBERS_',
+    // Used for now, because app should support only one car for now.
     'hardcodedCar' => 'golf',
+    // Shown in title and navigation.
     'appName' => 'Journbers'
 ];

@@ -4,8 +4,6 @@
 namespace Journbers;
 
 
-use Tracy\Debugger;
-
 class Session
 {
 
@@ -34,7 +32,6 @@ class Session
         if ($sessionAge > $sessionLifetime) {
             session_unset();
         }
-
     }
 
     public function store($key, $value)
@@ -57,5 +54,4 @@ class Session
     {
         unset($_SESSION[$key]);
     }
-
 }

@@ -6,8 +6,6 @@ use Tracy\Debugger;
 
 require_once 'vendor/autoload.php';
 
-
-
 /* load config */
 // TODO: use ENV if needed
 $config = new Config();
@@ -29,7 +27,7 @@ list($className, $method) = explode('::', $route[2]);
 $wantedController = sprintf('\\Journbers\\Controller\\%s', ucfirst(strtolower($className)));
 $wantedMethod     = strtolower($method);
 
-if ( ! class_exists($wantedController)) {
+if (!class_exists($wantedController)) {
     throw new \RuntimeException(sprintf('Controller %s not found.', $wantedController));
 }
 
@@ -38,7 +36,7 @@ $user = new User($session);
 $request->setUser($user);
 
 $controller = new $wantedController($config, $request);
-if ( ! method_exists($controller, $wantedMethod)) {
+if (!method_exists($controller, $wantedMethod)) {
     throw new \RuntimeException(sprintf('Method %s not found in %s.', $wantedMethod, $wantedController));
 }
 

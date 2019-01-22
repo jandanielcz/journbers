@@ -13,7 +13,7 @@ body.light {
 }
 
 #Wrapper {
-  padding: 0rem;
+  padding: 0;
 }
 #Wrapper section {
   padding: 1rem;
@@ -218,7 +218,7 @@ nav .tridots.open .submenu {
   font-size: 1rem;
   font-weight: normal;
   text-transform: uppercase;
-  letter-spacing: 0px;
+  letter-spacing: 0;
   color: #7c6f64;
 }
 #AddForm input[type=text],
@@ -260,7 +260,7 @@ nav .tridots.open .submenu {
 #AddForm input[type=submit]:focus, #AddForm input[type=submit]:hover, #AddForm button:focus, #AddForm button:hover {
   border-color: #427b58;
   color: #689d6a;
-  box-shadow: #7c6f64 0px 0px 2px;
+  box-shadow: #7c6f64 0 0 2px;
 }
 #AddForm label, #AddForm input[type=text],
 #AddForm input[type=number],
@@ -513,7 +513,7 @@ button.inline {
 button.inline:focus, button.inline:hover {
   border-color: #427b58;
   color: #689d6a;
-  box-shadow: #7c6f64 0px 0px 2px;
+  box-shadow: #7c6f64 0 0 2px;
 }
 button.inline.danger:hover {
   border-color: #9d0006;

@@ -18,11 +18,11 @@ use Journbers\Tool\StringTool;
                 <?php \Tracy\Debugger::barDump($vars['trips']); ?>
                 <?php
 
-                    $nextTripStart = null;
-                    $nextTripStartTime = null;
-                    $nextTripId = null;
+                $nextTripStart = null;
+                $nextTripStartTime = null;
+                $nextTripId = null;
 
-                    foreach ($vars['trips'] as $trip) {
+                foreach ($vars['trips'] as $trip) {
                     $iconBg = ColorTool::stringToColor($trip['driver_name']);
 
                     $classes = ['trip'];
@@ -37,8 +37,7 @@ use Journbers\Tool\StringTool;
                     if ($trip['is_personal']) {
                         $classes[] = 'personal';
                     }
-
-                ?>
+                    ?>
 
                     <?php
                     if ($nextTripStart !== null && $nextTripStart !== $trip['end_odometer']) {
@@ -67,7 +66,6 @@ use Journbers\Tool\StringTool;
                             </div>
                         <?php
                     }
-
                     ?>
 
                     <div class="<?= join(' ', $classes) ?>" data-id="<?= $trip['id'] ?>">
@@ -96,30 +94,29 @@ use Journbers\Tool\StringTool;
                                 <?= $trip['start_place'] ?>
                             </div>
                             <?php
-                                if ($trip['target_place']) {
-                            ?>
+                            if ($trip['target_place']) {
+                                ?>
                                     <div class="toSign">&rarr;</div>
                                     <div class="target">
                                         <?= $trip['target_place'] ?>
                                     </div>
-                            <?php
-                                }
+                                <?php
+                            }
                             ?>
 
                             <?php
-                                if ($trip['and_back']) {
-                                    echo '<div class="andBack">&larrhk;</div>';
-                                } else {
-                                    echo '<div class="toSign">&rarr;</div>';
-                                    printf('<div class="end">%s</div>', $trip['end_place']);
-                                }
+                            if ($trip['and_back']) {
+                                echo '<div class="andBack">&larrhk;</div>';
+                            } else {
+                                echo '<div class="toSign">&rarr;</div>';
+                                printf('<div class="end">%s</div>', $trip['end_place']);
+                            }
                             ?>
                         </div>
                         <?php
                         if ($trip['is_personal']) {
-                           ?>
+                            ?>
                                 <div class="client personal">
-
                                 </div>
                             <?php
                         } else {
@@ -150,11 +147,11 @@ use Journbers\Tool\StringTool;
 
 
 
-                <?php
-                        $nextTripStart = $trip['start_odometer'];
-                        $nextTripStartTime = $trip['start_date'];
-                        $nextTripId = $trip['id'];
-                    }
+                    <?php
+                    $nextTripStart = $trip['start_odometer'];
+                    $nextTripStartTime = $trip['start_date'];
+                    $nextTripId = $trip['id'];
+                }
                 ?>
             </section>
         </div>

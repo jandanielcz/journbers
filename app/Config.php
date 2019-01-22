@@ -4,8 +4,6 @@
 namespace Journbers;
 
 
-use Tracy\Debugger;
-
 class Config
 {
     const NOT_SET = 'd49242df-b373-4b8f-addb-3b98dee0ef2b';
@@ -14,7 +12,7 @@ class Config
 
     public function require($filePath)
     {
-        if ( ! file_exists($filePath)) {
+        if (!file_exists($filePath)) {
             throw new \RuntimeException(sprintf('Required config file %s not found.', $filePath));
         }
 

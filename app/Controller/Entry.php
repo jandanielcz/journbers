@@ -7,7 +7,6 @@ namespace Journbers\Controller;
 use Journbers\Controller;
 use Journbers\Data\Trips;
 use Journbers\Flash;
-use Journbers\Template;
 use Tracy\Debugger;
 use Journbers\Controller\Exception\SanitizationException;
 
@@ -70,13 +69,13 @@ class Entry extends Controller
         $payload['Note'] = ($_POST['Note'] == '') ? null : $_POST['Note'];
 
         return $payload;
-
     }
 
     public function sanitizeEditPayload()
     {
         $payload = $this->sanitizeAddPayload();
         $payload['Id'] = intval($_POST['Id']);
+
         return $payload;
     }
 
@@ -84,7 +83,6 @@ class Entry extends Controller
     {
         try {
             $this->addPayload = $this->sanitizeAddPayload();
-            Debugger::dump($this->addPayload);
         } catch (SanitizationException $e) {
             $f = new Flash();
             $f->error($e->getMessage());
@@ -92,8 +90,6 @@ class Entry extends Controller
             $this->redirect(sprintf('/%s/add', $this->addPayload['Car']));
             $this->exit();
         }
-
-
     }
 
     public function add()
@@ -106,7 +102,6 @@ class Entry extends Controller
         $trips = new Trips($this->connectionParams());
 
         try {
-            Debugger::barDump($this->addPayload);
             $newId = $trips->addTrip($this->addPayload, $this->request()->user()->getId());
             $this->redirect(sprintf('/%s/?highlight=%s', $this->addPayload['Car'], $newId));
             $this->exit();
@@ -130,7 +125,6 @@ class Entry extends Controller
             $this->redirect(sprintf('/edit/%s', $this->editPayload['Id']));
             $this->exit();
         }
-
     }
 
     public function edit()
@@ -167,7 +161,7 @@ class Entry extends Controller
         $id = $this->request()->segment(1);
 
         try {
-            $newId = $trips->removeTrip($id, $this->request()->user()->getId());
+            $trips->removeTrip($id, $this->request()->user()->getId());
             // TODO: Doesnt support multiple Cars
             $this->redirect(sprintf('/'));
             $this->exit();
@@ -190,7 +184,11 @@ class Entry extends Controller
         $trips = new Trips($this->connectionParams());
         // TODO: Sanitization?
         try {
-            $newId = $trips->changeStartOdometer(intval($_POST['TripId']), intval($_POST['SpaceStart']), $this->request()->user()->getId());
+            $newId = $trips->changeStartOdometer(
+                intval($_POST['TripId']),
+                intval($_POST['SpaceStart']),
+                $this->request()->user()->getId()
+            );
             $this->redirect(sprintf('/%s/?highlight=%s', $this->config()->get('hardcodedCar'), $newId));
             $this->exit();
         } catch (\Exception $e) {
@@ -199,7 +197,6 @@ class Entry extends Controller
             $this->redirect(sprintf('/%s/', $this->config()->get('hardcodedCar')));
             $this->exit();
         }
-
     }
 
     public function spaceToEnd()
@@ -212,7 +209,11 @@ class Entry extends Controller
         $trips = new Trips($this->connectionParams());
         // TODO: Sanitization?
         try {
-            $newId = $trips->changeEndOdometer(intval($_POST['TripId']), intval($_POST['SpaceEnd']), $this->request()->user()->getId());
+            $newId = $trips->changeEndOdometer(
+                intval($_POST['TripId']),
+                intval($_POST['SpaceEnd']),
+                $this->request()->user()->getId()
+            );
             $this->redirect(sprintf('/%s/?highlight=%s', $this->config()->get('hardcodedCar'), $newId));
             $this->exit();
         } catch (\Exception $e) {
@@ -221,7 +222,5 @@ class Entry extends Controller
             $this->redirect(sprintf('/%s/', $this->config()->get('hardcodedCar')));
             $this->exit();
         }
-
     }
-
 }

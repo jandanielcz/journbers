@@ -42,7 +42,9 @@ class Flash
 
     public function getPayload($key)
     {
-        $out = (isset($_SESSION[self::PAYLOAD_KEY]) && isset($_SESSION[self::PAYLOAD_KEY][$key])) ? $_SESSION[self::PAYLOAD_KEY][$key] : null;
+        $out = (isset($_SESSION[self::PAYLOAD_KEY]) && isset($_SESSION[self::PAYLOAD_KEY][$key]))
+            ? $_SESSION[self::PAYLOAD_KEY][$key]
+            : null;
         unset($_SESSION[self::PAYLOAD_KEY][$key]);
         return ($out == null) ? null : unserialize($out);
     }
