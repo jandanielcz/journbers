@@ -5,6 +5,7 @@ namespace Journbers\Controller;
 
 
 use Journbers\Controller;
+use Journbers\Data\Trips;
 use Journbers\Flash;
 use Journbers\Template;
 use Tracy\Debugger;
@@ -12,6 +13,9 @@ use Journbers\Controller\Exception\SanitizationException;
 
 class Entry extends Controller
 {
+
+    private $addPayload = null;
+    private $editPayload = null;
 
     protected function sanitizeAddPayload()
     {
@@ -40,6 +44,7 @@ class Entry extends Controller
         }
 
         $payload['PlaceStart'] = $_POST['PlaceStart'];
+        $payload['Driver'] = $_POST['Driver'];
         $payload['Personal'] = ($_POST['Personal'] == '1');
         $payload['Client'] = ($_POST['Client'] == '') ? null : $_POST['Client'];
         $payload['PlaceTarget'] = ($_POST['PlaceTarget'] == '') ? null : $_POST['PlaceTarget'];
@@ -68,32 +73,155 @@ class Entry extends Controller
 
     }
 
+    public function sanitizeEditPayload()
+    {
+        $payload = $this->sanitizeAddPayload();
+        $payload['Id'] = intval($_POST['Id']);
+        return $payload;
+    }
+
     public function beforeAdd()
     {
-        Debugger::dump($_POST);
-
-        // sanitize post data
         try {
-            $addPayload = $this->sanitizeAddPayload();
-            Debugger::dump($addPayload);
+            $this->addPayload = $this->sanitizeAddPayload();
+            Debugger::dump($this->addPayload);
         } catch (SanitizationException $e) {
             $f = new Flash();
             $f->error($e->getMessage());
             $f->addPayload('AddPrefill', $_POST);
-            $this->redirect('/add');
+            $this->redirect(sprintf('/%s/add', $this->addPayload['Car']));
+            $this->exit();
         }
 
 
-
-
-        // if any reason, redirect to /add with pre-fill payload
-        // request add payload
     }
 
     public function add()
     {
-        // TODO: add role requirement
+        if (!$this->request()->user()->hasRole('driver')) {
+            $this->redirect('/login');
+            $this->exit();
+        }
 
-        Debugger::dump($this->request());
+        $trips = new Trips($this->connectionParams());
+
+        try {
+            Debugger::barDump($this->addPayload);
+            $newId = $trips->addTrip($this->addPayload, $this->request()->user()->getId());
+            $this->redirect(sprintf('/%s/?highlight=%s', $this->addPayload['Car'], $newId));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $f->addPayload('AddPrefill', $_POST);
+            $this->redirect(sprintf('/%s/add', $this->addPayload['Car']));
+            $this->exit();
+        }
     }
+
+    public function beforeEdit()
+    {
+        try {
+            $this->editPayload = $this->sanitizeEditPayload();
+        } catch (SanitizationException $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $f->addPayload('AddPrefill', $_POST);
+            $this->redirect(sprintf('/edit/%s', $this->editPayload['Id']));
+            $this->exit();
+        }
+
+    }
+
+    public function edit()
+    {
+        if (!$this->request()->user()->hasRole('driver')) {
+            $this->redirect('/login');
+            $this->exit();
+        }
+
+        $trips = new Trips($this->connectionParams());
+
+        try {
+            Debugger::barDump($this->editPayload);
+            $newId = $trips->editTrip($this->editPayload, $this->request()->user()->getId());
+            $this->redirect(sprintf('/%s/?highlight=%s', $this->editPayload['Car'], $newId));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $f->addPayload('AddPrefill', $_POST);
+            $this->redirect(sprintf('/edit/%s/', $this->editPayload['Id']));
+            $this->exit();
+        }
+    }
+
+    public function remove()
+    {
+        if (!$this->request()->user()->hasRole('driver')) {
+            $this->redirect('/login');
+            $this->exit();
+        }
+
+        $trips = new Trips($this->connectionParams());
+        $id = $this->request()->segment(1);
+
+        try {
+            $newId = $trips->removeTrip($id, $this->request()->user()->getId());
+            // TODO: Doesnt support multiple Cars
+            $this->redirect(sprintf('/'));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            // TODO: Doesnt support multiple Cars
+            $this->redirect(sprintf('/'));
+            $this->exit();
+        }
+    }
+
+    public function spaceToStart()
+    {
+        if (!$this->request()->user()->hasRole('driver')) {
+            $this->redirect('/login');
+            $this->exit();
+        }
+
+        $trips = new Trips($this->connectionParams());
+        // TODO: Sanitization?
+        try {
+            $newId = $trips->changeStartOdometer(intval($_POST['TripId']), intval($_POST['SpaceStart']), $this->request()->user()->getId());
+            $this->redirect(sprintf('/%s/?highlight=%s', $this->config()->get('hardcodedCar'), $newId));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $this->redirect(sprintf('/%s/', $this->config()->get('hardcodedCar')));
+            $this->exit();
+        }
+
+    }
+
+    public function spaceToEnd()
+    {
+        if (!$this->request()->user()->hasRole('driver')) {
+            $this->redirect('/login');
+            $this->exit();
+        }
+
+        $trips = new Trips($this->connectionParams());
+        // TODO: Sanitization?
+        try {
+            $newId = $trips->changeEndOdometer(intval($_POST['TripId']), intval($_POST['SpaceEnd']), $this->request()->user()->getId());
+            $this->redirect(sprintf('/%s/?highlight=%s', $this->config()->get('hardcodedCar'), $newId));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $this->redirect(sprintf('/%s/', $this->config()->get('hardcodedCar')));
+            $this->exit();
+        }
+
+    }
+
 }

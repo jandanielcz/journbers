@@ -31,8 +31,35 @@ class Controller
         header(sprintf('Location: %s', $path), true, 301);
     }
 
+    protected function connectionParams()
+    {
+        return [
+            'host' => $this->config->get('DB_SERVER'),
+            'port' => $this->config->get('DB_PORT'),
+            'dbname' => $this->config->get('DB_NAME'),
+            'user' => $this->config->get('DB_USER'),
+            'password' => $this->config->get('DB_PASS')
+        ];
+    }
+
     protected function exit()
     {
         exit;
     }
+
+    protected function commonTemplateVars()
+    {
+        return [
+            'common.appName' => $this->config()->get('appName', 'Journbers')
+        ];
+    }
+
+    protected function template($name)
+    {
+        $t = new Template($name);
+        $t->vars($this->commonTemplateVars());
+
+        return $t;
+    }
+
 }

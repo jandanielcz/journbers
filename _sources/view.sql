@@ -23,7 +23,10 @@ select
   trips.is_personal,
   trips.and_back,
   
-  if(trips.end_odometer is not null, end_odometer - trips.start_odometer, null) as trip_length
+  trips.note,
+  
+  if(trips.end_odometer is not null, trips.end_odometer - trips.start_odometer, null) as trip_length,
+  if(trips.end_date IS NOT NULL, TIMESTAMPDIFF(MINUTE, trips.start_date, trips.end_date), null) AS trip_duration
   
 from trips 
 join

@@ -5,11 +5,20 @@ return [
         // order from most specific
         ['get', '#^/login#', 'Page::Login'],
         ['get', '#^/logout#', 'User::Logout'],
-        ['get', '#^/add#', 'Page::Add'],
+        ['get', '#^/([a-z]*)/add[/]{0,1}#', 'Page::Add'],
         ['post', '#^/add#', 'Entry::Add'],
         ['post', '#^/login#', 'User::Login'],
-        ['get', '#^/$#', 'Page::Index']
+        ['post', '#^/fill-space#', 'Page::FillSpace'],
+        ['post', '#^/space-to-start#', 'Entry::SpaceToStart'],
+        ['post', '#^/space-to-end#', 'Entry::SpaceToEnd'],
+        ['post', '#^/fill-space#', 'Page::FillSpace'],
+        ['get', '#^/$#', 'Page::Index'],
+        ['get', '#^/edit/([0-9]*)[/]{0,1}$#', 'Page::Edit'],
+        ['get', '#^/remove/([0-9]*)[/]{0,1}$#', 'Entry::Remove'],
+        ['post', '#^/edit#', 'Entry::Edit'],
+        ['get', '#^/([a-z]*)[/]{0,1}$#', 'Page::Trips']
     ],
     'envPrefix' => 'JOURNBERS_',
-    'hardcodedCar' => 'golf'
+    'hardcodedCar' => 'golf',
+    'appName' => 'BLB'
 ];

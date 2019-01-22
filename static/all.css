@@ -2,7 +2,7 @@
 body {
   background-color: #282828;
   color: #ebdbb2;
-  font-family: "Share", cursive;
+  font-family: "Titillium Web", sans-serif;
   font-size: 16pt;
   padding: 0;
   margin: 0;
@@ -43,7 +43,7 @@ header h1 {
 #Login input[type=password] {
   box-sizing: border-box;
   padding: 0.5rem 1rem;
-  font-family: "Share", cursive;
+  font-family: "Titillium Web", sans-serif;
   background-color: #ebdbb2;
   color: #282828;
   border: 0;
@@ -63,7 +63,7 @@ header h1 {
 #Login input[type=submit] {
   box-sizing: border-box;
   margin-top: 6rem;
-  font-family: "Share", cursive;
+  font-family: "Titillium Web", sans-serif;
   font-size: 16pt;
   border: 2px solid #ebdbb2;
   color: #ebdbb2;
@@ -112,6 +112,17 @@ nav h1 > a {
   color: #b16286;
   text-decoration: underline;
 }
+nav .carSelector {
+  line-height: 100px;
+  color: #fbf1c7;
+  margin-left: 0;
+  font-size: 1.5em;
+}
+nav .carSelector ol {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
 nav > div {
   margin-left: 4rem;
   flex-grow: 100;
@@ -157,7 +168,7 @@ nav .tridots.open .submenu {
   line-height: 80px;
   text-align: center;
   text-decoration: none;
-  font-size: 60px;
+  font-size: 1rem;
   width: 80px;
   height: 80px;
   border-radius: 40px;
@@ -216,7 +227,7 @@ nav .tridots.open .submenu {
 #AddForm input[type=datetime-local] {
   box-sizing: border-box;
   padding: 0.5rem 1rem;
-  font-family: "Share", cursive;
+  font-family: "Titillium Web", sans-serif;
   background-color: #ebdbb2;
   color: #282828;
   border: 2px solid #282828;
@@ -236,10 +247,9 @@ nav .tridots.open .submenu {
   background-color: #83a598;
 }
 #AddForm input[type=submit], #AddForm button {
-  width: 80px;
   box-sizing: border-box;
-  font-family: "Share", cursive;
-  font-size: 16pt;
+  font-family: "Titillium Web", sans-serif;
+  font-size: 19px;
   border: 2px solid #282828;
   color: #282828;
   background-color: #ebdbb2;
@@ -263,7 +273,7 @@ nav .tridots.open .submenu {
 }
 #AddForm textarea {
   box-sizing: border-box;
-  font-family: "Share", cursive;
+  font-family: "Titillium Web", sans-serif;
   font-size: 16pt;
   border: 2px solid #282828;
   color: #282828;
@@ -360,6 +370,160 @@ nav .tridots.open .submenu {
   margin-right: 8px;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
+}
+
+.trip {
+  max-width: 480px;
+  display: grid;
+  grid-template-columns: 64px auto 80px;
+  grid-gap: 8px 16px;
+  grid-template-rows: 48px 36px 24px auto 24px;
+  justify-items: stretch;
+  align-items: stretch;
+  padding: 8px;
+  box-sizing: border-box;
+  background: repeating-linear-gradient(45deg, #fbf1c7 0, #ebdbb2 2px, #ebdbb2 5px, #fbf1c7 6px);
+  margin-bottom: 8px;
+}
+.trip.done {
+  background: #fbf1c7;
+}
+.trip.personal {
+  background: #faefbd;
+}
+.trip.highlighted {
+  border: 1px solid #8ec07c;
+}
+.trip .icon {
+  grid-column: 1/1;
+  grid-row: 1/5;
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  display: inline-block;
+  line-height: 52px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 24px;
+  border-width: 6px;
+  border-style: solid;
+  box-sizing: border-box;
+}
+.trip.mine .icon {
+  border-radius: 20px;
+}
+.trip .times {
+  grid-column: 2/2;
+  grid-row: 1/1;
+  display: flex;
+}
+.trip .times div {
+  text-align: center;
+}
+.trip .times .toSign {
+  padding: 0.7rem 1rem;
+}
+.trip .times div span {
+  display: block;
+  font-size: 1rem;
+}
+.trip .times .start {
+  font-weight: bold;
+}
+.trip .places {
+  grid-column: 2/2;
+  grid-row: 2/2;
+  display: flex;
+}
+.trip .places .toSign {
+  padding: 0 0.2rem;
+}
+.trip .places .andBack {
+  padding: 0.3rem 1rem;
+}
+.trip .places .target {
+  font-weight: bold;
+}
+.trip .summary {
+  grid-column: 3/3;
+  grid-row: 1/4;
+  font-size: 1.8rem;
+  line-height: 36px;
+  text-align: center;
+  align-self: center;
+}
+.trip .summary span {
+  font-size: 1rem;
+  color: #504945;
+}
+.trip .actions {
+  grid-column: 1/4;
+  grid-row: 5/5;
+  display: flex;
+  justify-content: flex-end;
+}
+.trip .actions button {
+  margin-left: 4px;
+}
+.trip .client {
+  grid-column: 2/2;
+  grid-row: 3/3;
+  font-size: 1rem;
+}
+.trip .client.personal {
+  padding-left: 1rem;
+  font-style: italic;
+}
+.trip .note {
+  grid-column: 2/2;
+  grid-row: 4/4;
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.space {
+  max-width: 480px;
+  box-sizing: border-box;
+  background: repeating-linear-gradient(45deg, #f19f9b 0, #ebdbb2 2px, #ebdbb2 5px, #f19f9b 6px);
+  padding: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-items: flex-end;
+}
+.space > p {
+  margin: 0;
+  flex-grow: 2;
+  padding-left: 1rem;
+}
+.space .actions form {
+  display: inline;
+}
+
+button.inline {
+  box-sizing: border-box;
+  font-family: "Titillium Web", sans-serif;
+  font-size: 0.9rem;
+  border: 2px solid #282828;
+  color: #282828;
+  background-color: #ebdbb2;
+  padding: 0 0.6rem;
+  outline-color: #427b58;
+  box-shadow: #7c6f64 1px 1px 3px;
+}
+button.inline:focus, button.inline:hover {
+  border-color: #427b58;
+  color: #689d6a;
+  box-shadow: #7c6f64 0px 0px 2px;
+}
+button.inline.danger:hover {
+  border-color: #9d0006;
+  color: #9d0006;
+}
+
+span.unit {
+  font-size: 1rem;
+  color: #504945;
+  text-transform: uppercase;
 }
 
 /*# sourceMappingURL=all.css.map */
