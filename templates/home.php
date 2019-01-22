@@ -4,6 +4,7 @@ include 'parts/head.php';
 
 use Journbers\Tool\ColorTool;
 use Journbers\Tool\StringTool;
+use Parsedown;
 
 ?>
     <body class="light">
@@ -17,6 +18,8 @@ use Journbers\Tool\StringTool;
             <section id="Entries">
                 <?php \Tracy\Debugger::barDump($vars['trips']); ?>
                 <?php
+
+                $p = new Parsedown();
 
                 $nextTripStart = null;
                 $nextTripStartTime = null;
@@ -129,7 +132,7 @@ use Journbers\Tool\StringTool;
                         ?>
 
                         <div class="note">
-                            <?= $trip['note'] ?>
+                            <?= $p->text($trip['note']) ?>
                         </div>
                         <div class="summary">
                             <div class="km" title="Odometer: <?= $trip['start_odometer'] ?> - <?= $trip['end_odometer'] ?>">
