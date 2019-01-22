@@ -579,7 +579,10 @@ nav {
     grid-row: 4 / 4;
 
     font-size: 1rem;
-    font-style: italic;
+
+    p {
+      margin: 0;
+    }
   }
 }
 
