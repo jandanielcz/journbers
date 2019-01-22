@@ -202,4 +202,26 @@ class Entry extends Controller
 
     }
 
+    public function spaceToEnd()
+    {
+        if (!$this->request()->user()->hasRole('driver')) {
+            $this->redirect('/login');
+            $this->exit();
+        }
+
+        $trips = new Trips($this->connectionParams());
+        // TODO: Sanitization?
+        try {
+            $newId = $trips->changeEndOdometer(intval($_POST['TripId']), intval($_POST['SpaceEnd']), $this->request()->user()->getId());
+            $this->redirect(sprintf('/%s/?highlight=%s', $this->config()->get('hardcodedCar'), $newId));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $this->redirect(sprintf('/%s/', $this->config()->get('hardcodedCar')));
+            $this->exit();
+        }
+
+    }
+
 }

@@ -109,7 +109,7 @@ class Trips extends Data
             'targetPlace' => $v['PlaceTarget'],
             'endOdometer' => $v['OdometerEnd'],
             'endPlace' => $v['PlaceEnd'],
-            'endDate' => $v['TimeEnd']->format('Y-m-d H:i:s'),
+            'endDate' => ($v['TimeEnd']) ? $v['TimeEnd']->format('Y-m-d H:i:s') : null,
             'isPersonal' => ($v['Personal']) ? 1 : 0,
             'andBack' => ($v['AndBack']) ? 1 : 0,
             'note' => $v['Note'],
@@ -217,6 +217,46 @@ class Trips extends Data
 
         $stmt->execute([
             'startOdometer' => $odometerStart,
+            'id' => $id,
+            'user' => $currentUser
+        ]);
+
+        $newId = $this->db()->lastInsertId();
+
+        $s2 = $this->db()->prepare("
+            update trips set overwriten_by = :newId where id = :oldId
+        ");
+        $s2->execute([
+            'newId' => $newId,
+            'oldId' => $id
+        ]);
+
+        // TODO: should be in transaction!!!
+
+        return $newId;
+    }
+
+    public function changeEndOdometer($id, $odometerEnd, $currentUser)
+    {
+        $stmt = $this->db()->prepare("
+        INSERT INTO trips (
+            car, driver, added_by, added_on, 
+            start_odometer, start_place, start_date,
+            target_client, target_place,
+            end_odometer, end_place, end_date,
+            is_personal, and_back, note
+        ) SELECT
+           car, driver, :user, NOW(),
+           start_odometer, start_place, start_date,
+           target_client, target_place,
+           :endOdometer, end_place, end_date,
+            is_personal, and_back, note
+            FROM trips
+            WHERE id = :id;
+        ");
+
+        $stmt->execute([
+            'endOdometer' => $odometerEnd,
             'id' => $id,
             'user' => $currentUser
         ]);
