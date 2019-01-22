@@ -42,24 +42,25 @@ class Trips extends Data
         ]);
 
         $tempArray = $this->processLoadTrips($stmt->fetchAll());
+
         return $tempArray[0];
     }
 
     protected function processLoadTrips($rows)
     {
 
-        for ($i = 0; $i < count($rows); $i++) {
+        for ($i = 0; $i < count($rows); $i ++) {
 
-            foreach (['start_date', 'end_date'] as $k) {
+            foreach ([ 'start_date', 'end_date' ] as $k) {
                 $rows[$i][$k] = new \DateTimeImmutable($rows[$i][$k]);
             }
 
-            foreach (['id', 'trip_length', 'start_odometer', 'end_odometer'] as $k) {
+            foreach ([ 'id', 'trip_length', 'start_odometer', 'end_odometer' ] as $k) {
                 $rows[$i][$k] = intval($rows[$i][$k]);
             }
 
-            foreach (['is_personal', 'and_back'] as $k) {
-                $rows[$i][$k] = ($rows[$i][$k] === '1');
+            foreach ([ 'is_personal', 'and_back' ] as $k) {
+                $rows[$i][$k] = ( $rows[$i][$k] === '1' );
             }
         }
 
@@ -99,20 +100,20 @@ class Trips extends Data
         ");
 
         $stmt->execute([
-            'car' => $v['Car'],
-            'driver' => $v['Driver'],
-            'currentUser' => $currentUser,
+            'car'           => $v['Car'],
+            'driver'        => $v['Driver'],
+            'currentUser'   => $currentUser,
             'startOdometer' => $v['OdometerStart'],
-            'startPlace' => $v['PlaceStart'],
-            'startDate' => $v['TimeStart']->format('Y-m-d H:i:s'),
-            'targetClient' => $v['Client'],
-            'targetPlace' => $v['PlaceTarget'],
-            'endOdometer' => $v['OdometerEnd'],
-            'endPlace' => $v['PlaceEnd'],
-            'endDate' => ($v['TimeEnd']) ? $v['TimeEnd']->format('Y-m-d H:i:s') : null,
-            'isPersonal' => ($v['Personal']) ? 1 : 0,
-            'andBack' => ($v['AndBack']) ? 1 : 0,
-            'note' => $v['Note'],
+            'startPlace'    => $v['PlaceStart'],
+            'startDate'     => $v['TimeStart']->format('Y-m-d H:i:s'),
+            'targetClient'  => $v['Client'],
+            'targetPlace'   => $v['PlaceTarget'],
+            'endOdometer'   => $v['OdometerEnd'],
+            'endPlace'      => $v['PlaceEnd'],
+            'endDate'       => ( $v['TimeEnd'] ) ? $v['TimeEnd']->format('Y-m-d H:i:s') : null,
+            'isPersonal'    => ( $v['Personal'] ) ? 1 : 0,
+            'andBack'       => ( $v['AndBack'] ) ? 1 : 0,
+            'note'          => $v['Note'],
         ]);
 
 
@@ -121,7 +122,10 @@ class Trips extends Data
 
     public function editTrip($v, $currentUser)
     {
-        $stmt = $this->db()->prepare("
+        try {
+            $this->db()->beginTransaction();
+
+            $stmt = $this->db()->prepare("
             insert into trips values (
                 null,                 -- id
                 null,                 -- overwriten by
@@ -148,40 +152,44 @@ class Trips extends Data
                 :isPersonal,                -- is personal
                 :andBack,                  -- and back
                 :note
-            )
-        ");
+              )
+            ");
 
-        $stmt->execute([
-            'car' => $v['Car'],
-            'driver' => $v['Driver'],
-            'currentUser' => $currentUser,
-            'startOdometer' => $v['OdometerStart'],
-            'startPlace' => $v['PlaceStart'],
-            'startDate' => $v['TimeStart']->format('Y-m-d H:i:s'),
-            'targetClient' => $v['Client'],
-            'targetPlace' => $v['PlaceTarget'],
-            'endOdometer' => $v['OdometerEnd'],
-            'endPlace' => $v['PlaceEnd'],
-            'endDate' => $v['TimeEnd']->format('Y-m-d H:i:s'),
-            'isPersonal' => ($v['Personal']) ? 1 : 0,
-            'andBack' => ($v['AndBack']) ? 1 : 0,
-            'note' => $v['Note'],
-        ]);
+            $stmt->execute([
+                'car'           => $v['Car'],
+                'driver'        => $v['Driver'],
+                'currentUser'   => $currentUser,
+                'startOdometer' => $v['OdometerStart'],
+                'startPlace'    => $v['PlaceStart'],
+                'startDate'     => $v['TimeStart']->format('Y-m-d H:i:s'),
+                'targetClient'  => $v['Client'],
+                'targetPlace'   => $v['PlaceTarget'],
+                'endOdometer'   => $v['OdometerEnd'],
+                'endPlace'      => $v['PlaceEnd'],
+                'endDate'       => $v['TimeEnd']->format('Y-m-d H:i:s'),
+                'isPersonal'    => ( $v['Personal'] ) ? 1 : 0,
+                'andBack'       => ( $v['AndBack'] ) ? 1 : 0,
+                'note'          => $v['Note'],
+            ]);
 
+            $newId = $this->db()->lastInsertId();
 
-        $newId = $this->db()->lastInsertId();
-
-        $s2 = $this->db()->prepare("
+            $s2 = $this->db()->prepare("
             update trips set overwriten_by = :newId where id = :oldId
         ");
-        $s2->execute([
-            'newId' => $newId,
-            'oldId' => $v['Id']
-        ]);
+            $s2->execute([
+                'newId' => $newId,
+                'oldId' => $v['Id']
+            ]);
 
-        // TODO: should be in transaction!!!
+            $this->db()->commit();
 
-        return $newId;
+            return $newId;
+
+        } catch ( \Exception $e ) {
+            $this->db()->rollBack();
+            throw $e;
+        }
 
     }
 
@@ -191,14 +199,17 @@ class Trips extends Data
             update trips set removed_on = now(), removed_by = :user where id = :id
         ");
         $s2->execute([
-            'id' => $id,
+            'id'   => $id,
             'user' => $currentUser
         ]);
     }
 
     public function changeStartOdometer($id, $odometerStart, $currentUser)
     {
-        $stmt = $this->db()->prepare("
+        try {
+            $this->db()->beginTransaction();
+
+            $stmt = $this->db()->prepare("
         INSERT INTO trips (
             car, driver, added_by, added_on, 
             start_odometer, start_place, start_date,
@@ -215,30 +226,40 @@ class Trips extends Data
             WHERE id = :id;
         ");
 
-        $stmt->execute([
-            'startOdometer' => $odometerStart,
-            'id' => $id,
-            'user' => $currentUser
-        ]);
+            $stmt->execute([
+                'startOdometer' => $odometerStart,
+                'id'            => $id,
+                'user'          => $currentUser
+            ]);
 
-        $newId = $this->db()->lastInsertId();
+            $newId = $this->db()->lastInsertId();
 
-        $s2 = $this->db()->prepare("
+            $s2 = $this->db()->prepare("
             update trips set overwriten_by = :newId where id = :oldId
         ");
-        $s2->execute([
-            'newId' => $newId,
-            'oldId' => $id
-        ]);
+            $s2->execute([
+                'newId' => $newId,
+                'oldId' => $id
+            ]);
 
-        // TODO: should be in transaction!!!
+            $this->db()->commit();
 
-        return $newId;
+            return $newId;
+
+        } catch ( \Exception $e ) {
+            $this->db()->rollBack();
+            throw  $e;
+        }
+
+
     }
 
     public function changeEndOdometer($id, $odometerEnd, $currentUser)
     {
-        $stmt = $this->db()->prepare("
+        try {
+            $this->db()->beginTransaction();
+
+            $stmt = $this->db()->prepare("
         INSERT INTO trips (
             car, driver, added_by, added_on, 
             start_odometer, start_place, start_date,
@@ -255,24 +276,28 @@ class Trips extends Data
             WHERE id = :id;
         ");
 
-        $stmt->execute([
-            'endOdometer' => $odometerEnd,
-            'id' => $id,
-            'user' => $currentUser
-        ]);
+            $stmt->execute([
+                'endOdometer' => $odometerEnd,
+                'id'          => $id,
+                'user'        => $currentUser
+            ]);
 
-        $newId = $this->db()->lastInsertId();
+            $newId = $this->db()->lastInsertId();
 
-        $s2 = $this->db()->prepare("
+            $s2 = $this->db()->prepare("
             update trips set overwriten_by = :newId where id = :oldId
         ");
-        $s2->execute([
-            'newId' => $newId,
-            'oldId' => $id
-        ]);
+            $s2->execute([
+                'newId' => $newId,
+                'oldId' => $id
+            ]);
 
-        // TODO: should be in transaction!!!
+            $this->db()->commit();
 
-        return $newId;
+            return $newId;
+        } catch ( \Exception $e ) {
+            $this->db()->rollBack();
+            throw $e;
+        }
     }
 }
