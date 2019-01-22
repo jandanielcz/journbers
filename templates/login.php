@@ -37,9 +37,11 @@
             </header>
             <section id="Login">
                 <ul class="messages">
-                    <?php foreach ($vars['f']->getMessages() as $one) {
+                    <?php
+                    foreach ($vars['f']->getMessages() as $one) {
                         printf("<li class='%s'>%s</li>", $one['type'], $one['text']);
-                    } ?>
+                    }
+                    ?>
                 </ul>
                 <form action="/login" method="post">
                     <label for="User">User</label>

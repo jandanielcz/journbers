@@ -50,7 +50,6 @@ class Trips extends Data
     {
 
         for ($i = 0; $i < count($rows); $i ++) {
-
             foreach ([ 'start_date', 'end_date' ] as $k) {
                 $rows[$i][$k] = new \DateTimeImmutable($rows[$i][$k]);
             }
@@ -186,11 +185,10 @@ class Trips extends Data
 
             return $newId;
 
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             $this->db()->rollBack();
             throw $e;
         }
-
     }
 
     public function removeTrip($id, $currentUser)
@@ -246,12 +244,10 @@ class Trips extends Data
 
             return $newId;
 
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             $this->db()->rollBack();
             throw  $e;
         }
-
-
     }
 
     public function changeEndOdometer($id, $odometerEnd, $currentUser)
@@ -295,7 +291,7 @@ class Trips extends Data
             $this->db()->commit();
 
             return $newId;
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             $this->db()->rollBack();
             throw $e;
         }

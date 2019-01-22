@@ -7,8 +7,6 @@ namespace Journbers\Controller;
 use Journbers\Controller;
 use Journbers\Data\Trips;
 use Journbers\Flash;
-use Journbers\Template;
-use Tracy\Debugger;
 
 class Page extends Controller
 {
@@ -107,8 +105,6 @@ class Page extends Controller
         $f = new Flash();
 
         $payload = $this->tripToFormData($trip);
-
-        Debugger::barDump($trip);
 
         $this->template('add')->display([
             'f' => $f,

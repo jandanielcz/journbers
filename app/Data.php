@@ -4,8 +4,6 @@
 namespace Journbers;
 
 
-use Tracy\Debugger;
-
 class Data
 {
     private $database = null;
@@ -14,12 +12,6 @@ class Data
     public function __construct($connectionParams)
     {
         $this->connectionParams = $connectionParams;
-        Debugger::barDump($connectionParams);
-    }
-
-    public static function constructConnectionString(Config $config)
-    {
-
     }
 
     protected function db()
@@ -29,7 +21,8 @@ class Data
         }
 
         $this->database = new \PDO(
-            sprintf('mysql:host=%s;port=%s;dbname=%s',
+            sprintf(
+                'mysql:host=%s;port=%s;dbname=%s',
                 $this->connectionParams['host'],
                 $this->connectionParams['port'],
                 $this->connectionParams['dbname']
@@ -41,7 +34,7 @@ class Data
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
                 \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
             ]
-            );
+        );
         return $this->database;
     }
 }

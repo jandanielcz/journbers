@@ -9,11 +9,11 @@
             </ul>
             <section id="AddForm">
                 <?php
-                    $editing = false;
-                    if (isset($vars['prefill']['Id'])) {
-                        printf('<input type="hidden" name="Id" value="%s">', $vars['prefill']['Id']);
-                        $editing = true;
-                    }
+                $editing = false;
+                if (isset($vars['prefill']['Id'])) {
+                    printf('<input type="hidden" name="Id" value="%s">', $vars['prefill']['Id']);
+                    $editing = true;
+                }
                 ?>
                 <form action="<?= ($editing) ? '/edit' : '/add' ?>" method="post">
                     <input type="hidden" name="Car" value="<?php echo $vars['car'] ?>">
@@ -38,16 +38,23 @@
                     <div class="row selection">
                         <div class="btnGroup">
                             <?php
-                                if ((isset($vars['prefill']) && isset($vars['prefill']['Personal']) ) && $vars['prefill']['Personal'] === '1') {
+                            if ((isset($vars['prefill']) && isset($vars['prefill']['Personal']))
+                                &&
+                                $vars['prefill']['Personal'] === '1'
+                                ) {
                                     $workClass = '';
                                     $personalClass = 'class="on"';
-                                } else {
-                                    $workClass = 'class="on"';
-                                    $personalClass = '';
-                                }
+                            } else {
+                                $workClass = 'class="on"';
+                                $personalClass = '';
+                            }
                             ?>
-                            <button <?php echo $workClass ?> data-form-element="Personal" value="0">Work</button>
-                            <button <?php echo $personalClass ?> data-form-element="Personal" value="1">Personal</button>
+                            <button <?php echo $workClass ?> data-form-element="Personal" value="0">
+                                Work
+                            </button>
+                            <button <?php echo $personalClass ?> data-form-element="Personal" value="1">
+                                Personal
+                            </button>
                             <input type="hidden" name="Personal"
                                    value="<?php echo (isset($vars['prefill']) && isset($vars['prefill']['Personal'])) ? $vars['prefill']['Personal'] : '0' ?>">
                         </div>
@@ -64,13 +71,15 @@
                     <div class="row selection">
                         <div class="btnGroup">
                             <?php
-                                if ((isset($vars['prefill']) && isset($vars['prefill']['AndBack'])) && $vars['prefill']['AndBack'] === '0') {
-                                    $andBackClass = '';
-                                    $elsewhereClass = 'class="on"';
-                                } else {
-                                    $andBackClass = 'class="on"';
-                                    $elsewhereClass = '';
-                                }
+                            if ((isset($vars['prefill']) && isset($vars['prefill']['AndBack']))
+                                &&
+                                $vars['prefill']['AndBack'] === '0') {
+                                $andBackClass = '';
+                                $elsewhereClass = 'class="on"';
+                            } else {
+                                $andBackClass = 'class="on"';
+                                $elsewhereClass = '';
+                            }
                             ?>
                             <button <?php echo $andBackClass ?> data-form-element="AndBack" value="1">And back</button>
                             <button <?php echo $elsewhereClass ?> data-form-element="AndBack" value="0">Elsewhere</button>

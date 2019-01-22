@@ -7,11 +7,8 @@ namespace Journbers\Controller;
 use Journbers\Controller;
 use Journbers\Credentials\InvalidCredentialsException;
 use Journbers\Credentials\PasswordCredentials;
-use Journbers\Data;
 use Journbers\Data\CredentialsStore;
 use Journbers\Flash;
-use Journbers\Template;
-use Tracy\Debugger;
 
 class User extends Controller
 {
@@ -35,20 +32,16 @@ class User extends Controller
                 'password' => $this->config->get('DB_PASS')
             ]);
             $userInfo = $providedCredentials->validate($cs);
-
+            $this->request()->user()->setRoles($userInfo['providedRoles']);
+            $this->request()->user()->setId($userInfo['id']);
+            $this->request()->user()->setFullName($userInfo['fullName']);
+            $this->request()->user()->saveToSession();
+            $this->redirect('/');
         } catch (InvalidCredentialsException $e) {
             $f = new Flash();
-            $f->error('Username or password doesn\'t match.');
+            $f->error('Username or password does not match.');
             $this->redirect('/login');
             $this->exit();
         }
-
-        $this->request()->user()->setRoles($userInfo['providedRoles']);
-        $this->request()->user()->setId($userInfo['id']);
-        $this->request()->user()->setFullName($userInfo['fullName']);
-
-        $this->request()->user()->saveToSession();
-        $this->redirect('/');
-
     }
 }

@@ -4,8 +4,6 @@
 namespace Journbers;
 
 
-use Tracy\Debugger;
-
 class Env
 {
     protected $prefix = null;

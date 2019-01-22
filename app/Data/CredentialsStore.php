@@ -6,7 +6,6 @@ namespace Journbers\Data;
 
 use Journbers\Credentials\InvalidCredentialsException;
 use Journbers\Data;
-use Tracy\Debugger;
 
 class CredentialsStore extends Data
 {
@@ -26,17 +25,14 @@ class CredentialsStore extends Data
 
         $res = $stmt->fetch();
 
-        Debugger::barDump(password_hash('Kroupa', PASSWORD_BCRYPT));
-        Debugger::barDump($res);
-        Debugger::barDump(password_verify($pass, $res['pass']));
-        Debugger::barDump($pass);
+        usleep(1000000 * rand(0.5, 3));
 
         if ($res === false) {
-            throw new InvalidCredentialsException('Wrong username.');
+            throw new InvalidCredentialsException('Wrong username or password.');
         }
 
         if (!password_verify($pass, $res['pass'])) {
-            throw new InvalidCredentialsException('Wrong password.');
+            throw new InvalidCredentialsException('Wrong username or password.');
         }
 
         return [

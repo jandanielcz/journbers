@@ -8,10 +8,10 @@ class StringTool
 {
     public static function nameInicials($fullName)
     {
-        $inicials = array_map(function($one) {
-            return substr($one,0, 1);
+        $initials = array_map(function ($one) {
+            return substr($one, 0, 1);
         }, explode(' ', $fullName));
-        return join('', $inicials);
+        return join('', $initials);
     }
 
     public static function durationToHtml($durationInMinutes)

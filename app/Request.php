@@ -4,8 +4,6 @@
 namespace Journbers;
 
 
-use Tracy\Debugger;
-
 class Request
 {
     protected $user = null;
@@ -16,6 +14,9 @@ class Request
         $this->user = $user;
     }
 
+    /**
+     * @return null|User
+     */
     public function user()
     {
         return $this->user;

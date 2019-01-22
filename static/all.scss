@@ -15,7 +15,7 @@ body {
 }
 
 #Wrapper {
-  padding: 0rem;
+  padding: 0;
 
   section {
     padding: 1rem;
@@ -253,7 +253,7 @@ nav {
     font-size: 1rem;
     font-weight: normal;
     text-transform: uppercase;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     color: $dark4;
   }
 
@@ -297,7 +297,7 @@ nav {
     &:hover {
       border-color: $faded_aqua;
       color: $neutral_aqua;
-      box-shadow: $dark4 0px 0px 2px;
+      box-shadow: $dark4 0 0 2px;
     }
   }
 
@@ -622,7 +622,7 @@ button.inline {
   &:hover {
     border-color: $faded_aqua;
     color: $neutral_aqua;
-    box-shadow: $dark4 0px 0px 2px;
+    box-shadow: $dark4 0 0 2px;
   }
 
   &.danger {
