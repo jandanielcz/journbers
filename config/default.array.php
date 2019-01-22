@@ -20,5 +20,5 @@ return [
     ],
     'envPrefix' => 'JOURNBERS_',
     'hardcodedCar' => 'golf',
-    'appName' => 'BLB'
+    'appName' => 'Journbers'
 ];

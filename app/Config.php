@@ -25,7 +25,7 @@ class Config
     {
         if (file_exists($filePath)) {
             $newConfig    = include $filePath;
-            $this->values = array_merge_recursive($this->values, $newConfig);
+            $this->values = array_merge($this->values, $newConfig);
         }
     }
 
