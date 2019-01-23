@@ -12,11 +12,6 @@ class Page extends Controller
 {
     public function index()
     {
-        if (!$this->request()->user()->hasRole('driver')) {
-            $this->redirect('/login');
-            $this->exit();
-        }
-
         if ($this->request->segment(0) === null) {
             $this->redirect(sprintf('/%s/', $this->config()->get('hardcodedCar')));
         }
@@ -24,11 +19,6 @@ class Page extends Controller
 
     public function trips()
     {
-        if (!$this->request()->user()->hasRole('driver')) {
-            $this->redirect('/login');
-            $this->exit();
-        }
-
         $trips = new Trips($this->connectionParams());
 
 
@@ -49,11 +39,6 @@ class Page extends Controller
 
     public function add()
     {
-        if (!$this->request()->user()->hasRole('driver')) {
-            $this->redirect('/login');
-            $this->exit();
-        }
-
         $f = new Flash();
 
         $this->template('add')->display([
@@ -78,11 +63,6 @@ class Page extends Controller
 
     public function fillSpace()
     {
-        if (!$this->request()->user()->hasRole('driver')) {
-            $this->redirect('/login');
-            $this->exit();
-        }
-
         $f = new Flash();
         $prefil = $this->sanitizeFillSpaceInput();
         $f->addPayload('AddPrefill', $prefil);
@@ -94,11 +74,6 @@ class Page extends Controller
 
     public function edit()
     {
-        if (!$this->request()->user()->hasRole('driver')) {
-            $this->redirect('/login');
-            $this->exit();
-        }
-
         $trips = new Trips($this->connectionParams());
         $trip = $trips->loadOneTrip($this->request()->segment(1));
 

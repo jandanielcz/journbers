@@ -49,18 +49,20 @@ $runOrder = [
     'end'
 ];
 
+/* checks access */
+if (call_user_func_array([$controller, 'checkAccess'], [$method]) === false) {
+    $c = new Controller($config, $request);
+
+    if ($request->user()->hasAnyRole()) {
+        $c->messageAndRedirect('/', sprintf('You do not have access to %s.', $route[2]), 'error');
+    } else {
+        $c->messageAndRedirect('/login');
+    }
+
+};
+
 foreach ($runOrder as $method) {
     if (method_exists($controller, $method)) {
-        if (call_user_func_array([$controller, 'checkAccess'], [$method]) === false) {
-            $c = new Controller($config, $request);
-
-            if ($request->user()->hasAnyRole()) {
-                $c->messageAndRedirect(sprintf('You do not have access to %s.', $route[2]), '/', 'error');
-            } else {
-                $c->messageAndRedirect(null, '/login');
-            }
-
-        };
         call_user_func_array([$controller, $method], []);
     }
 }

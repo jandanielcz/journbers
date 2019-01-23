@@ -94,11 +94,6 @@ class Entry extends Controller
 
     public function add()
     {
-        if (!$this->request()->user()->hasRole('driver')) {
-            $this->redirect('/login');
-            $this->exit();
-        }
-
         $trips = new Trips($this->connectionParams());
 
         try {
@@ -129,10 +124,6 @@ class Entry extends Controller
 
     public function edit()
     {
-        if (!$this->request()->user()->hasRole('driver')) {
-            $this->redirect('/login');
-            $this->exit();
-        }
 
         $trips = new Trips($this->connectionParams());
 
@@ -152,10 +143,6 @@ class Entry extends Controller
 
     public function remove()
     {
-        if (!$this->request()->user()->hasRole('driver')) {
-            $this->redirect('/login');
-            $this->exit();
-        }
 
         $trips = new Trips($this->connectionParams());
         $id = $this->request()->segment(1);
@@ -176,10 +163,6 @@ class Entry extends Controller
 
     public function spaceToStart()
     {
-        if (!$this->request()->user()->hasRole('driver')) {
-            $this->redirect('/login');
-            $this->exit();
-        }
 
         $trips = new Trips($this->connectionParams());
         // TODO: Sanitization?
@@ -201,10 +184,6 @@ class Entry extends Controller
 
     public function spaceToEnd()
     {
-        if (!$this->request()->user()->hasRole('driver')) {
-            $this->redirect('/login');
-            $this->exit();
-        }
 
         $trips = new Trips($this->connectionParams());
         // TODO: Sanitization?

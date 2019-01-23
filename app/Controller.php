@@ -21,24 +21,23 @@ class Controller
 
     public function checkAccess($method)
     {
-        Debugger::barDump($method);
-        Debugger::barDump(get_class($this));
         $m = [];
         preg_match('#Controller\\\(.*)$#', get_class($this), $m);
+
         $shortClass = $m[1];
         $accessKey = sprintf('%s::%s', ucfirst($shortClass), ucfirst($method));
-        Debugger::barDump($accessKey);
         $access = $this->config()->get('access');
+
         if (!isset($access[$accessKey]) || empty($access[$accessKey])) {
             throw new \RuntimeException(sprintf('No allowed roles are set for %s action.', $accessKey));
         }
+
         $roles = $access[$accessKey];
         if (!is_array($roles)) {
             throw new \RuntimeException(
                 sprintf('Allowed roles for action %s should be defined as array in config.', $accessKey)
             );
         }
-
         if (in_array(self::ANY_ROLE, $roles)) {
             return true;
         }
@@ -99,7 +98,7 @@ class Controller
         return $t;
     }
 
-    public function messageAndRedirect($message, $path, $type = 'info')
+    public function messageAndRedirect($path, $message = null, $type = 'info')
     {
         if ($message !== null) {
             $f = new Flash();
