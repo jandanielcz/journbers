@@ -99,6 +99,9 @@ header {
 .messages {
   list-style-type: none;
   padding-left: 0;
+  margin: 1rem auto;
+  max-width: 640px;
+  color: $light0;
 
   li {
     padding: 0.5rem 1rem;

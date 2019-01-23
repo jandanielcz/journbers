@@ -86,6 +86,9 @@ header h1 {
 .messages {
   list-style-type: none;
   padding-left: 0;
+  margin: 1rem auto;
+  max-width: 640px;
+  color: #fbf1c7;
 }
 .messages li {
   padding: 0.5rem 1rem;

@@ -8,7 +8,7 @@ class User
 {
     const SESSION_KEY = 'q4pv7oz2nr2hv25c';
 
-    protected $roles = ['guest'];
+    protected $roles = [];
     protected $id = null;
     protected $fullName = null;
 
@@ -64,6 +64,11 @@ class User
     public function hasRole($role)
     {
         return in_array($role, $this->roles);
+    }
+
+    public function hasAnyRole()
+    {
+        return !empty($this->roles);
     }
 
     public function setRoles($roles)

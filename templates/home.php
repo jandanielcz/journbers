@@ -4,7 +4,6 @@ include 'parts/head.php';
 
 use Journbers\Tool\ColorTool;
 use Journbers\Tool\StringTool;
-use Parsedown;
 
 ?>
     <body class="light">
