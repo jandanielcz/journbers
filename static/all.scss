@@ -18,7 +18,7 @@ body {
   padding: 0;
 
   section {
-    padding: 1rem;
+    padding: 1rem 0;
   }
 }
 
@@ -28,6 +28,7 @@ header {
 
   img {
     width: 25%;
+    max-width: 80px;
     margin-top: 2rem;
   }
 
@@ -126,7 +127,7 @@ nav {
   h1,
   h1 > a {
     line-height: 100px;
-    margin: 0 1rem;
+    margin: 0 1rem 0 0;
     font-weight: normal;
     color: $neutral_purple;
     text-decoration: underline;
@@ -146,7 +147,6 @@ nav {
   }
 
   > div {
-    margin-left: 4rem;
     flex-grow: 100;
 
     a {
@@ -188,9 +188,9 @@ nav {
 }
 
 #Add {
-  position: absolute;
-  bottom: 3rem;
-  right: 3rem;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
 
   a {
     display: block;
@@ -207,6 +207,13 @@ nav {
   }
 }
 
+@media all and (min-width: 480px) {
+  #Add {
+    bottom: 3rem;
+    right: 3rem;
+  }
+}
+
 #AddForm {
 
   max-width: 640px;
@@ -220,12 +227,13 @@ nav {
     padding-left: 64px;
 
     &.button {
-      padding-left: 320px;
+      text-align: right;
+      margin-right: 4px;
     }
   }
 
   .check {
-    padding-left: 128px;
+    padding-left: 90px;
     padding-top: 48px;
     padding-bottom: 32px;
 
@@ -450,15 +458,15 @@ nav {
 .trip {
   max-width: 480px;
   display: grid;
-  grid-template-columns: 64px auto 80px;
+  grid-template-columns: 64px auto;
   grid-gap:  8px 16px;
-  grid-template-rows: 48px 36px 24px auto 24px;
+  grid-template-rows: 48px 64px 24px auto 36px 24px;
   justify-items: stretch;
   align-items: stretch;
   padding: 8px;
   box-sizing: border-box;
   background: repeating-linear-gradient(45deg, $light0 0, $light1 2px, $light1 5px, $light0 6px);
-  margin-bottom: 8px;
+  margin: 0 auto 8px;
 
   &.done {
     background: $light0;
@@ -495,8 +503,8 @@ nav {
   .times {
     grid-column: 2 / 2;
     grid-row: 1 / 1;
-
     display: flex;
+    font-size: 1.1rem;
 
     div {
       text-align: center;
@@ -520,8 +528,9 @@ nav {
   .places {
     grid-column: 2 / 2;
     grid-row: 2 / 2;
-
     display: flex;
+    font-size: 1.1rem;
+    align-self: center;
 
     .toSign {
       padding: 0 0.2rem;
@@ -537,15 +546,17 @@ nav {
   }
 
   .summary {
-    grid-column: 3 / 3;
-    grid-row: 1 / 4;
+    grid-column: 2 / 3;
+    grid-row: 5 / 5;
 
     font-size: 1.8rem;
     line-height: 36px;
 
-    text-align: center;
 
-    align-self: center;
+
+    > div {
+      display: inline-block;
+    }
 
     span {
       font-size: 1rem;
@@ -554,8 +565,8 @@ nav {
   }
 
   .actions {
-    grid-column: 1 / 4;
-    grid-row: 5 / 5;
+    grid-column: 1 / 3;
+    grid-row: 6 / 6;
 
     display: flex;
     justify-content: flex-end;
@@ -589,12 +600,42 @@ nav {
   }
 }
 
+@media all and (min-width: 480px){
+  .trip {
+    grid-template-rows: 48px 36px 24px auto 24px;
+    grid-template-columns: 64px auto 80px;
+
+    .times,
+    .places
+    {
+      font-size: 1.3rem;
+    }
+
+    .summary {
+      grid-column: 3 / 3;
+      grid-row: 1 / 4;
+
+      text-align: center;
+      align-self: center;
+
+      > div {
+        display: block;
+      }
+    }
+
+    .actions {
+      grid-row: 5 / 5;
+      grid-column: 1 / 4;
+    }
+  }
+}
+
 .space {
   max-width: 480px;
   box-sizing: border-box;
   background: repeating-linear-gradient(45deg, lighten($neutral_red, 32) 0, $light1 2px, $light1 5px, lighten($neutral_red, 32) 6px);
   padding: 8px;
-  margin-bottom: 8px;
+  margin: 0 auto 8px;
 
   display: flex;
   justify-items: flex-end;
@@ -644,4 +685,15 @@ span.unit {
   color: $dark2;
   text-transform: uppercase;
 
+}
+
+@media all and (min-width: 480px)
+{
+  #Wrapper {
+    padding: 0;
+
+    section {
+      padding: 1rem 1rem;
+    }
+  }
 }
