@@ -33,7 +33,7 @@
         <div id="Wrapper">
             <header>
                 <img src="/static/logo.svg" alt="Journbers logo">
-                <h1>Journbers</h1>
+                <h1><?= $vars['common.appName'] ?></h1>
             </header>
             <section id="Login">
                 <ul class="messages">
