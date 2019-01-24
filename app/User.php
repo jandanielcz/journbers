@@ -40,7 +40,7 @@ class User
         $this->session->destroy(self::SESSION_KEY);
     }
 
-    public function getId()
+    public function id()
     {
         return $this->id;
     }
@@ -50,7 +50,7 @@ class User
         $this->id = $id;
     }
 
-    public function getFullName()
+    public function fullName()
     {
         return $this->fullName;
     }

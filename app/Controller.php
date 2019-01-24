@@ -12,11 +12,21 @@ class Controller
 
     protected $config = null;
     protected $request = null;
+    protected $log = null;
 
     public function __construct(Config $config, Request $request)
     {
         $this->config = $config;
         $this->request = $request;
+    }
+
+    protected function log()
+    {
+        if ($this->log === null) {
+            $this->log = new Log($this->config()->get('LOG_PATH'));
+        }
+
+        return $this->log;
     }
 
     public function checkAccess($method)

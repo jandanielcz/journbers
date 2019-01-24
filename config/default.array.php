@@ -8,6 +8,7 @@ return [
     'routes' => [
         // order from most specific
         // format [Method, Regex, Controller::Method]
+
         ['get', '#^/login#', 'Page::Login'],
         ['get', '#^/logout#', 'User::Logout'],
         ['get', '#^/([a-z]*)/add[/]{0,1}#', 'Page::Add'],
@@ -46,5 +47,7 @@ return [
     // Used for now, because app should support only one car for now.
     'hardcodedCar' => 'golf',
     // Shown in title and navigation.
-    'appName' => 'Journbers'
+    'appName' => 'Journbers',
+    // Log configuration
+    'maxLogSize' => 1024 * 1024 * 10
 ];

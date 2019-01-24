@@ -13,9 +13,10 @@ $config->require('config/default.array.php');
 $config->include('config/custom.array.php');
 
 /* boot and setup */
-Debugger::enable();
 $env = new Env($config->get('envPrefix'));
-$config->add($env->getVars());
+$config->add($env->variables());
+
+Debugger::enable(Debugger::DETECT, $config->get('LOG_PATH'));
 
 $session = new Session($config->get('sessionLifetime', 48 * 60 * 60));
 

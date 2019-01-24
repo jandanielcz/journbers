@@ -21,11 +21,10 @@ class Page extends Controller
     {
         $trips = new Trips($this->connectionParams());
 
-
         $this->template('home')->display([
             'f' => new Flash(),
             'trips' => $trips->loadTrips($this->request()->segment(0)),
-            'currentUser' => $this->request()->user()->getId(),
+            'currentUser' => $this->request()->user()->id(),
             'car' => $this->config()->get('hardcodedCar'),
         ]);
     }
@@ -45,20 +44,8 @@ class Page extends Controller
             'f' => $f,
             'car' => $this->config()->get('hardcodedCar'),
             'prefill' => $f->getPayload('AddPrefill'),
-            'driver' => $this->request()->user()->getId()
+            'driver' => $this->request()->user()->id()
         ]);
-    }
-
-    protected function sanitizeFillSpaceInput()
-    {
-        $o = [
-            'OdometerStart' => intval($_POST['SpaceStart']),
-            'OdometerEnd' => intval($_POST['SpaceEnd']),
-            'TimeStart' => (new \DateTimeImmutable($_POST['SpaceMinTime']))->format('Y-m-d\TH:i'),
-            'TimeEnd' => (new \DateTimeImmutable($_POST['SpaceMaxTime']))->format('Y-m-d\TH:i')
-        ];
-
-        return $o;
     }
 
     public function fillSpace()
@@ -70,7 +57,6 @@ class Page extends Controller
         $this->redirect(sprintf('/%s/add', $this->config()->get('hardcodedCar')));
         $this->exit();
     }
-
 
     public function edit()
     {
@@ -85,8 +71,20 @@ class Page extends Controller
             'f' => $f,
             'car' => $this->config()->get('hardcodedCar'),
             'prefill' => $payload,
-            'driver' => $this->request()->user()->getId()
+            'driver' => $this->request()->user()->id()
         ]);
+    }
+
+    protected function sanitizeFillSpaceInput()
+    {
+        $o = [
+            'OdometerStart' => intval($_POST['SpaceStart']),
+            'OdometerEnd' => intval($_POST['SpaceEnd']),
+            'TimeStart' => (new \DateTimeImmutable($_POST['SpaceMinTime']))->format('Y-m-d\TH:i'),
+            'TimeEnd' => (new \DateTimeImmutable($_POST['SpaceMaxTime']))->format('Y-m-d\TH:i')
+        ];
+
+        return $o;
     }
 
     protected function tripToFormData($trip)

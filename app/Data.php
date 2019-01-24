@@ -14,7 +14,7 @@ class Data
         $this->connectionParams = $connectionParams;
     }
 
-    protected function db()
+    protected function database()
     {
         if ($this->database !== null) {
             return $this->database;

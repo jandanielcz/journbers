@@ -16,6 +16,139 @@ class Entry extends Controller
     private $addPayload = null;
     private $editPayload = null;
 
+
+    public function sanitizeEditPayload()
+    {
+        $payload = $this->sanitizeAddPayload();
+        $payload['Id'] = intval($_POST['Id']);
+
+        return $payload;
+    }
+
+    public function beforeAdd()
+    {
+        try {
+            $this->addPayload = $this->sanitizeAddPayload();
+        } catch (SanitizationException $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $f->addPayload('AddPrefill', $_POST);
+            $this->redirect(sprintf('/%s/add', $this->addPayload['Car']));
+            $this->exit();
+        }
+    }
+
+    public function add()
+    {
+        $trips = new Trips($this->connectionParams());
+
+        try {
+            $newId = $trips->addTrip($this->addPayload, $this->request()->user()->id());
+            $this->redirect(sprintf('/%s/?highlight=%s', $this->addPayload['Car'], $newId));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $f->addPayload('AddPrefill', $_POST);
+            $this->redirect(sprintf('/%s/add', $this->addPayload['Car']));
+            $this->exit();
+        }
+    }
+
+    public function beforeEdit()
+    {
+        try {
+            $this->editPayload = $this->sanitizeEditPayload();
+        } catch (SanitizationException $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $f->addPayload('AddPrefill', $_POST);
+            $this->redirect(sprintf('/edit/%s', $this->editPayload['Id']));
+            $this->exit();
+        }
+    }
+
+    public function edit()
+    {
+
+        $trips = new Trips($this->connectionParams());
+
+        try {
+            Debugger::barDump($this->editPayload);
+            $newId = $trips->editTrip($this->editPayload, $this->request()->user()->id());
+            $this->redirect(sprintf('/%s/?highlight=%s', $this->editPayload['Car'], $newId));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $f->addPayload('AddPrefill', $_POST);
+            $this->redirect(sprintf('/edit/%s/', $this->editPayload['Id']));
+            $this->exit();
+        }
+    }
+
+    public function remove()
+    {
+
+        $trips = new Trips($this->connectionParams());
+        $id = $this->request()->segment(1);
+
+        try {
+            $trips->removeTrip($id, $this->request()->user()->id());
+            // TODO: Doesnt support multiple Cars
+            $this->redirect(sprintf('/'));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            // TODO: Doesnt support multiple Cars
+            $this->redirect(sprintf('/'));
+            $this->exit();
+        }
+    }
+
+    public function spaceToStart()
+    {
+
+        $trips = new Trips($this->connectionParams());
+        // TODO: Sanitization?
+        try {
+            $newId = $trips->changeStartOdometer(
+                intval($_POST['TripId']),
+                intval($_POST['SpaceStart']),
+                $this->request()->user()->id()
+            );
+            $this->redirect(sprintf('/%s/?highlight=%s', $this->config()->get('hardcodedCar'), $newId));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $this->redirect(sprintf('/%s/', $this->config()->get('hardcodedCar')));
+            $this->exit();
+        }
+    }
+
+    public function spaceToEnd()
+    {
+
+        $trips = new Trips($this->connectionParams());
+        // TODO: Sanitization?
+        try {
+            $newId = $trips->changeEndOdometer(
+                intval($_POST['TripId']),
+                intval($_POST['SpaceEnd']),
+                $this->request()->user()->id()
+            );
+            $this->redirect(sprintf('/%s/?highlight=%s', $this->config()->get('hardcodedCar'), $newId));
+            $this->exit();
+        } catch (\Exception $e) {
+            $f = new Flash();
+            $f->error($e->getMessage());
+            $this->redirect(sprintf('/%s/', $this->config()->get('hardcodedCar')));
+            $this->exit();
+        }
+    }
+
     protected function sanitizeAddPayload()
     {
         $payload = [];
@@ -69,137 +202,5 @@ class Entry extends Controller
         $payload['Note'] = ($_POST['Note'] == '') ? null : $_POST['Note'];
 
         return $payload;
-    }
-
-    public function sanitizeEditPayload()
-    {
-        $payload = $this->sanitizeAddPayload();
-        $payload['Id'] = intval($_POST['Id']);
-
-        return $payload;
-    }
-
-    public function beforeAdd()
-    {
-        try {
-            $this->addPayload = $this->sanitizeAddPayload();
-        } catch (SanitizationException $e) {
-            $f = new Flash();
-            $f->error($e->getMessage());
-            $f->addPayload('AddPrefill', $_POST);
-            $this->redirect(sprintf('/%s/add', $this->addPayload['Car']));
-            $this->exit();
-        }
-    }
-
-    public function add()
-    {
-        $trips = new Trips($this->connectionParams());
-
-        try {
-            $newId = $trips->addTrip($this->addPayload, $this->request()->user()->getId());
-            $this->redirect(sprintf('/%s/?highlight=%s', $this->addPayload['Car'], $newId));
-            $this->exit();
-        } catch (\Exception $e) {
-            $f = new Flash();
-            $f->error($e->getMessage());
-            $f->addPayload('AddPrefill', $_POST);
-            $this->redirect(sprintf('/%s/add', $this->addPayload['Car']));
-            $this->exit();
-        }
-    }
-
-    public function beforeEdit()
-    {
-        try {
-            $this->editPayload = $this->sanitizeEditPayload();
-        } catch (SanitizationException $e) {
-            $f = new Flash();
-            $f->error($e->getMessage());
-            $f->addPayload('AddPrefill', $_POST);
-            $this->redirect(sprintf('/edit/%s', $this->editPayload['Id']));
-            $this->exit();
-        }
-    }
-
-    public function edit()
-    {
-
-        $trips = new Trips($this->connectionParams());
-
-        try {
-            Debugger::barDump($this->editPayload);
-            $newId = $trips->editTrip($this->editPayload, $this->request()->user()->getId());
-            $this->redirect(sprintf('/%s/?highlight=%s', $this->editPayload['Car'], $newId));
-            $this->exit();
-        } catch (\Exception $e) {
-            $f = new Flash();
-            $f->error($e->getMessage());
-            $f->addPayload('AddPrefill', $_POST);
-            $this->redirect(sprintf('/edit/%s/', $this->editPayload['Id']));
-            $this->exit();
-        }
-    }
-
-    public function remove()
-    {
-
-        $trips = new Trips($this->connectionParams());
-        $id = $this->request()->segment(1);
-
-        try {
-            $trips->removeTrip($id, $this->request()->user()->getId());
-            // TODO: Doesnt support multiple Cars
-            $this->redirect(sprintf('/'));
-            $this->exit();
-        } catch (\Exception $e) {
-            $f = new Flash();
-            $f->error($e->getMessage());
-            // TODO: Doesnt support multiple Cars
-            $this->redirect(sprintf('/'));
-            $this->exit();
-        }
-    }
-
-    public function spaceToStart()
-    {
-
-        $trips = new Trips($this->connectionParams());
-        // TODO: Sanitization?
-        try {
-            $newId = $trips->changeStartOdometer(
-                intval($_POST['TripId']),
-                intval($_POST['SpaceStart']),
-                $this->request()->user()->getId()
-            );
-            $this->redirect(sprintf('/%s/?highlight=%s', $this->config()->get('hardcodedCar'), $newId));
-            $this->exit();
-        } catch (\Exception $e) {
-            $f = new Flash();
-            $f->error($e->getMessage());
-            $this->redirect(sprintf('/%s/', $this->config()->get('hardcodedCar')));
-            $this->exit();
-        }
-    }
-
-    public function spaceToEnd()
-    {
-
-        $trips = new Trips($this->connectionParams());
-        // TODO: Sanitization?
-        try {
-            $newId = $trips->changeEndOdometer(
-                intval($_POST['TripId']),
-                intval($_POST['SpaceEnd']),
-                $this->request()->user()->getId()
-            );
-            $this->redirect(sprintf('/%s/?highlight=%s', $this->config()->get('hardcodedCar'), $newId));
-            $this->exit();
-        } catch (\Exception $e) {
-            $f = new Flash();
-            $f->error($e->getMessage());
-            $this->redirect(sprintf('/%s/', $this->config()->get('hardcodedCar')));
-            $this->exit();
-        }
     }
 }

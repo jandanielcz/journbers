@@ -20,14 +20,8 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css?family=Share:400,400i,700,700i&amp;subset=latin-ext">
         <link rel="stylesheet" href="/static/all.css">
-        <title>Journbers</title>
-        <script>
-            'use strict';
-            document.addEventListener('DOMContentLoaded', () => {
-                let first = document.querySelector('[tabindex="1"]')
-                first.focus()
-            })
-        </script>
+        <title><?= $vars['common.appName'] ?></title>
+        <script src="/static/login.js"></script>
     </head>
     <body>
         <div id="Wrapper">
@@ -38,7 +32,7 @@
             <section id="Login">
                 <ul class="messages">
                     <?php
-                    foreach ($vars['f']->getMessages() as $one) {
+                    foreach ($vars['f']->messages() as $one) {
                         printf("<li class='%s'>%s</li>", $one['type'], $one['text']);
                     }
                     ?>

@@ -4,6 +4,8 @@
 namespace Journbers;
 
 
+use Tracy\Debugger;
+
 class Config
 {
     const NOT_SET = 'd49242df-b373-4b8f-addb-3b98dee0ef2b';

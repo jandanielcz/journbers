@@ -40,6 +40,7 @@ class User extends Controller
         } catch (InvalidCredentialsException $e) {
             $f = new Flash();
             $f->error('Username or password does not match.');
+            $this->log()->log(sprintf('Unsuccessful login attempt for \'%s\'.', $_POST['User']));
             $this->redirect('/login');
             $this->exit();
         }
