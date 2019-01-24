@@ -21,13 +21,7 @@
               href="https://fonts.googleapis.com/css?family=Share:400,400i,700,700i&amp;subset=latin-ext">
         <link rel="stylesheet" href="/static/all.css">
         <title>Journbers</title>
-        <script>
-            'use strict';
-            document.addEventListener('DOMContentLoaded', () => {
-                let first = document.querySelector('[tabindex="1"]')
-                first.focus()
-            })
-        </script>
+        <script src="/static/login.js"></script>
     </head>
     <body>
         <div id="Wrapper">
