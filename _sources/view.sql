@@ -7,7 +7,11 @@ select
   cars.name as car_name,
   
   trips.driver,
-  users.fullname as driver_name,
+  u.fullname as driver_name,
+  
+  trips.added_by,
+  trips.added_on,
+  a.fullname AS added_by_name,
   
   trips.start_odometer,
   trips.start_place,
@@ -30,7 +34,9 @@ select
   
 from trips 
 join
-  users on trips.driver = users.id
+  users AS u on trips.driver = users.id
+JOIN users AS a on
+  trips.added_by = users.id
 join
   cars on trips.car = cars.id
 where 

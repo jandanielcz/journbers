@@ -50,7 +50,7 @@ class Trips extends Data
     {
 
         for ($i = 0; $i < count($rows); $i ++) {
-            foreach ([ 'start_date', 'end_date' ] as $k) {
+            foreach ([ 'start_date', 'end_date', 'added_on' ] as $k) {
                 $rows[$i][$k] = new \DateTimeImmutable($rows[$i][$k]);
             }
 

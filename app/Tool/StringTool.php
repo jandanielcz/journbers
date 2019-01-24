@@ -9,7 +9,7 @@ class StringTool
     public static function nameInicials($fullName)
     {
         $initials = array_map(function ($one) {
-            return substr($one, 0, 1);
+            return mb_substr($one, 0, 1);
         }, explode(' ', $fullName));
         return join('', $initials);
     }

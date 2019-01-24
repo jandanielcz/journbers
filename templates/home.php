@@ -39,6 +39,12 @@ use Journbers\Tool\StringTool;
                     if ($trip['is_personal']) {
                         $classes[] = 'personal';
                     }
+
+                    if ($trip['driver'] !== $trip['added_by']) {
+                        $isEdited = true;
+                    } else {
+                        $isEdited = false;
+                    }
                     ?>
 
                     <?php
@@ -76,6 +82,15 @@ use Journbers\Tool\StringTool;
                              title="<?= $trip['driver_name'] ?>">
                              <?php echo StringTool::nameInicials($trip['driver_name']) ?>
                         </div>
+                        <?php if ($isEdited) {
+                            ?>
+                            <div class="editorIcon"
+                                 title="<?= $trip['added_by_name'] ?> (<?= $trip['added_on']->format('Y-m-d H:i') ?>)"
+                                style="border-color: <?php echo ColorTool::stringToColor($trip['added_by_name']) ?>">
+                                <?= StringTool::nameInicials($trip['added_by_name']) ?>
+                            </div>
+                            <?php
+                        } ?>
                         <div class="times">
                             <div class="start">
                                 <?php echo $trip['start_date']->format('Y-m-d') ?>
