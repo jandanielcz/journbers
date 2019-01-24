@@ -199,6 +199,7 @@ nav .tridots.open .submenu {
 #AddForm .row.button {
   text-align: right;
   margin-right: 4px;
+  max-width: 375px;
 }
 #AddForm .check {
   padding-left: 90px;
