@@ -16,60 +16,6 @@ class Entry extends Controller
     private $addPayload = null;
     private $editPayload = null;
 
-    protected function sanitizeAddPayload()
-    {
-        $payload = [];
-        $payload['Car'] = $_POST['Car'];
-        if (empty($payload['Car'])) {
-            throw new SanitizationException('Car should not be emtpy.');
-        }
-
-        if (empty($_POST['OdometerStart'])) {
-            throw new SanitizationException('Odometer start value should be defined.');
-        }
-        $payload['OdometerStart'] = intval($_POST['OdometerStart']);
-
-        if (empty($_POST['TimeStart'])) {
-            throw new SanitizationException('Star date and time should be defined.');
-        }
-        try {
-            $payload['TimeStart'] = new \DateTimeImmutable($_POST['TimeStart']);
-        } catch (\Exception $e) {
-            throw new SanitizationException('Cannot parse trip start date and time.');
-        }
-
-        if (empty($_POST['PlaceStart'])) {
-            throw new SanitizationException('Start place should be defined.');
-        }
-
-        $payload['PlaceStart'] = $_POST['PlaceStart'];
-        $payload['Driver'] = $_POST['Driver'];
-        $payload['Personal'] = ($_POST['Personal'] == '1');
-        $payload['Client'] = ($_POST['Client'] == '') ? null : $_POST['Client'];
-        $payload['PlaceTarget'] = ($_POST['PlaceTarget'] == '') ? null : $_POST['PlaceTarget'];
-        $payload['AndBack'] = ($_POST['AndBack'] == '1');
-
-        if ($_POST['OdometerEnd'] === '') {
-            $payload['OdometerEnd'] = null;
-        } else {
-            $payload['OdometerEnd'] = intval($_POST['OdometerEnd']);
-        }
-
-        if ($_POST['TimeEnd'] === '') {
-            $payload['TimeEnd'] = null;
-        } else {
-            try {
-                $payload['TimeEnd'] = new \DateTimeImmutable($_POST['TimeEnd']);
-            } catch (\Exception $e) {
-                throw new SanitizationException('Cannot parse trip end date and time.');
-            }
-        }
-
-        $payload['PlaceEnd'] = ($_POST['PlaceEnd'] == '') ? null : $_POST['PlaceEnd'];
-        $payload['Note'] = ($_POST['Note'] == '') ? null : $_POST['Note'];
-
-        return $payload;
-    }
 
     public function sanitizeEditPayload()
     {
@@ -201,5 +147,60 @@ class Entry extends Controller
             $this->redirect(sprintf('/%s/', $this->config()->get('hardcodedCar')));
             $this->exit();
         }
+    }
+
+    protected function sanitizeAddPayload()
+    {
+        $payload = [];
+        $payload['Car'] = $_POST['Car'];
+        if (empty($payload['Car'])) {
+            throw new SanitizationException('Car should not be emtpy.');
+        }
+
+        if (empty($_POST['OdometerStart'])) {
+            throw new SanitizationException('Odometer start value should be defined.');
+        }
+        $payload['OdometerStart'] = intval($_POST['OdometerStart']);
+
+        if (empty($_POST['TimeStart'])) {
+            throw new SanitizationException('Star date and time should be defined.');
+        }
+        try {
+            $payload['TimeStart'] = new \DateTimeImmutable($_POST['TimeStart']);
+        } catch (\Exception $e) {
+            throw new SanitizationException('Cannot parse trip start date and time.');
+        }
+
+        if (empty($_POST['PlaceStart'])) {
+            throw new SanitizationException('Start place should be defined.');
+        }
+
+        $payload['PlaceStart'] = $_POST['PlaceStart'];
+        $payload['Driver'] = $_POST['Driver'];
+        $payload['Personal'] = ($_POST['Personal'] == '1');
+        $payload['Client'] = ($_POST['Client'] == '') ? null : $_POST['Client'];
+        $payload['PlaceTarget'] = ($_POST['PlaceTarget'] == '') ? null : $_POST['PlaceTarget'];
+        $payload['AndBack'] = ($_POST['AndBack'] == '1');
+
+        if ($_POST['OdometerEnd'] === '') {
+            $payload['OdometerEnd'] = null;
+        } else {
+            $payload['OdometerEnd'] = intval($_POST['OdometerEnd']);
+        }
+
+        if ($_POST['TimeEnd'] === '') {
+            $payload['TimeEnd'] = null;
+        } else {
+            try {
+                $payload['TimeEnd'] = new \DateTimeImmutable($_POST['TimeEnd']);
+            } catch (\Exception $e) {
+                throw new SanitizationException('Cannot parse trip end date and time.');
+            }
+        }
+
+        $payload['PlaceEnd'] = ($_POST['PlaceEnd'] == '') ? null : $_POST['PlaceEnd'];
+        $payload['Note'] = ($_POST['Note'] == '') ? null : $_POST['Note'];
+
+        return $payload;
     }
 }

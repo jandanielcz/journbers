@@ -9,10 +9,10 @@
     },
     "require": {
         "tracy/tracy": "*",
-        "erusev/parsedown": "*"
+        "erusev/parsedown": "*",
+        "ext-mbstring": "*"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "3.*"
     },
     "license": "WTFPL",
     "authors": [

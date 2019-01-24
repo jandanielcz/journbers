@@ -21,7 +21,6 @@ class Page extends Controller
     {
         $trips = new Trips($this->connectionParams());
 
-
         $this->template('home')->display([
             'f' => new Flash(),
             'trips' => $trips->loadTrips($this->request()->segment(0)),
@@ -49,18 +48,6 @@ class Page extends Controller
         ]);
     }
 
-    protected function sanitizeFillSpaceInput()
-    {
-        $o = [
-            'OdometerStart' => intval($_POST['SpaceStart']),
-            'OdometerEnd' => intval($_POST['SpaceEnd']),
-            'TimeStart' => (new \DateTimeImmutable($_POST['SpaceMinTime']))->format('Y-m-d\TH:i'),
-            'TimeEnd' => (new \DateTimeImmutable($_POST['SpaceMaxTime']))->format('Y-m-d\TH:i')
-        ];
-
-        return $o;
-    }
-
     public function fillSpace()
     {
         $f = new Flash();
@@ -70,7 +57,6 @@ class Page extends Controller
         $this->redirect(sprintf('/%s/add', $this->config()->get('hardcodedCar')));
         $this->exit();
     }
-
 
     public function edit()
     {
@@ -87,6 +73,18 @@ class Page extends Controller
             'prefill' => $payload,
             'driver' => $this->request()->user()->getId()
         ]);
+    }
+
+    protected function sanitizeFillSpaceInput()
+    {
+        $o = [
+            'OdometerStart' => intval($_POST['SpaceStart']),
+            'OdometerEnd' => intval($_POST['SpaceEnd']),
+            'TimeStart' => (new \DateTimeImmutable($_POST['SpaceMinTime']))->format('Y-m-d\TH:i'),
+            'TimeEnd' => (new \DateTimeImmutable($_POST['SpaceMaxTime']))->format('Y-m-d\TH:i')
+        ];
+
+        return $o;
     }
 
     protected function tripToFormData($trip)
