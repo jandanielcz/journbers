@@ -43,7 +43,7 @@ class Entry extends Controller
         $trips = new Trips($this->connectionParams());
 
         try {
-            $newId = $trips->addTrip($this->addPayload, $this->request()->user()->getId());
+            $newId = $trips->addTrip($this->addPayload, $this->request()->user()->id());
             $this->redirect(sprintf('/%s/?highlight=%s', $this->addPayload['Car'], $newId));
             $this->exit();
         } catch (\Exception $e) {
@@ -75,7 +75,7 @@ class Entry extends Controller
 
         try {
             Debugger::barDump($this->editPayload);
-            $newId = $trips->editTrip($this->editPayload, $this->request()->user()->getId());
+            $newId = $trips->editTrip($this->editPayload, $this->request()->user()->id());
             $this->redirect(sprintf('/%s/?highlight=%s', $this->editPayload['Car'], $newId));
             $this->exit();
         } catch (\Exception $e) {
@@ -94,7 +94,7 @@ class Entry extends Controller
         $id = $this->request()->segment(1);
 
         try {
-            $trips->removeTrip($id, $this->request()->user()->getId());
+            $trips->removeTrip($id, $this->request()->user()->id());
             // TODO: Doesnt support multiple Cars
             $this->redirect(sprintf('/'));
             $this->exit();
@@ -116,7 +116,7 @@ class Entry extends Controller
             $newId = $trips->changeStartOdometer(
                 intval($_POST['TripId']),
                 intval($_POST['SpaceStart']),
-                $this->request()->user()->getId()
+                $this->request()->user()->id()
             );
             $this->redirect(sprintf('/%s/?highlight=%s', $this->config()->get('hardcodedCar'), $newId));
             $this->exit();
@@ -137,7 +137,7 @@ class Entry extends Controller
             $newId = $trips->changeEndOdometer(
                 intval($_POST['TripId']),
                 intval($_POST['SpaceEnd']),
-                $this->request()->user()->getId()
+                $this->request()->user()->id()
             );
             $this->redirect(sprintf('/%s/?highlight=%s', $this->config()->get('hardcodedCar'), $newId));
             $this->exit();

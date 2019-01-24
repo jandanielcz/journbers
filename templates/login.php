@@ -32,7 +32,7 @@
             <section id="Login">
                 <ul class="messages">
                     <?php
-                    foreach ($vars['f']->getMessages() as $one) {
+                    foreach ($vars['f']->messages() as $one) {
                         printf("<li class='%s'>%s</li>", $one['type'], $one['text']);
                     }
                     ?>

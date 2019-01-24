@@ -24,7 +24,7 @@ class Page extends Controller
         $this->template('home')->display([
             'f' => new Flash(),
             'trips' => $trips->loadTrips($this->request()->segment(0)),
-            'currentUser' => $this->request()->user()->getId(),
+            'currentUser' => $this->request()->user()->id(),
             'car' => $this->config()->get('hardcodedCar'),
         ]);
     }
@@ -44,7 +44,7 @@ class Page extends Controller
             'f' => $f,
             'car' => $this->config()->get('hardcodedCar'),
             'prefill' => $f->getPayload('AddPrefill'),
-            'driver' => $this->request()->user()->getId()
+            'driver' => $this->request()->user()->id()
         ]);
     }
 
@@ -71,7 +71,7 @@ class Page extends Controller
             'f' => $f,
             'car' => $this->config()->get('hardcodedCar'),
             'prefill' => $payload,
-            'driver' => $this->request()->user()->getId()
+            'driver' => $this->request()->user()->id()
         ]);
     }
 

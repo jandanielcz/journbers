@@ -14,7 +14,7 @@ $config->include('config/custom.array.php');
 
 /* boot and setup */
 $env = new Env($config->get('envPrefix'));
-$config->add($env->getVars());
+$config->add($env->variables());
 
 Debugger::enable(Debugger::DETECT, $config->get('LOG_PATH'));
 

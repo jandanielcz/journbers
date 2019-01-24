@@ -25,7 +25,7 @@ class Flash
         $this->message($message, 'error');
     }
 
-    public function getMessages()
+    public function messages()
     {
         $out = (isset($_SESSION[self::FLASHKEY])) ? $_SESSION[self::FLASHKEY] : [];
         $_SESSION[self::FLASHKEY] = [];

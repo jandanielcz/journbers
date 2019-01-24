@@ -11,7 +11,7 @@ class Trips extends Data
 
     public function loadTrips($car)
     {
-        $stmt = $this->db()->prepare("
+        $stmt = $this->database()->prepare("
             select 
               valid_trips.*
             from valid_trips
@@ -30,7 +30,7 @@ class Trips extends Data
 
     public function loadOneTrip($id)
     {
-        $stmt = $this->db()->prepare("
+        $stmt = $this->database()->prepare("
             select 
               valid_trips.*
             from valid_trips
@@ -68,7 +68,7 @@ class Trips extends Data
 
     public function addTrip($v, $currentUser)
     {
-        $stmt = $this->db()->prepare("
+        $stmt = $this->database()->prepare("
             insert into trips values (
                 null,                 -- id
                 null,                 -- overwriten by
@@ -116,15 +116,15 @@ class Trips extends Data
         ]);
 
 
-        return $this->db()->lastInsertId();
+        return $this->database()->lastInsertId();
     }
 
     public function editTrip($v, $currentUser)
     {
         try {
-            $this->db()->beginTransaction();
+            $this->database()->beginTransaction();
 
-            $stmt = $this->db()->prepare("
+            $stmt = $this->database()->prepare("
             insert into trips values (
                 null,                 -- id
                 null,                 -- overwriten by
@@ -171,9 +171,9 @@ class Trips extends Data
                 'note'          => $v['Note'],
             ]);
 
-            $newId = $this->db()->lastInsertId();
+            $newId = $this->database()->lastInsertId();
 
-            $s2 = $this->db()->prepare("
+            $s2 = $this->database()->prepare("
             update trips set overwriten_by = :newId where id = :oldId
         ");
             $s2->execute([
@@ -181,19 +181,19 @@ class Trips extends Data
                 'oldId' => $v['Id']
             ]);
 
-            $this->db()->commit();
+            $this->database()->commit();
 
             return $newId;
 
         } catch (\Exception $e) {
-            $this->db()->rollBack();
+            $this->database()->rollBack();
             throw $e;
         }
     }
 
     public function removeTrip($id, $currentUser)
     {
-        $s2 = $this->db()->prepare("
+        $s2 = $this->database()->prepare("
             update trips set removed_on = now(), removed_by = :user where id = :id
         ");
         $s2->execute([
@@ -205,9 +205,9 @@ class Trips extends Data
     public function changeStartOdometer($id, $odometerStart, $currentUser)
     {
         try {
-            $this->db()->beginTransaction();
+            $this->database()->beginTransaction();
 
-            $stmt = $this->db()->prepare("
+            $stmt = $this->database()->prepare("
         INSERT INTO trips (
             car, driver, added_by, added_on, 
             start_odometer, start_place, start_date,
@@ -230,9 +230,9 @@ class Trips extends Data
                 'user'          => $currentUser
             ]);
 
-            $newId = $this->db()->lastInsertId();
+            $newId = $this->database()->lastInsertId();
 
-            $s2 = $this->db()->prepare("
+            $s2 = $this->database()->prepare("
             update trips set overwriten_by = :newId where id = :oldId
         ");
             $s2->execute([
@@ -240,12 +240,12 @@ class Trips extends Data
                 'oldId' => $id
             ]);
 
-            $this->db()->commit();
+            $this->database()->commit();
 
             return $newId;
 
         } catch (\Exception $e) {
-            $this->db()->rollBack();
+            $this->database()->rollBack();
             throw  $e;
         }
     }
@@ -253,9 +253,9 @@ class Trips extends Data
     public function changeEndOdometer($id, $odometerEnd, $currentUser)
     {
         try {
-            $this->db()->beginTransaction();
+            $this->database()->beginTransaction();
 
-            $stmt = $this->db()->prepare("
+            $stmt = $this->database()->prepare("
         INSERT INTO trips (
             car, driver, added_by, added_on, 
             start_odometer, start_place, start_date,
@@ -278,9 +278,9 @@ class Trips extends Data
                 'user'        => $currentUser
             ]);
 
-            $newId = $this->db()->lastInsertId();
+            $newId = $this->database()->lastInsertId();
 
-            $s2 = $this->db()->prepare("
+            $s2 = $this->database()->prepare("
             update trips set overwriten_by = :newId where id = :oldId
         ");
             $s2->execute([
@@ -288,11 +288,11 @@ class Trips extends Data
                 'oldId' => $id
             ]);
 
-            $this->db()->commit();
+            $this->database()->commit();
 
             return $newId;
         } catch (\Exception $e) {
-            $this->db()->rollBack();
+            $this->database()->rollBack();
             throw $e;
         }
     }

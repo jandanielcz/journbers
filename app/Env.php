@@ -13,7 +13,7 @@ class Env
         $this->prefix = $prefix;
     }
 
-    public function getVars()
+    public function variables()
     {
         $allEnvVars = array_merge(getenv(), $_ENV, $_SERVER);
         $prefix     = $this->prefix;

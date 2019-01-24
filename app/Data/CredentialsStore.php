@@ -11,7 +11,7 @@ class CredentialsStore extends Data
 {
     public function validateCredentials($name, $pass)
     {
-        $db = $this->db();
+        $db = $this->database();
         $stmt = $db->prepare("
             select users.id, users.fullname, credentials.provided_groups, credentials.pass
             from credentials 
