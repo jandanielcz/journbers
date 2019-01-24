@@ -20,7 +20,7 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css?family=Share:400,400i,700,700i&amp;subset=latin-ext">
         <link rel="stylesheet" href="/static/all.css">
-        <title>Journbers</title>
+        <title><?= $vars['common.appName'] ?></title>
         <script src="/static/login.js"></script>
     </head>
     <body>
