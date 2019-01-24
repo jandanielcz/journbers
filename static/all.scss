@@ -1,5 +1,7 @@
 @import "colors";
 
+// // Basic elements
+
 body {
   background-color: $dark0;
   color: $light1;
@@ -14,15 +16,106 @@ body {
   }
 }
 
-#Wrapper {
-  padding: 0;
-
-  section {
-    padding: 1rem 0;
+section {
+  p {
+    max-width: 40em;
+    margin: 0 auto 1rem;
   }
 }
 
-// Only on login page
+input[type=text],
+input[type=number],
+input[type=password],
+input[type=datetime-local]
+{
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
+  font-family: 'Titillium Web', sans-serif;
+  background-color: $light1;
+  color: $dark0;
+  border: 2px solid $dark0;
+  font-size: 16pt;
+  outline-color: $faded_aqua;
+
+  &::placeholder {
+    color: $dark3;
+  }
+
+  &:focus {
+    background-color: $bright_blue;
+  }
+
+
+}
+
+input[type=submit], button {
+  box-sizing: border-box;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 19px;
+  border: 2px solid $dark0;
+  color: $dark0;
+  background-color: $light1;
+  padding: 0.5rem 1rem;
+  outline-color: $faded_aqua;
+  box-shadow: $dark4 1px 1px 3px;
+
+  &:focus,
+  &:hover {
+    border-color: $faded_aqua;
+    color: $neutral_aqua;
+    box-shadow: $dark4 0 0 2px;
+  }
+}
+
+form .row {
+  padding-bottom: 16px;
+}
+
+label,
+input[type=text],
+input[type=password],
+input[type=submit]
+{
+  display: block;
+}
+
+// // Smaller classes
+
+button.inline {
+  box-sizing: border-box;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 0.9rem;
+  border: 2px solid $dark0;
+  color: $dark0;
+  background-color: $light1;
+  padding: 0 0.6rem;
+  outline-color: $faded_aqua;
+  box-shadow: $dark4 1px 1px 3px;
+
+  &:focus,
+  &:hover {
+    border-color: $faded_aqua;
+    color: $neutral_aqua;
+    box-shadow: $dark4 0 0 2px;
+  }
+
+  &.danger {
+    &:hover {
+      border-color: $faded_red;
+      color: $faded_red;
+    }
+  }
+}
+
+span.unit {
+  font-size: 1rem;
+  color: $dark2;
+  text-transform: uppercase;
+
+}
+
+// // Bigger stuff
+
 header {
   text-align: center;
   margin-bottom: 6rem;
@@ -38,80 +131,6 @@ header {
     font-weight: normal;
     color: $neutral_purple;
     text-decoration: underline;
-  }
-}
-
-#Login {
-
-  input[type=text],
-  input[type=number],
-  input[type=password]
-  {
-    box-sizing: border-box;
-    padding: 0.5rem 1rem;
-    font-family: 'Titillium Web', sans-serif;
-    background-color: $light1;
-    color: $dark0;
-    border: 0;
-    font-size: 16pt;
-    outline-color: $faded_aqua;
-
-    &::placeholder {
-      color: $dark3;
-    }
-
-    &:focus {
-      background-color: $bright_blue;
-    }
-
-
-  }
-
-  input[type=submit] {
-    box-sizing: border-box;
-    margin-top: 6rem;
-    font-family: 'Titillium Web', sans-serif;
-    font-size: 16pt;
-    border: 2px solid $light1;
-    color: $light1;
-    background-color: transparent;
-    padding: 0.5rem 1rem;
-    outline-color: $faded_aqua;
-
-    &:focus,
-    &:hover {
-      border-color: $faded_aqua;
-      color: $neutral_aqua;
-    }
-  }
-
-  max-width: 280px;
-  margin: 2rem auto;
-
-  label, input[type=text], input[type=password], input[type=submit] {
-    display: block;
-    width: 280px;
-  }
-
-  input[type=text], input[type=password] {
-    margin-bottom: 1rem;
-  }
-}
-
-.messages {
-  list-style-type: none;
-  padding-left: 0;
-  margin: 1rem auto;
-  max-width: 640px;
-  color: $light0;
-
-  li {
-    padding: 0.5rem 1rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .error {
-    background-color: $faded_red;
   }
 }
 
@@ -185,6 +204,87 @@ nav {
         display: block;
       }
     }
+  }
+}
+
+#Wrapper {
+  padding: 0;
+
+  section {
+    padding: 1rem 0;
+  }
+}
+
+#Login {
+
+  input[type=text],
+  input[type=number],
+  input[type=password]
+  {
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+    font-family: 'Titillium Web', sans-serif;
+    background-color: $light1;
+    color: $dark0;
+    border: 0;
+    font-size: 16pt;
+    outline-color: $faded_aqua;
+
+    &::placeholder {
+      color: $dark3;
+    }
+
+    &:focus {
+      background-color: $bright_blue;
+    }
+
+
+  }
+
+  input[type=submit] {
+    box-sizing: border-box;
+    margin-top: 6rem;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 16pt;
+    border: 2px solid $light1;
+    color: $light1;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    outline-color: $faded_aqua;
+
+    &:focus,
+    &:hover {
+      border-color: $faded_aqua;
+      color: $neutral_aqua;
+    }
+  }
+
+  max-width: 280px;
+  margin: 2rem auto;
+
+  label, input[type=text], input[type=password], input[type=submit] {
+    width: 280px;
+  }
+
+  input[type=text], input[type=password] {
+    margin-bottom: 1rem;
+  }
+}
+
+.messages {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 1rem auto;
+  max-width: 640px;
+  color: $light0;
+
+  li {
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .error {
+    background-color: $faded_red;
   }
 }
 
@@ -320,7 +420,6 @@ nav {
   input[type=number],
   input[type=datetime-local]
   {
-    display: block;
     width: 280px;
   }
 
@@ -672,39 +771,6 @@ nav {
   }
 }
 
-button.inline {
-  box-sizing: border-box;
-  font-family: 'Titillium Web', sans-serif;
-  font-size: 0.9rem;
-  border: 2px solid $dark0;
-  color: $dark0;
-  background-color: $light1;
-  padding: 0 0.6rem;
-  outline-color: $faded_aqua;
-  box-shadow: $dark4 1px 1px 3px;
-
-  &:focus,
-  &:hover {
-    border-color: $faded_aqua;
-    color: $neutral_aqua;
-    box-shadow: $dark4 0 0 2px;
-  }
-
-  &.danger {
-    &:hover {
-      border-color: $faded_red;
-      color: $faded_red;
-    }
-  }
-}
-
-span.unit {
-  font-size: 1rem;
-  color: $dark2;
-  text-transform: uppercase;
-
-}
-
 @media all and (min-width: 480px)
 {
   #Wrapper {
@@ -714,4 +780,9 @@ span.unit {
       padding: 1rem 1rem;
     }
   }
+}
+
+#LockForm {
+  max-width: 40em;
+  margin: 0 auto 1rem;
 }

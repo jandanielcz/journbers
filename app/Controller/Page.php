@@ -5,6 +5,7 @@ namespace Journbers\Controller;
 
 
 use Journbers\Controller;
+use Journbers\Data;
 use Journbers\Data\Trips;
 use Journbers\Flash;
 
@@ -26,6 +27,19 @@ class Page extends Controller
             'trips' => $trips->loadTrips($this->request()->segment(0)),
             'currentUser' => $this->request()->user()->id(),
             'car' => $this->config()->get('hardcodedCar'),
+        ]);
+    }
+
+    public function lock()
+    {
+
+        $d = new Trips($this->connectionParams());
+        $lockValue = $d->loadTripLockOdoValue();
+
+        $this->template('lock')->display([
+            'f' => new Flash(),
+            'car' => $this->config()->get('hardcodedCar'),
+            'lockValue' => $lockValue,
         ]);
     }
 

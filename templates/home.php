@@ -157,8 +157,10 @@ use Journbers\Tool\StringTool;
                             </div>
                         </div>
                         <div class="actions">
-                            <button class="inline danger" onclick="removalConfirm(<?= $trip['id'] ?>)">Remove</button>
-                            <button class="inline" onclick="window.location.href = '/edit/<?= $trip['id'] ?>'">Edit</button>
+                            <?php if (!$trip['is_locked']) { ?>
+                                <button class="inline danger" onclick="removalConfirm(<?= $trip['id'] ?>)">Remove</button>
+                                <button class="inline" onclick="window.location.href = '/edit/<?= $trip['id'] ?>'">Edit</button>
+                            <?php } ?>
                         </div>
                     </div>
 

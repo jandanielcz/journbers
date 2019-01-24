@@ -12,11 +12,90 @@ body.light {
   color: #282828;
 }
 
-#Wrapper {
-  padding: 0;
+section p {
+  max-width: 40em;
+  margin: 0 auto 1rem;
 }
-#Wrapper section {
-  padding: 1rem 0;
+
+input[type=text],
+input[type=number],
+input[type=password],
+input[type=datetime-local] {
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
+  font-family: "Titillium Web", sans-serif;
+  background-color: #ebdbb2;
+  color: #282828;
+  border: 2px solid #282828;
+  font-size: 16pt;
+  outline-color: #427b58;
+}
+input[type=text]::placeholder,
+input[type=number]::placeholder,
+input[type=password]::placeholder,
+input[type=datetime-local]::placeholder {
+  color: #665c54;
+}
+input[type=text]:focus,
+input[type=number]:focus,
+input[type=password]:focus,
+input[type=datetime-local]:focus {
+  background-color: #83a598;
+}
+
+input[type=submit], button {
+  box-sizing: border-box;
+  font-family: "Titillium Web", sans-serif;
+  font-size: 19px;
+  border: 2px solid #282828;
+  color: #282828;
+  background-color: #ebdbb2;
+  padding: 0.5rem 1rem;
+  outline-color: #427b58;
+  box-shadow: #7c6f64 1px 1px 3px;
+}
+input[type=submit]:focus, input[type=submit]:hover, button:focus, button:hover {
+  border-color: #427b58;
+  color: #689d6a;
+  box-shadow: #7c6f64 0 0 2px;
+}
+
+form .row {
+  padding-bottom: 16px;
+}
+
+label,
+input[type=text],
+input[type=password],
+input[type=submit] {
+  display: block;
+}
+
+button.inline {
+  box-sizing: border-box;
+  font-family: "Titillium Web", sans-serif;
+  font-size: 0.9rem;
+  border: 2px solid #282828;
+  color: #282828;
+  background-color: #ebdbb2;
+  padding: 0 0.6rem;
+  outline-color: #427b58;
+  box-shadow: #7c6f64 1px 1px 3px;
+}
+button.inline:focus, button.inline:hover {
+  border-color: #427b58;
+  color: #689d6a;
+  box-shadow: #7c6f64 0 0 2px;
+}
+button.inline.danger:hover {
+  border-color: #9d0006;
+  color: #9d0006;
+}
+
+span.unit {
+  font-size: 1rem;
+  color: #504945;
+  text-transform: uppercase;
 }
 
 header {
@@ -33,70 +112,6 @@ header h1 {
   font-weight: normal;
   color: #b16286;
   text-decoration: underline;
-}
-
-#Login {
-  max-width: 280px;
-  margin: 2rem auto;
-}
-#Login input[type=text],
-#Login input[type=number],
-#Login input[type=password] {
-  box-sizing: border-box;
-  padding: 0.5rem 1rem;
-  font-family: "Titillium Web", sans-serif;
-  background-color: #ebdbb2;
-  color: #282828;
-  border: 0;
-  font-size: 16pt;
-  outline-color: #427b58;
-}
-#Login input[type=text]::placeholder,
-#Login input[type=number]::placeholder,
-#Login input[type=password]::placeholder {
-  color: #665c54;
-}
-#Login input[type=text]:focus,
-#Login input[type=number]:focus,
-#Login input[type=password]:focus {
-  background-color: #83a598;
-}
-#Login input[type=submit] {
-  box-sizing: border-box;
-  margin-top: 6rem;
-  font-family: "Titillium Web", sans-serif;
-  font-size: 16pt;
-  border: 2px solid #ebdbb2;
-  color: #ebdbb2;
-  background-color: transparent;
-  padding: 0.5rem 1rem;
-  outline-color: #427b58;
-}
-#Login input[type=submit]:focus, #Login input[type=submit]:hover {
-  border-color: #427b58;
-  color: #689d6a;
-}
-#Login label, #Login input[type=text], #Login input[type=password], #Login input[type=submit] {
-  display: block;
-  width: 280px;
-}
-#Login input[type=text], #Login input[type=password] {
-  margin-bottom: 1rem;
-}
-
-.messages {
-  list-style-type: none;
-  padding-left: 0;
-  margin: 1rem auto;
-  max-width: 640px;
-  color: #fbf1c7;
-}
-.messages li {
-  padding: 0.5rem 1rem;
-  margin-bottom: 0.5rem;
-}
-.messages .error {
-  background-color: #9d0006;
 }
 
 nav {
@@ -159,6 +174,76 @@ nav .tridots .submenu a {
 }
 nav .tridots.open .submenu {
   display: block;
+}
+
+#Wrapper {
+  padding: 0;
+}
+#Wrapper section {
+  padding: 1rem 0;
+}
+
+#Login {
+  max-width: 280px;
+  margin: 2rem auto;
+}
+#Login input[type=text],
+#Login input[type=number],
+#Login input[type=password] {
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
+  font-family: "Titillium Web", sans-serif;
+  background-color: #ebdbb2;
+  color: #282828;
+  border: 0;
+  font-size: 16pt;
+  outline-color: #427b58;
+}
+#Login input[type=text]::placeholder,
+#Login input[type=number]::placeholder,
+#Login input[type=password]::placeholder {
+  color: #665c54;
+}
+#Login input[type=text]:focus,
+#Login input[type=number]:focus,
+#Login input[type=password]:focus {
+  background-color: #83a598;
+}
+#Login input[type=submit] {
+  box-sizing: border-box;
+  margin-top: 6rem;
+  font-family: "Titillium Web", sans-serif;
+  font-size: 16pt;
+  border: 2px solid #ebdbb2;
+  color: #ebdbb2;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  outline-color: #427b58;
+}
+#Login input[type=submit]:focus, #Login input[type=submit]:hover {
+  border-color: #427b58;
+  color: #689d6a;
+}
+#Login label, #Login input[type=text], #Login input[type=password], #Login input[type=submit] {
+  width: 280px;
+}
+#Login input[type=text], #Login input[type=password] {
+  margin-bottom: 1rem;
+}
+
+.messages {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 1rem auto;
+  max-width: 640px;
+  color: #fbf1c7;
+}
+.messages li {
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+}
+.messages .error {
+  background-color: #9d0006;
 }
 
 #Add {
@@ -276,7 +361,6 @@ nav .tridots.open .submenu {
 #AddForm label, #AddForm input[type=text],
 #AddForm input[type=number],
 #AddForm input[type=datetime-local] {
-  display: block;
   width: 280px;
 }
 #AddForm input[type=text], #AddForm input[type=password] {
@@ -554,33 +638,6 @@ nav .tridots.open .submenu {
   display: inline;
 }
 
-button.inline {
-  box-sizing: border-box;
-  font-family: "Titillium Web", sans-serif;
-  font-size: 0.9rem;
-  border: 2px solid #282828;
-  color: #282828;
-  background-color: #ebdbb2;
-  padding: 0 0.6rem;
-  outline-color: #427b58;
-  box-shadow: #7c6f64 1px 1px 3px;
-}
-button.inline:focus, button.inline:hover {
-  border-color: #427b58;
-  color: #689d6a;
-  box-shadow: #7c6f64 0 0 2px;
-}
-button.inline.danger:hover {
-  border-color: #9d0006;
-  color: #9d0006;
-}
-
-span.unit {
-  font-size: 1rem;
-  color: #504945;
-  text-transform: uppercase;
-}
-
 @media all and (min-width: 480px) {
   #Wrapper {
     padding: 0;
@@ -588,6 +645,10 @@ span.unit {
   #Wrapper section {
     padding: 1rem 1rem;
   }
+}
+#LockForm {
+  max-width: 40em;
+  margin: 0 auto 1rem;
 }
 
 /*# sourceMappingURL=all.css.map */

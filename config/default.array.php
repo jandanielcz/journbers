@@ -23,7 +23,9 @@ return [
 
         ['get', '#^/remove/([0-9]*)[/]{0,1}$#', 'Entry::Remove'],
         ['post', '#^/edit#', 'Entry::Edit'],
-        ['get', '#^/([a-z]*)[/]{0,1}$#', 'Page::Trips']
+        ['get', '#^/([a-z]*)[/]{0,1}$#', 'Page::Trips'],
+        ['get', '#^/c/lock$#', 'Page::Lock'],
+        ['post', '#^/c/lock$#', 'Conf::Lock']
     ],
     'access' => [
         'Page::Login' => [\Journbers\Controller::ANY_ROLE],
@@ -40,7 +42,9 @@ return [
 
         'Entry::Remove' => ['driver'],
         'Entry::Edit' => ['driver'],
-        'Page::Trips' => ['driver']
+        'Page::Trips' => ['driver'],
+        'Page::Lock' => ['warden'],
+        'Conf::Lock' => ['warden']
     ],
     // Prefix used for Env vars, in application VARS are used without prefix.
     'envPrefix' => 'JOURNBERS_',

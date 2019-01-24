@@ -4,13 +4,16 @@
 namespace Journbers\Data;
 
 
+use Journbers\Controller\Exception\SanitizationException;
 use Journbers\Data;
+use Tracy\Debugger;
 
 class Trips extends Data
 {
 
     public function loadTrips($car)
     {
+
         $stmt = $this->database()->prepare("
             select 
               valid_trips.*
@@ -58,7 +61,7 @@ class Trips extends Data
                 $rows[$i][$k] = intval($rows[$i][$k]);
             }
 
-            foreach ([ 'is_personal', 'and_back' ] as $k) {
+            foreach ([ 'is_personal', 'and_back', 'is_locked' ] as $k) {
                 $rows[$i][$k] = ( $rows[$i][$k] === '1' );
             }
         }
@@ -68,6 +71,10 @@ class Trips extends Data
 
     public function addTrip($v, $currentUser)
     {
+        if ($this->isOdometerValueAlreadyLocked($v['OdometerStart'])) {
+            throw new SanitizationException('That low odometer values are already locked and cannot be used.');
+        }
+
         $stmt = $this->database()->prepare("
             insert into trips values (
                 null,                 -- id
@@ -121,6 +128,10 @@ class Trips extends Data
 
     public function editTrip($v, $currentUser)
     {
+        if ($this->isOdometerValueAlreadyLocked($v['OdometerStart'])) {
+            throw new SanitizationException('That low odometer values are already locked and cannot be used.');
+        }
+
         try {
             $this->database()->beginTransaction();
 
@@ -193,6 +204,12 @@ class Trips extends Data
 
     public function removeTrip($id, $currentUser)
     {
+        $tripToRemove = $this->loadOneTrip($id);
+        if ($tripToRemove['is_locked']) {
+            throw new SanitizationException('Trip is locked, and non removable.');
+        }
+
+
         $s2 = $this->database()->prepare("
             update trips set removed_on = now(), removed_by = :user where id = :id
         ");
@@ -204,6 +221,11 @@ class Trips extends Data
 
     public function changeStartOdometer($id, $odometerStart, $currentUser)
     {
+
+        if ($this->isOdometerValueAlreadyLocked($odometerStart)) {
+            throw new SanitizationException('That low odometer values are already locked and cannot be used.');
+        }
+
         try {
             $this->database()->beginTransaction();
 
@@ -252,6 +274,10 @@ class Trips extends Data
 
     public function changeEndOdometer($id, $odometerEnd, $currentUser)
     {
+        if ($this->isOdometerValueAlreadyLocked($odometerEnd)) {
+            throw new SanitizationException('That low odometer values are already locked and cannot be used.');
+        }
+
         try {
             $this->database()->beginTransaction();
 
@@ -295,5 +321,56 @@ class Trips extends Data
             $this->database()->rollBack();
             throw $e;
         }
+    }
+
+    public function loadTripLockOdoValue()
+    {
+        $stmt = $this->database()->prepare("
+            SELECT
+                config_int
+            FROM
+            runtime_config
+            WHERE config_key = 'lockTripsOdoLessThan'
+        ");
+
+        $stmt->execute();
+
+        $res = $stmt->fetch(\PDO::FETCH_NUM)[0];
+        return intval($res);
+    }
+
+    public function saveTripLockOdoValue($value, $currentUser)
+    {
+        $stmt = $this->database()->prepare("
+            update runtime_config set 
+              config_int = :val, 
+              modified_by = :user, 
+              modified_on = now()
+            WHERE config_key = 'lockTripsOdoLessThan'
+        ");
+
+        $stmt->execute([
+            'val' => $value,
+            'user' => $currentUser
+        ]);
+    }
+
+    protected function isOdometerValueAlreadyLocked($value)
+    {
+        $stmt = $this->database()->prepare("
+            SELECT
+                if (:v <= config_int, TRUE, FALSE) AS locked
+            FROM
+            runtime_config
+            WHERE config_key = 'lockTripsOdoLessThan'
+        ");
+
+        $stmt->execute([
+            'v' => $value
+        ]);
+
+        $res = $stmt->fetch(\PDO::FETCH_NUM)[0];
+        return ($res === "1");
+
     }
 }

@@ -96,7 +96,8 @@ class Controller
     protected function commonTemplateVars()
     {
         return [
-            'common.appName' => $this->config()->get('appName', 'Journbers')
+            'common.appName' => $this->config()->get('appName', 'Journbers'),
+            'common.user' => $this->request()->user()
         ];
     }
 

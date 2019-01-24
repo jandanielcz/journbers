@@ -30,15 +30,21 @@ select
   trips.note,
   
   if(trips.end_odometer is not null, trips.end_odometer - trips.start_odometer, null) as trip_length,
-  if(trips.end_date IS NOT NULL, TIMESTAMPDIFF(MINUTE, trips.start_date, trips.end_date), null) AS trip_duration
+  if(trips.end_date IS NOT NULL, TIMESTAMPDIFF(MINUTE, trips.start_date, trips.end_date), null) AS trip_duration,
+  if(trips.start_odometer <= runtime_config.config_int, TRUE, FALSE) AS is_locked
   
 from trips 
 join
-  users AS u on trips.driver = users.id
-JOIN users AS a on
-  trips.added_by = users.id
+  users AS u 
+  on trips.driver = u.id
+JOIN users AS a 
+  on trips.added_by = a.id
 join
-  cars on trips.car = cars.id
+  cars 
+  on trips.car = cars.id
+JOIN
+  runtime_config 
+  ON runtime_config.config_key = 'lockTripsOdoLessThan'
 where 
   trips.removed_on is null
   and

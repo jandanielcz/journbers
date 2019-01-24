@@ -57,3 +57,19 @@ ALTER TABLE trips ADD (
 	note TEXT null
 );
 
+CREATE TABLE runtime_config (
+	config_key VARCHAR(50) primary KEY,
+	config_text TEXT NULL,
+	config_int int NULL,
+	config_date DATETIME NULL,
+	config_bool bool NULL,
+	
+	added_by VARCHAR(16) NULL,
+	added_on DATETIME NULL,
+	modified_by VARCHAR(16) NULL,
+	modified_on DATETIME NULL,
+	
+	FOREIGN KEY (`added_by`) REFERENCES users(id),
+	FOREIGN KEY (`modified_by`) REFERENCES users(id)
+	
+);

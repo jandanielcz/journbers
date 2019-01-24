@@ -12,6 +12,9 @@
     <div class="tridots">
         <span>&vellip;</span>
         <div class="submenu">
+            <?php if ($vars['common.user']->hasRole('warden')) { ?>
+            <a href="/c/lock">Lock trips</a>
+            <?php } ?>
             <a href="/logout">Logout</a>
         </div>
     </div>
