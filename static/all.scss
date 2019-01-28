@@ -331,6 +331,10 @@ nav {
       text-align: right;
       margin-right: 4px;
       max-width: 375px;
+
+      input {
+        display: inline-block;
+      }
     }
   }
 

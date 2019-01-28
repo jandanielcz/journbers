@@ -3,7 +3,7 @@
     <h1><a href="/"><?= $vars['common.appName'] ?></a></h1>
     <div class="carSelector">
         <ol>
-            <li>Golf</li>
+            <li><?= $vars['common.car'] ?></li>
         </ol>
     </div>
     <div>
@@ -15,6 +15,7 @@
             <?php if ($vars['common.user']->hasRole('warden')) { ?>
             <a href="/c/lock">Lock trips</a>
             <?php } ?>
+            <a href="https://github.com/jandanielcz/journbers/issues">Feedback</a>
             <a href="/logout">Logout</a>
         </div>
     </div>
