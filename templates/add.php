@@ -17,13 +17,29 @@
                 ?>
                 <form action="<?= ($editing) ? '/edit' : '/add' ?>" method="post">
                     <input type="hidden" name="Car" value="<?php echo $vars['car'] ?>">
-                    <input type="hidden" name="Driver" value="<?php echo $vars['driver'] ?>">
+
                     <?php
                     if ($editing) {
                         printf('<input type="hidden" name="Id" value="%s">', $vars['prefill']['Id']);
                     } ?>
                     <h3 class="addTripStart"><span>Trip start</span></h3>
                     <div class="row">
+                        <label for="Driver">Driver</label>
+                        <select name="Driver" id="Driver">
+                            <?php
+                            if (isset($vars['prefill']) && isset($vars['prefill']['Driver'])) {
+                                $selectedDriver = $vars['prefill']['Driver'];
+                            } else {
+                                $selectedDriver = $vars['common.user'];
+                            }
+                            foreach ($vars['drivers'] as $d) {
+                                $selectedMarkup = ($d['id'] === $selectedDriver) ? 'selected' : '';
+                                ?>
+                                <option value="<?= $d['id'] ?>" <?= $selectedMarkup ?>><?= $d['fullname'] ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
                         <label for="OdometerStart">Odometer</label>
                         <input type="number" name="OdometerStart" id="OdometerStart"
                                value="<?php echo (isset($vars['prefill']) && isset($vars['prefill']['OdometerStart'])) ? $vars['prefill']['OdometerStart'] : '' ?>">
