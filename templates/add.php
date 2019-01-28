@@ -30,10 +30,10 @@
                             if (isset($vars['prefill']) && isset($vars['prefill']['Driver'])) {
                                 $selectedDriver = $vars['prefill']['Driver'];
                             } else {
-                                $selectedDriver = $vars['common.user'];
+                                $selectedDriver = $vars['common.user']->id();
                             }
                             foreach ($vars['drivers'] as $d) {
-                                $selectedMarkup = ($d['id'] === $selectedDriver) ? 'selected' : '';
+                                $selectedMarkup = ($d['id'] == $selectedDriver) ? 'selected' : '';
                                 ?>
                                 <option value="<?= $d['id'] ?>" <?= $selectedMarkup ?>><?= $d['fullname'] ?></option>
                                 <?php
