@@ -23,7 +23,7 @@
                         <input type="number" name="LockValue" id="LockValue" value="<?= $vars['lockValue'] ?>">
                     </div>
                     <div class="row button">
-                        <input type="submit" value="Safe config">
+                        <input type="submit" value="Save config">
                     </div>
                 </form>
             </section>
