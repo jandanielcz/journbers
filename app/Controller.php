@@ -74,7 +74,7 @@ class Controller
     protected function redirect($path)
     {
 
-        header(sprintf('Location: %s', $path), true, 301);
+        header(sprintf('Location: %s', $path), true, 303);
     }
 
     protected function connectionParams()
@@ -97,7 +97,8 @@ class Controller
     {
         return [
             'common.appName' => $this->config()->get('appName', 'Journbers'),
-            'common.user' => $this->request()->user()
+            'common.user' => $this->request()->user(),
+            'common.car' => $this->config()->get('hardcodedCar'),
         ];
     }
 

@@ -3,7 +3,7 @@
     <h1><a href="/"><?= $vars['common.appName'] ?></a></h1>
     <div class="carSelector">
         <ol>
-            <li>Golf</li>
+            <li><?= $vars['common.car'] ?></li>
         </ol>
     </div>
     <div>

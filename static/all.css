@@ -286,6 +286,9 @@ nav .tridots.open .submenu {
   margin-right: 4px;
   max-width: 375px;
 }
+#AddForm .row.button input {
+  display: inline-block;
+}
 #AddForm .check {
   padding-left: 90px;
   padding-top: 48px;

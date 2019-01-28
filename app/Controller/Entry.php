@@ -33,7 +33,8 @@ class Entry extends Controller
             $f = new Flash();
             $f->error($e->getMessage());
             $f->addPayload('AddPrefill', $_POST);
-            $this->redirect(sprintf('/%s/add', $this->addPayload['Car']));
+            $car = (!empty($this->addPayload['Car'])) ? $this->addPayload['Car'] : $this->config()->get('hardcodedCar');
+            $this->redirect(sprintf('/%s/add', $car));
             $this->exit();
         }
     }
@@ -50,7 +51,8 @@ class Entry extends Controller
             $f = new Flash();
             $f->error($e->getMessage());
             $f->addPayload('AddPrefill', $_POST);
-            $this->redirect(sprintf('/%s/add', $this->addPayload['Car']));
+            $car = (!empty($this->addPayload['Car'])) ? $this->addPayload['Car'] : $this->config()->get('hardcodedCar');
+            $this->redirect(sprintf('/%s/add', $car));
             $this->exit();
         }
     }
@@ -157,7 +159,7 @@ class Entry extends Controller
             throw new SanitizationException('Car should not be emtpy.');
         }
 
-        if (empty($_POST['OdometerStart'])) {
+        if ($_POST['OdometerStart'] === '') {
             throw new SanitizationException('Odometer start value should be defined.');
         }
         $payload['OdometerStart'] = intval($_POST['OdometerStart']);
