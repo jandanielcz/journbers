@@ -15,6 +15,7 @@
             <?php if ($vars['common.user']->hasRole('warden')) { ?>
             <a href="/c/lock">Lock trips</a>
             <?php } ?>
+            <a href="https://github.com/jandanielcz/journbers/issues">Feedback</a>
             <a href="/logout">Logout</a>
         </div>
     </div>
