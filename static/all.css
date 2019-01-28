@@ -20,7 +20,8 @@ section p {
 input[type=text],
 input[type=number],
 input[type=password],
-input[type=datetime-local] {
+input[type=datetime-local],
+select {
   box-sizing: border-box;
   padding: 0.5rem 1rem;
   font-family: "Titillium Web", sans-serif;
@@ -33,13 +34,15 @@ input[type=datetime-local] {
 input[type=text]::placeholder,
 input[type=number]::placeholder,
 input[type=password]::placeholder,
-input[type=datetime-local]::placeholder {
+input[type=datetime-local]::placeholder,
+select::placeholder {
   color: #665c54;
 }
 input[type=text]:focus,
 input[type=number]:focus,
 input[type=password]:focus,
-input[type=datetime-local]:focus {
+input[type=datetime-local]:focus,
+select:focus {
   background-color: #83a598;
 }
 
@@ -363,7 +366,8 @@ nav .tridots.open .submenu {
 }
 #AddForm label, #AddForm input[type=text],
 #AddForm input[type=number],
-#AddForm input[type=datetime-local] {
+#AddForm input[type=datetime-local],
+#AddForm select {
   width: 280px;
 }
 #AddForm input[type=text], #AddForm input[type=password] {

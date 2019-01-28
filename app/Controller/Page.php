@@ -54,10 +54,13 @@ class Page extends Controller
     {
         $f = new Flash();
 
+        $drivers = new Data\Drivers($this->connectionParams());
+
         $this->template('add')->display([
             'f' => $f,
             'car' => $this->config()->get('hardcodedCar'),
             'prefill' => $f->getPayload('AddPrefill'),
+            'drivers' => $drivers->loadDrivers(),
             'driver' => $this->request()->user()->id()
         ]);
     }
@@ -81,10 +84,14 @@ class Page extends Controller
 
         $payload = $this->tripToFormData($trip);
 
+        $drivers = new Data\Drivers($this->connectionParams());
+        Debugger::barDump($drivers->loadDrivers());
+
         $this->template('add')->display([
             'f' => $f,
             'car' => $this->config()->get('hardcodedCar'),
             'prefill' => $payload,
+            'drivers' => $drivers->loadDrivers(),
             'driver' => $this->request()->user()->id()
         ]);
     }
