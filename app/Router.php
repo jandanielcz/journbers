@@ -4,6 +4,8 @@
 namespace Journbers;
 
 
+use Tracy\Debugger;
+
 class Router
 {
 

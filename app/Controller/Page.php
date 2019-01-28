@@ -8,6 +8,7 @@ use Journbers\Controller;
 use Journbers\Data;
 use Journbers\Data\Trips;
 use Journbers\Flash;
+use Tracy\Debugger;
 
 class Page extends Controller
 {
@@ -32,7 +33,6 @@ class Page extends Controller
 
     public function lock()
     {
-
         $d = new Trips($this->connectionParams());
         $lockValue = $d->loadTripLockOdoValue();
 
