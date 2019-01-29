@@ -15,6 +15,7 @@ class Session
     public function __construct($sessionLifetime)
     {
         ini_set('session.cookie_lifetime', $sessionLifetime);
+        ini_set('session.gc_maxlifetime', $sessionLifetime);
         session_start();
         $this->invalidateOld($sessionLifetime);
     }

@@ -54,5 +54,6 @@ return [
     // Shown in title and navigation.
     'appName' => 'Journbers',
     // Log configuration
-    'maxLogSize' => 1024 * 1024 * 10
+    'maxLogSize' => 1024 * 1024 * 10,
+    'sessionLifetime' => 60 * 60 * 24 * 7
 ];
