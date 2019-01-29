@@ -18,7 +18,7 @@ $config->add($env->variables());
 
 Debugger::enable(Debugger::DETECT, $config->get('LOG_PATH'));
 
-$session = new Session($config->get('sessionLifetime', 48 * 60 * 60));
+$session = new Session($config->get('sessionLifetime', 60 * 60 * 24 * 7));
 
 $router = new Router($config->get('routes'));
 $route  = $router->match($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
