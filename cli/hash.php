@@ -3,4 +3,4 @@
 if ($argc < 2) {
     printf('Usage: \'php hash.php <PASSWORD>\'');
 }
-printf('Password hash: %s', password_hash($argv[1], PASSWORD_BCRYPT));
+printf('Password \'%s\' hash: %s', $argv[1], password_hash($argv[1], PASSWORD_BCRYPT));

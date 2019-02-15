@@ -71,8 +71,11 @@ class Controller
         return $this->config;
     }
 
-    protected function redirect($path)
+    protected function redirect($path, $params = null)
     {
+        if ($params !== null) {
+            $path = sprintf('%s?%s', $path, http_build_query($params));
+        }
 
         header(sprintf('Location: %s', $path), true, 303);
     }
@@ -110,14 +113,14 @@ class Controller
         return $t;
     }
 
-    public function messageAndRedirect($path, $message = null, $type = 'info')
+    public function messageAndRedirect($path, $message = null, $type = 'info', $params = null)
     {
         if ($message !== null) {
             $f = new Flash();
             $f->message($message, $type);
         }
 
-        $this->redirect($path);
+        $this->redirect($path, $params);
         $this->exit();
     }
 }

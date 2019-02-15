@@ -37,7 +37,7 @@
                     }
                     ?>
                 </ul>
-                <form action="/login" method="post">
+                <form method="post">
                     <label for="User">User</label>
                     <input type="text" id="User" name="User" placeholder="Ranulph" tabindex="1">
                     <label for="Pass">Password</label>

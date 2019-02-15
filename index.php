@@ -57,7 +57,7 @@ if (call_user_func_array([$controller, 'checkAccess'], [$method]) === false) {
     if ($request->user()->hasAnyRole()) {
         $c->messageAndRedirect('/', sprintf('You do not have access to %s.', $route[2]), 'error');
     } else {
-        $c->messageAndRedirect('/login');
+        $c->messageAndRedirect('/login', null, 'info', ['return-to' => $_SERVER['REQUEST_URI']]);
     }
 
 };
