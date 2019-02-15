@@ -28,7 +28,7 @@ use Journbers\Tool\StringTool;
                     $iconBg = ColorTool::stringToColor($trip['driver_name']);
 
                     $classes = ['trip'];
-                    if ($trip['end_odometer'] && ($trip['end_place'] || $trip['and_back'])) {
+                    if ($trip['end_odometer'] && $trip['end_date'] && ($trip['end_place'] || $trip['and_back'])) {
                         $classes[] = 'done';
                     }
 
@@ -100,10 +100,16 @@ use Journbers\Tool\StringTool;
                             </div>
                             <div class="toSign">&mdash;</div>
                             <div class="end">
-                                <?php echo $trip['end_date']->format('Y-m-d') ?>
-                                <span>
-                                    <?php echo $trip['end_date']->format('H:i') ?>
-                                </span>
+                                <?php if ($trip['end_date'] === null) {
+                                    echo '';
+                                } else {
+                                    echo $trip['end_date']->format('Y-m-d') ?>
+                                        <span>
+                                            <?php echo $trip['end_date']->format('H:i') ?>
+                                        </span>
+                                    <?php
+                                }
+                                ?>
                             </div>
                         </div>
                         <div class="places">

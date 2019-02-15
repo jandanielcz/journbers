@@ -54,7 +54,7 @@ class Trips extends Data
 
         for ($i = 0; $i < count($rows); $i ++) {
             foreach ([ 'start_date', 'end_date', 'added_on' ] as $k) {
-                $rows[$i][$k] = new \DateTimeImmutable($rows[$i][$k]);
+                $rows[$i][$k] = ($rows[$i][$k] === null) ? null : new \DateTimeImmutable($rows[$i][$k]);
             }
 
             foreach ([ 'id', 'trip_length', 'start_odometer', 'end_odometer' ] as $k) {
